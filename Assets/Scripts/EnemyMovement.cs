@@ -27,10 +27,6 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
         m_agent.SetDestination(treePosition.position);
-        if (GameObject.Find("CylinderTree") == null)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private IEnumerator Attack()
