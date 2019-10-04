@@ -9,6 +9,7 @@ public class PlayerControls : MonoBehaviour
 
     float verticalRotation = 0;
     public float upDownRange = 60.0f;
+
     // Start is called before the first frame update
     void Start()
     {
