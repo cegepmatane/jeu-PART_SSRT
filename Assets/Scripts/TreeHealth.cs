@@ -31,6 +31,8 @@ public class TreeHealth : MonoBehaviour
 
     private void Die()
     {
+        Destroy(GameObject.Find("BasicEnemy(Clone)"));
         Destroy(gameObject);
+        
     }
 }

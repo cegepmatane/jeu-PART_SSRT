@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2944938205947303295}
   - component: {fileID: 2944938205947303294}
   - component: {fileID: 2944938205947303293}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +106,8 @@ GameObject:
   - component: {fileID: 2944938207777825596}
   - component: {fileID: 2944938207777825585}
   - component: {fileID: 2944938207777825595}
-  m_Layer: 0
+  - component: {fileID: 693184873429775492}
+  m_Layer: 8
   m_Name: BasicEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
@@ -200,7 +201,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -216,5 +217,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b315228327224da4a86de1260a24b2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tree: {fileID: 0}
-  valueMovementSpeed: 10
+  treePosition: {fileID: 0}
+  treeCollider: {fileID: 0}
+  damage: 5
+  attackRate: 2
+--- !u!195 &693184873429775492
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944938207777825594}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 6
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 1

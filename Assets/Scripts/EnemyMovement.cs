@@ -1,38 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    private NavMeshAgent m_agent;
+
     public Transform treePosition;
     public Collider treeCollider;
-
-    public float valueMovementSpeed = 10f;
-    private float movementSpeed;
-    private float rotationSpeed = 2f;
 
     private bool isAttacking = false;
     public float damage = 1f;
     public float attackRate = 2f;
 
+    private void Awake()
+    {
+        m_agent = GetComponent<NavMeshAgent>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        movementSpeed = valueMovementSpeed;
     }
 
-
-    void FixedUpdate()
+    private void Update()
     {
-        //Calcul de la vitesse et de la rotation de l'ennemi
-        float enemySpeed = movementSpeed * Time.deltaTime;
-        float enemyRotation = rotationSpeed * Time.deltaTime;
-        Vector3 direction = treePosition.position - transform.position;
-
-        //Application du mouvement
-        transform.position = Vector3.MoveTowards(transform.position, treePosition.position, enemySpeed);
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = rotation;
+        m_agent.SetDestination(treePosition.position);
+        if (GameObject.Find("CylinderTree") == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator Attack()
@@ -42,17 +40,15 @@ public class EnemyMovement : MonoBehaviour
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
             yield return new WaitForSeconds(attackRate);
         }
-        
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collider)
     {
-        if (collision.collider == treeCollider)
+        if (collider == treeCollider)
         {
             isAttacking = true;
             StartCoroutine("Attack");
         }
-
     }
 
     private void OnCollisionExit(Collision collision)
