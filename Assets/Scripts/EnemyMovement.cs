@@ -13,18 +13,12 @@ public class EnemyMovement : MonoBehaviour
 
     private bool isAttacking = false;
     public float damage = 1f;
+    public float attackRate = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
         movementSpeed = valueMovementSpeed;
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        if (isAttacking)
-            Attack();
     }
 
 
@@ -41,15 +35,24 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = rotation;
     }
 
-    private void Attack()
+    private IEnumerator Attack()
     {
-        treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
+        while (isAttacking)
+        {
+            treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
+            yield return new WaitForSeconds(attackRate);
+        }
+        
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider == treeCollider)
+        {
             isAttacking = true;
+            StartCoroutine("Attack");
+        }
+
     }
 
     private void OnCollisionExit(Collision collision)
