@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5233910626570977594}
   - component: {fileID: 5233910626564365594}
   - component: {fileID: 5233910626560447324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 5233910626561341178}
   - component: {fileID: 5233910626567004282}
   - component: {fileID: 5233910626564463354}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MageController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
