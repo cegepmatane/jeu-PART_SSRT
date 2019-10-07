@@ -5,9 +5,11 @@ using UnityEngine;
 public class SpawnerBehavior : MonoBehaviour
 {
     
-    public int count = 1;
-    public int interval = 1;
-    public int delay = 1;
+    //public int count = 1;
+    //public int interval = 1;
+    //public int delay = 1;
+    private bool m_IsFinished;
+    private List<GameObject> m_SpawnedEnemies;
 
     
     public GameObject Enemy, TargetTree;
@@ -18,7 +20,9 @@ public class SpawnerBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnEnemy(count, interval, delay));
+        m_SpawnedEnemies = new List<GameObject>();
+        
+        //StartCoroutine(SpawnEnemy(count, interval, delay));
     }
 
     // Update is called once per frame
@@ -32,12 +36,27 @@ public class SpawnerBehavior : MonoBehaviour
 
 
     }
+    public bool IsFinished()
+    {
+        return m_IsFinished;
+    }
+    public bool IsDefeated()
+    {
+        bool t_IsDefeated = false;
+        if(m_SpawnedEnemies.Count == 0){t_IsDefeated = true;}
+        return t_IsDefeated;
+    }
 
+    public void BeginWave(int a_Count, int a_Interval)
+    {
+        StartCoroutine(SpawnEnemy(a_Count, a_Interval, 3));
+    }
     //a_Count représente le nombre d'ennemis à spawner pour ce spawner particulié
     //a_Interval représente le temps ENTRE chaque création d'un nouvel ennemi
     //a_Delay représente le délais AVANT de créer des ennemis, donc le temps entre l'arrivée des ennemis et le départ du jeu
     public IEnumerator SpawnEnemy(int a_Count, int a_Interval, int a_Delay)
     {
+        m_IsFinished = false;
         // Wait for the delivery delay.
         yield return new WaitForSeconds(a_Delay);
         //Debug.Log("AAA");
@@ -45,6 +64,7 @@ public class SpawnerBehavior : MonoBehaviour
         {
             
             GameObject t_Enemy = Instantiate(Enemy, this.gameObject.transform.position, Quaternion.identity);
+            m_SpawnedEnemies.Add(t_Enemy);
             EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
             if(TargetTree != null)
             {
@@ -54,6 +74,7 @@ public class SpawnerBehavior : MonoBehaviour
             
             yield return new WaitForSeconds(a_Interval);
         }
+        m_IsFinished = true;
     }
        
 }

@@ -31,6 +31,7 @@ public class EnemyMovement : MonoBehaviour
         {
             m_agent.SetDestination(treePosition.position);
         } else {
+            m_agent.SetDestination(transform.position);
             StopCoroutine("Attack");
             StartCoroutine("Fade");
         }
