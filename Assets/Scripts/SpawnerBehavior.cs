@@ -46,8 +46,12 @@ public class SpawnerBehavior : MonoBehaviour
             
             GameObject t_Enemy = Instantiate(Enemy, this.gameObject.transform.position, Quaternion.identity);
             EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
-            t_EnemyMovement.treePosition = TargetTree.transform.GetChild(0);
-            t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
+            if(TargetTree != null)
+            {
+                t_EnemyMovement.treePosition = TargetTree.transform.GetChild(0);
+                t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
+            }
+            
             yield return new WaitForSeconds(a_Interval);
         }
     }

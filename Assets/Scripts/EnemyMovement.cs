@@ -22,11 +22,19 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
     }
 
     private void Update()
     {
-        m_agent.SetDestination(treePosition.position);
+        if(treePosition != null)
+        {
+            m_agent.SetDestination(treePosition.position);
+        } else {
+            StopCoroutine("Attack");
+            StartCoroutine("Fade");
+        }
+        
     }
 
     private IEnumerator Attack()
@@ -34,8 +42,29 @@ public class EnemyMovement : MonoBehaviour
         while (isAttacking)
         {
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
-            yield return new WaitForSeconds(attackRate);
+            yield return new WaitForSeconds(attackRate);                   
         }
+    }
+
+    private IEnumerator Fade()
+    {
+        
+        Color t_Color = GetComponent<MeshRenderer>().material.color;
+        t_Color.a -= 0.008f;
+        if(t_Color.a <= 0f)
+        {
+            Die();
+        }
+        GetComponent<MeshRenderer>().material.color = t_Color;
+        gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+        //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
+        
+        yield return null;
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)
