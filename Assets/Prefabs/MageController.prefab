@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 5233910626561341178}
   - component: {fileID: 5233910626567004282}
   - component: {fileID: 5233910626564463354}
+  - component: {fileID: 127126520}
   m_Layer: 8
   m_Name: MageController
   m_TagString: Untagged
@@ -381,3 +382,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &127126520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5233910626572092186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cb5dd900d190e0429eb7c8286c408eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_castingCooldown: 0
+  m_spikeSpell: {fileID: 0}

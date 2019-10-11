@@ -318,7 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AutoPickup: 0
-  m_PickupButton: 0
+  m_PickupButton: 101
 --- !u!1 &1674203465
 GameObject:
   m_ObjectHideFlags: 0

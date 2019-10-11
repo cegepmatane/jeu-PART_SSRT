@@ -10,6 +10,7 @@ public class EnemyMovement : MonoBehaviour
     public Transform treePosition;
     public Collider treeCollider;
 
+    private int m_Health;
     private bool isAttacking = false;
     public float damage = 1f;
     public float attackRate = 2f;
@@ -35,7 +36,11 @@ public class EnemyMovement : MonoBehaviour
             StopCoroutine("Attack");
             StartCoroutine("Fade");
         }
-        
+    }
+
+    private void TakeDamage()
+    {
+
     }
 
     private IEnumerator Attack()
@@ -77,10 +82,12 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collider)
     {
-        if (collision.collider == treeCollider)
+        if (collider == treeCollider)
+        {
             isAttacking = false;
+        }
     }
 
 }
