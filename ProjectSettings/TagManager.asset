@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Tree
+  - Spawner
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,6 @@ TagManager:
   - 
   - Player
   - Enemy
-  - 
   - 
   - 
   - 
