@@ -33,15 +33,10 @@ public class EnemyMovement : MonoBehaviour
             m_agent.SetDestination(treePosition.position);
         } else {
             m_agent.SetDestination(transform.position);
-            StopCoroutine("Attack");
-            StartCoroutine("Fade");
+            DeathSequence();
         }
     }
 
-    private void TakeDamage()
-    {
-
-    }
 
     private IEnumerator Attack()
     {
@@ -50,6 +45,12 @@ public class EnemyMovement : MonoBehaviour
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
             yield return new WaitForSeconds(attackRate);                   
         }
+    }
+
+    public void DeathSequence()
+    {
+        StopCoroutine("Attack");
+        StartCoroutine("Fade");
     }
 
     private IEnumerator Fade()
