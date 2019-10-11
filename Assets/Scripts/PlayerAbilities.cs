@@ -80,4 +80,9 @@ public class PlayerAbilities : MonoBehaviour
     {
         m_UiText.text = "Mana : " + m_mana;
     }
+
+    public void addMana(int a_mana)
+    {
+        this.m_mana += a_mana;
+    }
 }
