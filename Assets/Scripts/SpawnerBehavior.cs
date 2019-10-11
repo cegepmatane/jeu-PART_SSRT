@@ -13,15 +13,18 @@ public class SpawnerBehavior : MonoBehaviour
 
     
     public GameObject Enemy, TargetTree;
-    
-    
 
+
+    private void Awake()
+    {
+        WaveManager.Instance.AddSpawner(this);
+
+        m_SpawnedEnemies = new List<GameObject>();
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        m_SpawnedEnemies = new List<GameObject>();
-        
         //StartCoroutine(SpawnEnemy(count, interval, delay));
     }
 
@@ -36,9 +39,12 @@ public class SpawnerBehavior : MonoBehaviour
 
 
     }
-    public bool IsFinished()
+    public bool Finished
     {
-        return m_IsFinished;
+        get
+        {
+            return m_IsFinished;
+        }
     }
     public bool IsDefeated()
     {
@@ -51,6 +57,7 @@ public class SpawnerBehavior : MonoBehaviour
     {
         StartCoroutine(SpawnEnemy(a_Count, a_Interval, 3));
     }
+
     //a_Count représente le nombre d'ennemis à spawner pour ce spawner particulié
     //a_Interval représente le temps ENTRE chaque création d'un nouvel ennemi
     //a_Delay représente le délais AVANT de créer des ennemis, donc le temps entre l'arrivée des ennemis et le départ du jeu
@@ -76,5 +83,4 @@ public class SpawnerBehavior : MonoBehaviour
         }
         m_IsFinished = true;
     }
-       
 }
