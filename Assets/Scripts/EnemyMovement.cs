@@ -51,6 +51,7 @@ public class EnemyMovement : MonoBehaviour
     {
         StopCoroutine("Attack");
         StartCoroutine("Fade");
+        Die();
     }
 
     private IEnumerator Fade()

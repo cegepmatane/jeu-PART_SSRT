@@ -6,10 +6,12 @@ public class ManaFlower : Activable
 {
     private int m_manaAdd = 12;
 
-    public GameObject m_player;
+    private GameObject m_player;
 
     protected override void Activate()
     {
+        m_player = GameObject.FindGameObjectWithTag("Player");
+
         RegainMana();
     }
 
