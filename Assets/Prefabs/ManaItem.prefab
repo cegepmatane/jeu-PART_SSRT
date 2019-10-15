@@ -105,5 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9f2ebce8f0cc447beaf90283b1f177, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AutoPickup: 0
+  m_AutoPickup: 1
   m_PickupButton: 101
+  m_player: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
+    type: 3}
