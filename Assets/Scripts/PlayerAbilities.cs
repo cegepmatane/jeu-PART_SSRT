@@ -37,7 +37,7 @@ public class PlayerAbilities : MonoBehaviour
         if (m_castingCooldown < 0)
         {
             //Clic gauche de souris
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetButton("Fire1"))
             {
                 if (m_mana >= m_spikeCost)
                 {
