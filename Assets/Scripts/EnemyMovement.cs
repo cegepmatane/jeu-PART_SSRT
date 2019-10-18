@@ -26,18 +26,19 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {   
         //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
-        GameObject[] t_trees = GameObject.FindGameObjectsWithTag("Tree").OrderBy(go => go.name).ToArray();
+        //Ce comportement est maintenant géré par le GameManager
+        /* GameObject[] t_trees = GameObject.FindGameObjectsWithTag("Tree").OrderBy(go => go.name).ToArray();
         m_waypoints = new List<Transform>();
  
         foreach (var tree in t_trees)
         {
             m_waypoints.Add(tree.transform.GetChild(0));
-        }
+        } */
     }
 
     private void Update()
     {
-        if(m_currentWaypoint != null)
+        if(GameManager.Instance.Waypoints[0] != null && m_currentWaypoint == GameManager.Instance.Waypoints[0])
         {
             m_agent.SetDestination(m_currentWaypoint.position);
             //CheckMinDistance();
@@ -58,14 +59,14 @@ public class EnemyMovement : MonoBehaviour
         isAttacking = false;
         StopCoroutine("Attack");
 
-        m_waypoints.RemoveAt(0);
-        if (m_waypoints.Count == 0)
+       
+        if (GameManager.Instance.Waypoints.Count == 0)
         {
             return false;
         }
 
         //Update du waypoint et du collider
-        m_currentWaypoint = m_waypoints[0];
+        m_currentWaypoint = GameManager.Instance.Waypoints[0];
         treeCollider = m_currentWaypoint.GetComponentInParent<CapsuleCollider>();
 
         return true;
@@ -85,7 +86,7 @@ public class EnemyMovement : MonoBehaviour
     {
         StopCoroutine("Attack");
         StartCoroutine("Fade");
-        Die();
+        
     }
 
     private IEnumerator Fade()
