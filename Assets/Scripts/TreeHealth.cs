@@ -5,11 +5,17 @@ using UnityEngine;
 public class TreeHealth : MonoBehaviour
 {
     public float maxHP = 100f;
+    public int Order;
+    private bool IsAlive = true;
     private float currentHP;
-
+    void Awake()
+    {
+        GameManager.Instance.AddTree(this.gameObject);
+    }
     // Start is called before the first frame update
     void Start()
     {
+        
         currentHP = maxHP;
     }
 
@@ -18,6 +24,19 @@ public class TreeHealth : MonoBehaviour
     {
         
     }
+
+    public bool IsHurt()
+    {
+        if(currentHP < maxHP)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    
 
     public void ApplyDamage(float a_damage)
     {
@@ -34,9 +53,33 @@ public class TreeHealth : MonoBehaviour
         }
     }
 
+    public void HealDamage()
+    {
+        currentHP += 1f;
+        Color t_Color = GetComponent<MeshRenderer>().material.color;
+        float t_Greyscale = currentHP / maxHP;
+        Debug.Log("Regénération:" + currentHP + "/" + t_Greyscale);
+        t_Color.a = t_Greyscale;
+        GetComponent<MeshRenderer>().material.color = new Color(t_Greyscale, t_Greyscale, t_Greyscale);
+        if(currentHP >= maxHP)
+        {
+            currentHP = maxHP;
+            IsAlive = true;
+            GameManager.Instance.ReviveTree(this.gameObject);
+        }
+        
+    }
+
+
+
     private void Die()
     {
-        Destroy(gameObject);
+        if (IsAlive)
+        {
+            GameManager.Instance.KillTree(this.gameObject);
+            IsAlive = false;
+        }
+        
         
     }
 }
