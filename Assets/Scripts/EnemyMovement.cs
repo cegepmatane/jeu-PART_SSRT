@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent m_agent;
 
-    public Transform treePosition;
+    public List<Transform> m_waypoints;
+    //Le currentWaypoint correspond au Transform de l'enfant "basePosition" dans chaque arbre
+    public Transform m_currentWaypoint;
     public Collider treeCollider;
 
-    private int m_Health;
     private bool isAttacking = false;
     public float damage = 1f;
     public float attackRate = 2f;
@@ -22,19 +24,51 @@ public class EnemyMovement : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    {   
+        //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
+        GameObject[] t_trees = GameObject.FindGameObjectsWithTag("Tree").OrderBy(go => go.name).ToArray();
+        m_waypoints = new List<Transform>();
+ 
+        foreach (var tree in t_trees)
+        {
+            m_waypoints.Add(tree.transform.GetChild(0));
+        }
     }
 
     private void Update()
     {
-        if(treePosition != null)
+        if(m_currentWaypoint != null)
         {
-            m_agent.SetDestination(treePosition.position);
-        } else {
+            m_agent.SetDestination(m_currentWaypoint.position);
+            //CheckMinDistance();
+        }
+        else if (UpdateWaypoint())
+        {
+            Debug.Log("Les ennemis changent de cible !");
+        }
+        else
+        {
             m_agent.SetDestination(transform.position);
             DeathSequence();
         }
+    }
+
+    private bool UpdateWaypoint()
+    {
+        isAttacking = false;
+        StopCoroutine("Attack");
+
+        m_waypoints.RemoveAt(0);
+        if (m_waypoints.Count == 0)
+        {
+            return false;
+        }
+
+        //Update du waypoint et du collider
+        m_currentWaypoint = m_waypoints[0];
+        treeCollider = m_currentWaypoint.GetComponentInParent<CapsuleCollider>();
+
+        return true;
     }
 
 
@@ -77,6 +111,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        Debug.Log("Touche un arbre");
         if (collider == treeCollider)
         {
             isAttacking = true;

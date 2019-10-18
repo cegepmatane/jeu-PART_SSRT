@@ -75,7 +75,7 @@ public class SpawnerBehavior : MonoBehaviour
             EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
             if(TargetTree != null)
             {
-                t_EnemyMovement.treePosition = TargetTree.transform.GetChild(0);
+                t_EnemyMovement.m_currentWaypoint = TargetTree.transform.GetChild(0);
                 t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
             }
             

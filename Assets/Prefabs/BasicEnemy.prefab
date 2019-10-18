@@ -218,7 +218,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b315228327224da4a86de1260a24b2fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treePosition: {fileID: 0}
+  m_waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_currentWaypoint: {fileID: 0}
   treeCollider: {fileID: 0}
   damage: 5
   attackRate: 2
