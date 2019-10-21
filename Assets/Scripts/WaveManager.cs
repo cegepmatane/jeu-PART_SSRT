@@ -6,11 +6,16 @@ public class WaveManager : MonoBehaviour
 {
     public class Wave
     {
+        
+        private int m_PositionNumber;
         private float m_Difficulty;
+        private GameObject m_TargetTree;
         private bool m_IsActive = false;
-        public Wave(float a_Difficulty)
+        public Wave(float a_Difficulty, GameObject a_TargetTree, int a_PositionNumber)
         {
             this.m_Difficulty = a_Difficulty;
+            this.m_TargetTree = a_TargetTree;
+            this.m_PositionNumber = a_PositionNumber;
         }
 
         public float Difficulty
@@ -18,6 +23,22 @@ public class WaveManager : MonoBehaviour
             get
             {
                 return m_Difficulty;
+            }
+        }
+
+        public int PositionNumber
+        {
+            get
+            {
+                return m_PositionNumber;
+            }
+        }
+
+        public GameObject TargetTree
+        {
+            get
+            {
+                return m_TargetTree;
             }
         }
 
@@ -41,8 +62,9 @@ public class WaveManager : MonoBehaviour
     }
 
     public static WaveManager m_Instance;
-
+    //WaveCount doit toujours être un multiple de 3!
     public int WaveCount;
+    public int MinimumWaitBetweenWaves = 5;
     private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
     private List<Wave> m_Waves = new List<Wave>();
     //TODO influencer m_SpawningSpeed au fil du temps
@@ -67,16 +89,33 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        //Création une par une des vagues avec une difficulté incrémentée
+        //Création une par une des vagues avec une difficulté incrémentée ET un changement de l'arbre cible à chaque tier du nombre de vague total
         float t_ScalingDifficulty = 4f;
         
         for(int i = 0; i < WaveCount; i++)
         {
-            m_Waves.Add(new Wave(1 + t_ScalingDifficulty));
-            t_ScalingDifficulty += 2;
+            if(i <= WaveCount / 3)
+            {
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1));
+                t_ScalingDifficulty += 2;
+            } else if (i <= 2*(WaveCount / 3))
+            {
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1));
+                t_ScalingDifficulty += 2;
+            }
+            else if(i >= 2 * (WaveCount / 3))
+            {
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1));
+                t_ScalingDifficulty += 2;
+            }
+            else
+            {
+                Debug.LogError("Le nombre de Vague n'est pas divisible par 3!");
+            }
+            
+            
         }
-        m_Waves[0].Start();
-        InitiateWave(m_Waves[0]);
+        StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         
     }
 
@@ -90,28 +129,68 @@ public class WaveManager : MonoBehaviour
                 break;
         }
         
-        if (t_IsWaveFinished)
+        if (t_IsWaveFinished && m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsDead)
         {
             m_Waves.RemoveAt(0);
+        } else if(t_IsWaveFinished)
+        {
+            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         }
 
         if(m_Waves.Count > 0 && !m_Waves[0].Active)
         {
-            m_Waves[0].Start();
-            InitiateWave(m_Waves[0]);
+            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         }
     }
-    
+
+    //La "prochaine" vague ou la vague active est TOUJOURS la première de la liste, puisque une vague complétée disparais et laisse la place à la deuxieme de la liste
+    private IEnumerator WaitForNextWave(int a_Countdown)
+    {
+        m_Waves[0].Start();
+        while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
+        {
+            Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
+            yield return new WaitForSecondsRealtime(1);
+        }
+        for(; a_Countdown > 0; a_Countdown--)
+        {
+            Debug.Log("La vague #" + m_Waves[0].PositionNumber + " commence dans : " + a_Countdown);
+            yield return new WaitForSecondsRealtime(1);
+        }
+        if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
+        {
+            yield return null;
+        }
+        else
+        {
+            InitiateWave(m_Waves[0]);
+            yield break;
+        }
+    }
+
     private void InitiateWave(Wave a_CurrentWave)
-    {  
-        //Le nombre d'ennemy que chaque spawner aura à spawner est défini par l'arroundissement de la difficultée divisée par le nombre de spawners présents
+    {
+        Debug.Log("La vague #" + a_CurrentWave.PositionNumber + " vient de commencer !");
+        //Le nombre d'enemy que chaque spawner aura à spawner est défini par l'arroundissement de la difficultée divisée par le nombre de spawners présents
         int t_EnemyPerSpawn = (int) Mathf.Round(a_CurrentWave.Difficulty/m_Spawners.Count);
         foreach(var spawner in m_Spawners)
         {
-            Debug.Log("Spawner Initié!");
+            
             spawner.BeginWave(t_EnemyPerSpawn, m_SpawningSpeed);
         }
-        //StartCoroutine(PlayingWave(a_CurrentWave, t_EnemyPerSpawn));
+        a_CurrentWave.Start();
+      
+        
+    }
+
+    
+
+    public GameObject TargetTree
+    {
+        get
+        {
+            return m_Waves[0].TargetTree;
+        }
     }
 
     public void AddSpawner(SpawnerBehavior a_SpawnerBehavior)

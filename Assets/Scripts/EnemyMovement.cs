@@ -13,7 +13,8 @@ public class EnemyMovement : MonoBehaviour
     public Transform m_currentWaypoint;
     public Collider treeCollider;
 
-    private bool isAttacking = false;
+    private bool IsAttacking = false;
+    private bool IsDying = false;
     public float damage = 1f;
     public float attackRate = 2f;
 
@@ -24,9 +25,11 @@ public class EnemyMovement : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
-        //Ce comportement est maintenant géré par le GameManager
+        //Ce comportement est maintenant désuet et géré par le GameManager
+
+
         /* GameObject[] t_trees = GameObject.FindGameObjectsWithTag("Tree").OrderBy(go => go.name).ToArray();
         m_waypoints = new List<Transform>();
  
@@ -34,26 +37,35 @@ public class EnemyMovement : MonoBehaviour
         {
             m_waypoints.Add(tree.transform.GetChild(0));
         } */
+
+        treeCollider = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>();
     }
 
     private void Update()
     {
-        if(GameManager.Instance.Waypoints[0] != null && m_currentWaypoint == GameManager.Instance.Waypoints[0])
+        if(WaveManager.Instance.TargetTree != null && !IsDying)
         {
-            m_agent.SetDestination(m_currentWaypoint.position);
+            m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
             //CheckMinDistance();
         }
+
+        //Les ennemis ne peuvent plus changer de cible; La cible meure, ils meurent aussi, et la vague recommence quand la cible ressucite
+
+        /*
         else if (UpdateWaypoint())
         {
             Debug.Log("Les ennemis changent de cible !");
-        }
-        else
+        } 
+        */
+
+        if(WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
+            
             m_agent.SetDestination(transform.position);
             DeathSequence();
         }
     }
-
+    /*
     private bool UpdateWaypoint()
     {
         isAttacking = false;
@@ -71,11 +83,11 @@ public class EnemyMovement : MonoBehaviour
 
         return true;
     }
-
+    */
 
     private IEnumerator Attack()
     {
-        while (isAttacking)
+        while (IsAttacking)
         {
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
             yield return new WaitForSeconds(attackRate);                   
@@ -84,14 +96,15 @@ public class EnemyMovement : MonoBehaviour
 
     public void DeathSequence()
     {
+        IsAttacking = false;
+        IsDying = true;
         StopCoroutine("Attack");
-        StartCoroutine("Fade");
-        
+        StartCoroutine("Fade"); 
     }
 
     private IEnumerator Fade()
     {
-        
+        Debug.Log("Un ennemi s'efface...");
         Color t_Color = GetComponent<MeshRenderer>().material.color;
         t_Color.a -= 0.008f;
         if(t_Color.a <= 0f)
@@ -100,22 +113,23 @@ public class EnemyMovement : MonoBehaviour
         }
         GetComponent<MeshRenderer>().material.color = t_Color;
         gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
-        //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
+        Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
         
         yield return null;
     }
 
     private void Die()
     {
+        //Debug.Log("Ennemi décédé");
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log("Touche un arbre");
+        //Debug.Log("Touche un arbre");
         if (collider == treeCollider)
         {
-            isAttacking = true;
+            IsAttacking = true;
             StartCoroutine("Attack");
         }
     }
@@ -124,7 +138,8 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collider == treeCollider)
         {
-            isAttacking = false;
+            IsAttacking = false;
+            StopCoroutine("Attack");
         }
     }
 

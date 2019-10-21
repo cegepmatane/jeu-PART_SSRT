@@ -25,18 +25,40 @@ public class TreeHealth : MonoBehaviour
         
     }
 
-    public bool IsHurt()
+    public bool IsHurt
     {
-        if(currentHP < maxHP)
+        get
         {
-            return true;
-        } else
-        {
-            return false;
+            if (currentHP < maxHP)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+        
     }
 
-    
+    public bool IsDead
+    {
+        get
+        {
+            if (currentHP <= 0)
+            {
+                currentHP = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+    }
+
+
 
     public void ApplyDamage(float a_damage)
     {
@@ -44,7 +66,7 @@ public class TreeHealth : MonoBehaviour
         Color t_Color = GetComponent<MeshRenderer>().material.color;
         float t_Greyscale = currentHP/maxHP;
         t_Color.a = t_Greyscale;
-        Debug.Log("Greyscale = " + t_Greyscale);
+        //Debug.Log("Greyscale = " + t_Greyscale);
         GetComponent<MeshRenderer>().material.color = new Color(t_Greyscale,t_Greyscale,t_Greyscale);
         Debug.Log(currentHP);
         if (currentHP <= 0)
@@ -58,7 +80,7 @@ public class TreeHealth : MonoBehaviour
         currentHP += 1f;
         Color t_Color = GetComponent<MeshRenderer>().material.color;
         float t_Greyscale = currentHP / maxHP;
-        Debug.Log("Regénération:" + currentHP + "/" + t_Greyscale);
+        Debug.Log("Regénération:" + currentHP + "/" + 100 * t_Greyscale + "%");
         t_Color.a = t_Greyscale;
         GetComponent<MeshRenderer>().material.color = new Color(t_Greyscale, t_Greyscale, t_Greyscale);
         if(currentHP >= maxHP)
