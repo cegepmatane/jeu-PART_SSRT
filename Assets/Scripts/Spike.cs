@@ -4,29 +4,37 @@ using UnityEngine;
 
 public class Spike : MonoBehaviour
 {
-    private float m_travellingSpeed = 20f;
+    public float travellingSpeed = 50f;
+    public float spikeRange = 50f;
     private Camera m_cam;
     private RaycastHit m_hit;
-    private Ray m_camRay;
+    private bool m_isInRange;
+
+    private Vector3 direction;
 
     private void Awake()
     {
         m_cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        m_camRay = new Ray(m_cam.transform.position, m_cam.transform.forward);
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        
+        if (Physics.Raycast(m_cam.transform.position, m_cam.transform.forward, out m_hit, spikeRange))
+            m_isInRange = true;
+        else
+            m_isInRange = false;
+
         Destroy(gameObject, 2f);
     }
 
     private void FixedUpdate()
     {
-        if (Physics.Raycast(m_camRay, out m_hit, 100))
-        {
-            transform.Translate(m_hit.transform.position * Time.deltaTime);
-        }
+        float speed = travellingSpeed * Time.deltaTime;
+        if (m_isInRange)
+            transform.position = Vector3.MoveTowards(transform.position, m_hit.point, speed);
+
+
     }
 }

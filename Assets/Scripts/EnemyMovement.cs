@@ -115,7 +115,7 @@ public class EnemyMovement : MonoBehaviour
         gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
         Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
         
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
     }
 
     private void Die()

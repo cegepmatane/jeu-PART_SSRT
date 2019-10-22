@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> m_Trees = new List<GameObject>();
     private GameObject m_PlayerSpawner;
     private GameObject m_Player;
-    private float regenRate = 0.1f;
+    private float m_regenRate = 0.1f;
     //public List<Transform> m_Waypoints;
 
     public static GameManager m_Instance;
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         m_Instance = this;
     }
+
     void Start()
     {
         if (m_PlayerSpawner != null)
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
         while (t_TreeHealth.IsHurt) 
         {
             t_TreeHealth.HealDamage();
-            yield return new WaitForSeconds(regenRate);
+            yield return new WaitForSeconds(m_regenRate);
         }
 
     }

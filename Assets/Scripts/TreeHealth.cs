@@ -19,12 +19,6 @@ public class TreeHealth : MonoBehaviour
         currentHP = maxHP;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public bool IsHurt
     {
         get
@@ -92,16 +86,12 @@ public class TreeHealth : MonoBehaviour
         
     }
 
-
-
     private void Die()
     {
         if (IsAlive)
         {
             GameManager.Instance.KillTree(this.gameObject);
             IsAlive = false;
-        }
-        
-        
+        }  
     }
 }
