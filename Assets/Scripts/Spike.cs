@@ -20,11 +20,8 @@ public class Spike : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-        if (Physics.Raycast(m_cam.transform.position, m_cam.transform.forward, out m_hit, spikeRange))
-            m_isInRange = true;
-        else
-            m_isInRange = false;
+
+        m_isInRange = Physics.Raycast(m_cam.transform.position, m_cam.transform.forward, out m_hit, spikeRange) ? true : false;
 
         Destroy(gameObject, 2f);
     }
@@ -34,6 +31,8 @@ public class Spike : MonoBehaviour
         float speed = travellingSpeed * Time.deltaTime;
         if (m_isInRange)
             transform.position = Vector3.MoveTowards(transform.position, m_hit.point, speed);
+        else
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + (transform.forward*spikeRange), speed);
 
 
     }
