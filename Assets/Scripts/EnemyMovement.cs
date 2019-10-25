@@ -13,8 +13,8 @@ public class EnemyMovement : MonoBehaviour
     public Transform m_currentWaypoint;
     public Collider treeCollider;
 
-    private bool IsAttacking = false;
-    private bool IsDying = false;
+    private bool IsAttacking;
+    private bool IsDying;
     public float damage = 1f;
     public float attackRate = 2f;
 
@@ -26,6 +26,8 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        IsDying = false;
+        IsAttacking = false;
         //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
         //Ce comportement est maintenant désuet et géré par le GameManager
 
@@ -58,7 +60,7 @@ public class EnemyMovement : MonoBehaviour
         } 
         */
 
-        if(WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
+        if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
             
             m_agent.SetDestination(transform.position);
@@ -105,15 +107,19 @@ public class EnemyMovement : MonoBehaviour
     private IEnumerator Fade()
     {
         Debug.Log("Un ennemi s'efface...");
-        Color t_Color = GetComponent<MeshRenderer>().material.color;
-        t_Color.a -= 0.008f;
-        if(t_Color.a <= 0f)
+        while(IsDying)
         {
-            Die();
+            Color t_Color = GetComponent<MeshRenderer>().material.color;
+            t_Color.a -= 0.008f;
+            if(t_Color.a <= 0f)
+            {
+                IsDying = false;
+                Die();
+            }
+            GetComponent<MeshRenderer>().material.color = t_Color;
+            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+            Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
         }
-        GetComponent<MeshRenderer>().material.color = t_Color;
-        gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
-        Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
         
         yield return new WaitForSeconds(0.1f);
     }

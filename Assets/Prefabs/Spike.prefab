@@ -105,3 +105,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d17c41a739c1c4a47b579ea9696bc8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travellingSpeed: 50
+  spikeRange: 50
