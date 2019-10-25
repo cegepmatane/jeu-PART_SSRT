@@ -119,9 +119,10 @@ public class EnemyMovement : MonoBehaviour
             GetComponent<MeshRenderer>().material.color = t_Color;
             gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
             Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
+            yield return null;
         }
         
-        yield return new WaitForSeconds(0.1f);
+        yield return null;
     }
 
     private void Die()
@@ -133,7 +134,7 @@ public class EnemyMovement : MonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         //Debug.Log("Touche un arbre");
-        if (collider == treeCollider)
+        if (collider == treeCollider && !IsDying)
         {
             IsAttacking = true;
             StartCoroutine("Attack");
@@ -142,7 +143,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider == treeCollider)
+        if (collider == treeCollider && !IsDying)
         {
             IsAttacking = false;
             StopCoroutine("Attack");
