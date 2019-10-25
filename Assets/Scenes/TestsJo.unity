@@ -119,7 +119,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: 84eaac8989cafb14faf2cbe629e9af96, type: 2}
 --- !u!1 &906796286
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AutoPickup: 0
   m_PickupButton: 101
+  m_ManaAdd: 12
 --- !u!1 &1674203465
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +337,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!65 &1674203466
 BoxCollider:
