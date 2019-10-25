@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test1 :" + m_Waypoints.Count);
         //m_Waypoints.RemoveAt(0);
         //Debug.Log("Test2 :" + m_Waypoints.Count);
-        //Debug.Log("L'arbre est mort et se regénère!");
+        Debug.Log("L'arbre est mort et se regénère!");
         StartCoroutine(RegenerateTree(a_Tree));
 
     }
