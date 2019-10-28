@@ -51,12 +51,16 @@ public class PlayerAbilities : MonoBehaviour
         m_UiText.text = "Mana : " + m_mana;
     }
 
-    public void addMana(int a_mana)
-    {
+    public bool addMana(int a_mana)
+    {   if(m_mana == MAX_MANA)
+        {
+            return false;
+        }
         if (m_mana < MAX_MANA)
         {
             int manaDiff = MAX_MANA - m_mana;
             m_mana += (manaDiff > a_mana) ? a_mana : manaDiff;
         }
+        return true;
     }
 }

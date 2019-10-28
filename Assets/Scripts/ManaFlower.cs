@@ -19,9 +19,12 @@ public class ManaFlower : Activable
 
     private void RegainMana()
     {
-        m_player.GetComponent<PlayerAbilities>().addMana(m_ManaAdd);
-        Destroy(gameObject);
+        if (m_player.GetComponent<PlayerAbilities>().addMana(m_ManaAdd))
+        {
+            Destroy(gameObject);
+            Debug.Log("Player gained mana!!");
+        }
 
-        Debug.Log("Player gained mana!!");
+        
     }
 }
