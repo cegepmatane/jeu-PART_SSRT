@@ -11,6 +11,7 @@ public class WaveManager : MonoBehaviour
         private float m_Difficulty;
         private GameObject m_TargetTree;
         private bool m_IsActive = false;
+
         public Wave(float a_Difficulty, GameObject a_TargetTree, int a_PositionNumber)
         {
             this.m_Difficulty = a_Difficulty;
@@ -69,7 +70,7 @@ public class WaveManager : MonoBehaviour
     private List<Wave> m_Waves = new List<Wave>();
     //TODO influencer m_SpawningSpeed au fil du temps
     private int m_SpawningSpeed = 2;
-
+    private int m_EnemyCount = 0;
 
     public static WaveManager Instance
     {
@@ -81,7 +82,31 @@ public class WaveManager : MonoBehaviour
             return m_Instance;
         }
     }
+    void OnEnable()
+    {
+        EventManager.AddListner("Enemy_Spawn", IncreaseMonsterNumber);
+        EventManager.AddListner("Enemy_Died", DecreaseMonsterNumber);
+        
+    }
 
+    void OnDisable()
+    {
+        EventManager.RemoveListner("Enemy_Spawn", IncreaseMonsterNumber);
+        EventManager.RemoveListner("Enemy_Died", DecreaseMonsterNumber);
+    }
+    
+    private void IncreaseMonsterNumber()
+    {
+        m_EnemyCount++;
+        //Debug.Log("EnemyCount incremented :" + m_EnemyCount);
+    }
+
+    private void DecreaseMonsterNumber()
+    {
+        m_EnemyCount--;
+        //Debug.Log("EnemyCount decremented :" + m_EnemyCount);
+    }
+    
     private void Awake()
     {
         m_Instance = this;
@@ -114,6 +139,7 @@ public class WaveManager : MonoBehaviour
             }
             
             
+            
         }
         StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         
@@ -124,23 +150,31 @@ public class WaveManager : MonoBehaviour
         bool t_IsWaveFinished = true;
         foreach(var spawner in m_Spawners)
         {
-            t_IsWaveFinished = spawner.Finished && spawner.IsDefeated();
+            //Debug.Log("/" + spawner.Finished + "/" + spawner.IsDefeated() + "/");
+            t_IsWaveFinished = spawner.Finished && m_EnemyCount == 0;
             if (!t_IsWaveFinished)
                 break;
         }
-        
-        if (t_IsWaveFinished && m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsDead)
+        Debug.Log(m_Waves.Count + " Vagues au total");
+        if (t_IsWaveFinished && m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHealing)
         {
-            m_Waves.RemoveAt(0);
-        } else if(t_IsWaveFinished)
-        {
+            Debug.Log("Vague échouée, elle recommencera sous peu...");
             StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+        } else if(t_IsWaveFinished && !m_Waves[0].Active)
+        {
+            Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
+            m_Waves.RemoveAt(0);
+            if (m_Waves.Count > 0)
+            {
+                StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+            }
+            else
+            {
+                GameManager.Instance.Victory();
+            }
         }
 
-        if(m_Waves.Count > 0 && !m_Waves[0].Active)
-        {
-            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
-        }
+        
     }
 
     //La "prochaine" vague ou la vague active est TOUJOURS la première de la liste, puisque une vague complétée disparais et laisse la place à la deuxieme de la liste
@@ -157,15 +191,16 @@ public class WaveManager : MonoBehaviour
             Debug.Log("La vague #" + m_Waves[0].PositionNumber + " commence dans : " + a_Countdown);
             yield return new WaitForSecondsRealtime(1);
         }
+        /*
         if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
             yield return null;
         }
-        else
-        {
-            InitiateWave(m_Waves[0]);
-            yield break;
-        }
+        */
+        
+        InitiateWave(m_Waves[0]);
+        yield break;
+        
     }
 
     private void InitiateWave(Wave a_CurrentWave)

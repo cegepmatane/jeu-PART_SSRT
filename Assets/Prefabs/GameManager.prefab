@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WaveCount: 2
+  MinimumWaitBetweenWaves: 5
 --- !u!114 &9189830412007838913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,6 +58,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58c89360d74a4547bbf29d9128ac91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerModel: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
+  Prefab_PlayerModel: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
     type: 3}
-  m_Waypoints: []

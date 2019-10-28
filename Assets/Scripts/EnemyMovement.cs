@@ -28,6 +28,7 @@ public class EnemyMovement : MonoBehaviour
     {
         IsDying = false;
         IsAttacking = false;
+        EventManager.TriggerEvent("Enemy_Spawn");
         //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
         //Ce comportement est maintenant désuet et géré par le GameManager
 
@@ -106,7 +107,7 @@ public class EnemyMovement : MonoBehaviour
 
     private IEnumerator Fade()
     {
-        Debug.Log("Un ennemi s'efface...");
+        //Debug.Log("Un ennemi s'efface...");
         while(IsDying)
         {
             Color t_Color = GetComponent<MeshRenderer>().material.color;
@@ -118,7 +119,7 @@ public class EnemyMovement : MonoBehaviour
             }
             GetComponent<MeshRenderer>().material.color = t_Color;
             gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
-            Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
+            //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
             yield return null;
         }
         
@@ -128,6 +129,7 @@ public class EnemyMovement : MonoBehaviour
     private void Die()
     {
         //Debug.Log("Ennemi décédé");
+        EventManager.TriggerEvent("Enemy_Died");
         Destroy(gameObject);
     }
 

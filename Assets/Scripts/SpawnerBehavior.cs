@@ -9,7 +9,7 @@ public class SpawnerBehavior : MonoBehaviour
     //public int interval = 1;
     //public int delay = 1;
     private bool m_IsFinished;
-    private List<GameObject> m_SpawnedEnemies;
+    //private List<GameObject> m_SpawnedEnemies;
 
     
     public GameObject Enemy, TargetTree;
@@ -19,7 +19,7 @@ public class SpawnerBehavior : MonoBehaviour
     {
         WaveManager.Instance.AddSpawner(this);
 
-        m_SpawnedEnemies = new List<GameObject>();
+        //m_SpawnedEnemies = new List<GameObject>();
     }
 
     // Start is called before the first frame update
@@ -31,6 +31,7 @@ public class SpawnerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         
     }
 
@@ -46,12 +47,15 @@ public class SpawnerBehavior : MonoBehaviour
             return m_IsFinished;
         }
     }
+    /*
     public bool IsDefeated()
     {
         bool t_IsDefeated = false;
+        Debug.Log("Ennemis en circulation :" + m_SpawnedEnemies.Count);
         if(m_SpawnedEnemies.Count == 0){t_IsDefeated = true;}
         return t_IsDefeated;
     }
+    */
 
     public void BeginWave(int a_Count, int a_Interval)
     {
@@ -71,7 +75,7 @@ public class SpawnerBehavior : MonoBehaviour
         {
             
             GameObject t_Enemy = Instantiate(Enemy, this.gameObject.transform.position, Quaternion.identity);
-            m_SpawnedEnemies.Add(t_Enemy);
+            //m_SpawnedEnemies.Add(t_Enemy);
             EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
             if(TargetTree != null)
             {

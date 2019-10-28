@@ -5,8 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    public GameObject PlayerModel;
+    [SerializeField]
+    private GameObject Prefab_PlayerModel;
     private List<GameObject> m_Trees = new List<GameObject>();
     private GameObject m_PlayerSpawner;
     private GameObject m_Player;
@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
     {
         if (m_PlayerSpawner != null)
         {
-            m_Player = Instantiate(PlayerModel, m_PlayerSpawner.transform.position, Quaternion.identity);
+            m_Player = Instantiate(Prefab_PlayerModel, m_PlayerSpawner.transform.position, Quaternion.identity);
         }
         else
         {
@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
     {
         
         TreeHealth t_TreeHealth = a_Tree.GetComponent<TreeHealth>();
+        t_TreeHealth.IsHealing = true;
         while (t_TreeHealth.IsHurt) 
         {
             t_TreeHealth.HealDamage();
@@ -128,9 +129,14 @@ public class GameManager : MonoBehaviour
 
     }
     
+    public void Victory()
+    {
+        Debug.Log("Toute les vagues ont été détruites! Ceci est un message placeholder! GG");
+    }
     public void ReviveTree(GameObject a_Tree)
     {
         Debug.Log("Arbre ressucité!");
+        a_Tree.GetComponent<TreeHealth>().IsHealing = false;
         //m_Waypoints.Add(a_Tree.transform.GetChild(0));
         StopCoroutine(RegenerateTree(a_Tree));
     }

@@ -7,6 +7,7 @@ public class TreeHealth : MonoBehaviour
     public float maxHP = 100f;
     public int Order;
     private bool IsAlive = true;
+    private bool m_IsHealing = false;
     private float currentHP;
     void Awake()
     {
@@ -50,6 +51,21 @@ public class TreeHealth : MonoBehaviour
             }
         }
         
+    }
+
+    public bool IsHealing
+    {
+        get
+        {
+            return m_IsHealing;
+        }
+
+        set
+        {
+            m_IsHealing = value;
+        }
+
+
     }
 
 
