@@ -66,6 +66,9 @@ public class WaveManager : MonoBehaviour
     //WaveCount doit toujours être un multiple de 3!
     public int WaveCount;
     public int MinimumWaitBetweenWaves = 5;
+
+    [SerializeField]
+    private Texture m_DefaultTreeTexture, m_ActiveTreeTexture;
     private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
     private List<Wave> m_Waves = new List<Wave>();
     //TODO influencer m_SpawningSpeed au fil du temps
@@ -195,6 +198,7 @@ public class WaveManager : MonoBehaviour
         else if (!m_Waves[0].Active)
         {
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
+            m_Waves[0].TargetTree.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);
             if (m_Waves.Count > 0)
             {
@@ -211,6 +215,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown)
     {
         m_Waves[0].Start();
+        m_Waves[0].TargetTree.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", m_ActiveTreeTexture);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
