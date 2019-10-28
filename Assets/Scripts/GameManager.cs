@@ -112,8 +112,17 @@ public class GameManager : MonoBehaviour
         //m_Waypoints.RemoveAt(0);
         //Debug.Log("Test2 :" + m_Waypoints.Count);
         Debug.Log("L'arbre est mort et se regénère!");
+        if (m_Player.GetComponent<PlayerAbilities>().increaseDarkness(20))
+        {
+            InitiateShadowRealm();
+        }
         StartCoroutine(RegenerateTree(a_Tree));
 
+    }
+
+    private void InitiateShadowRealm()
+    {
+        Debug.Log("Nothing happens...\nYet...");
     }
     //TODO: Trouver pourquoi qu'aussitot cette coroutine commence, celle du Fade() de l'EnemyMovement s'arrete...
     private IEnumerator RegenerateTree(GameObject a_Tree)

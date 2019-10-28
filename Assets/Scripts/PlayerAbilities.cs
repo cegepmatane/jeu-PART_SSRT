@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
-    private const int  MAX_MANA = 100;
-    private int m_mana;
+    private const int MAX_MANA = 100;
+    private const int MAX_DARKNESS = 100;
+    private int m_Mana;
+    private int m_Darkness;
 
     private float m_castingCooldown;
 
@@ -18,7 +20,8 @@ public class PlayerAbilities : MonoBehaviour
 
     private void Start()
     {
-        m_mana = MAX_MANA;
+        m_Mana = MAX_MANA;
+        m_Darkness = MAX_DARKNESS;
 
         m_camera = GetComponentInChildren<Camera>();
         m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
@@ -33,10 +36,10 @@ public class PlayerAbilities : MonoBehaviour
             //Clic gauche de souris
             if (Input.GetButton("Fire1"))
             {
-                if (m_mana >= m_spikeCost)
+                if (m_Mana >= m_spikeCost)
                 {
                     Instantiate(m_spikeSpell, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
-                    m_mana -= m_spikeCost;
+                    m_Mana -= m_spikeCost;
 
                     m_castingCooldown = 1f;
                 }
@@ -48,19 +51,36 @@ public class PlayerAbilities : MonoBehaviour
 
     private void updateUI()
     {
-        m_UiText.text = "Mana : " + m_mana;
+        m_UiText.text = "Mana : " + m_Mana;
     }
 
     public bool addMana(int a_mana)
-    {   if(m_mana == MAX_MANA)
+    {   
+        if (m_Mana < MAX_MANA)
+        {
+            int manaDiff = MAX_MANA - m_Mana;
+            m_Mana += (manaDiff > a_mana) ? a_mana : manaDiff;
+            return true;
+        }
+        else
         {
             return false;
         }
-        if (m_mana < MAX_MANA)
+        
+    }
+
+    public bool increaseDarkness(int a_darkness)
+    {
+        if (m_Darkness < MAX_DARKNESS)
         {
-            int manaDiff = MAX_MANA - m_mana;
-            m_mana += (manaDiff > a_mana) ? a_mana : manaDiff;
+            int darknessDiff = MAX_DARKNESS - m_Darkness;
+            m_Darkness += (darknessDiff > a_darkness) ? a_darkness : darknessDiff;
+            return true;
         }
-        return true;
+        else
+        {
+            return false;
+        }
+
     }
 }
