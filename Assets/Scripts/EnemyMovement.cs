@@ -99,10 +99,14 @@ public class EnemyMovement : MonoBehaviour
 
     public void DeathSequence()
     {
-        IsAttacking = false;
-        IsDying = true;
-        StopCoroutine("Attack");
-        StartCoroutine("Fade"); 
+        if (!IsDying)
+        {
+            IsAttacking = false;
+            IsDying = true;
+            StopCoroutine("Attack");
+            StartCoroutine("Fade");
+        }
+        
     }
 
     private IEnumerator Fade()
