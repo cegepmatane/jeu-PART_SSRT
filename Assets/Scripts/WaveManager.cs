@@ -104,6 +104,11 @@ public class WaveManager : MonoBehaviour
     private void DecreaseMonsterNumber()
     {
         m_EnemyCount--;
+        if(m_EnemyCount == 0)
+        {
+            PrepareNextWave();
+
+        }
         //Debug.Log("EnemyCount decremented :" + m_EnemyCount);
     }
     
@@ -147,6 +152,8 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
+        //Désuet!!
+        /*
         bool t_IsWaveFinished = true;
         foreach(var spawner in m_Spawners)
         {
@@ -173,8 +180,31 @@ public class WaveManager : MonoBehaviour
                 GameManager.Instance.Victory();
             }
         }
+        */
 
         
+    }
+
+    private void PrepareNextWave()
+    {
+        if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHealing)
+        {
+            Debug.Log("Vague échouée, elle recommencera sous peu...");
+            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+        }
+        else if (!m_Waves[0].Active)
+        {
+            Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
+            m_Waves.RemoveAt(0);
+            if (m_Waves.Count > 0)
+            {
+                StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+            }
+            else
+            {
+                GameManager.Instance.Victory();
+            }
+        }
     }
 
     //La "prochaine" vague ou la vague active est TOUJOURS la première de la liste, puisque une vague complétée disparais et laisse la place à la deuxieme de la liste
@@ -210,7 +240,6 @@ public class WaveManager : MonoBehaviour
         int t_EnemyPerSpawn = (int) Mathf.Round(a_CurrentWave.Difficulty/m_Spawners.Count);
         foreach(var spawner in m_Spawners)
         {
-            
             spawner.BeginWave(t_EnemyPerSpawn, m_SpawningSpeed);
         }
         a_CurrentWave.Start();
