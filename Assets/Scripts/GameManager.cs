@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
         //m_Waypoints.RemoveAt(0);
         //Debug.Log("Test2 :" + m_Waypoints.Count);
         Debug.Log("L'arbre est mort et se regénère!");
+
         if (m_Player.GetComponent<PlayerAbilities>().increaseDarkness(20))
         {
             InitiateShadowRealm();
@@ -142,6 +143,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Toute les vagues ont été détruites! Ceci est un message placeholder! GG");
     }
+
     public void ReviveTree(GameObject a_Tree)
     {
         Debug.Log("Arbre ressucité!");
