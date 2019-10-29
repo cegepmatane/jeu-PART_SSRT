@@ -18,6 +18,10 @@ public class PlayerAbilities : MonoBehaviour
     private Camera m_camera;
     private Text m_UiText;
 
+    private AudioSource m_Audio;
+    [SerializeField] private AudioClip m_FireballAppear;
+    [SerializeField] private AudioClip m_FireballReleased;
+
     private void Start()
     {
         m_Mana = MAX_MANA;
@@ -25,6 +29,8 @@ public class PlayerAbilities : MonoBehaviour
 
         m_camera = GetComponentInChildren<Camera>();
         m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
+
+        m_Audio = GetComponentInChildren<AudioSource>();
     }
 
     private void FixedUpdate()
@@ -34,15 +40,20 @@ public class PlayerAbilities : MonoBehaviour
         if (m_castingCooldown < 0)
         {
             //Clic gauche de souris
-            if (Input.GetButton("Fire1"))
+            if (Input.GetButtonDown("Fire1"))
             {
-                if (m_Mana >= m_spikeCost)
-                {
-                    Instantiate(m_spikeSpell, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
-                    m_Mana -= m_spikeCost;
+                //m_Audio.clip = m_FireballAppear;
+                //m_Audio.Play();
+            }
 
-                    m_castingCooldown = 1f;
-                }
+            if (Input.GetButtonUp("Fire1") && m_Mana >= m_spikeCost)
+            {
+                m_Audio.clip = m_FireballReleased;
+                m_Audio.Play();
+                Instantiate(m_spikeSpell, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
+                m_Mana -= m_spikeCost;
+
+                m_castingCooldown = 1f;
             }
         }
 
