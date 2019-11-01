@@ -150,7 +150,7 @@ public class WaveManager : MonoBehaviour
             
             
         }
-        
+        m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
         StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         
     }
@@ -203,6 +203,7 @@ public class WaveManager : MonoBehaviour
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
             m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);
+            m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
             if (m_Waves.Count > 0)
             {
                 StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
@@ -218,7 +219,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown)
     {
         m_Waves[0].Start();
-        m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+        
         //Debug.Log(m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {

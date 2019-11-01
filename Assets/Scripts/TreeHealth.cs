@@ -80,12 +80,19 @@ public class TreeHealth : MonoBehaviour
         foreach (MeshRenderer t_mesh in t_Meshes)
         {
             Color t_color = t_mesh.material.GetColor("_EmissionColor");
+            //Debug.Log(t_color);
             float t_Greyscale = currentHP / maxHP;
             t_color.a = t_Greyscale;
             //Debug.Log("Greyscale = " + t_Greyscale);
-           t_mesh.material.SetColor("_EmissionColor", new Color(t_Greyscale, t_Greyscale, t_Greyscale));
-        } 
-        
+            
+            
+            t_mesh.material.SetColor("_EmissionColor", Color.magenta * t_Greyscale);
+            
+            //t_mesh.material.SetColor("_EmissionColor", t_color * t_Greyscale);
+
+
+        }
+
         Debug.Log(currentHP);
         if (currentHP <= 0)
         {
@@ -102,9 +109,9 @@ public class TreeHealth : MonoBehaviour
             Color t_color = t_mesh.material.GetColor("_EmissionColor");
             float t_Greyscale = currentHP / maxHP;
             Debug.Log("Regénération:" + currentHP + "/" + 100 * t_Greyscale + "%");
-            t_color.a = t_Greyscale;
+            //t_color.a = t_Greyscale;
             //Debug.Log("Greyscale = " + t_Greyscale);
-            t_mesh.material.SetColor("_EmissionColor", new Color(t_Greyscale, t_Greyscale, t_Greyscale));
+            t_mesh.material.SetColor("_EmissionColor", Color.magenta * t_Greyscale);
         }
 
         if(currentHP >= maxHP)
