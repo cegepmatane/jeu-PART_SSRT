@@ -71,6 +71,7 @@ public class WaveManager : MonoBehaviour
     private Texture m_DefaultTreeTexture, m_ActiveTreeTexture;
     private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
     private List<Wave> m_Waves = new List<Wave>();
+    
     //TODO influencer m_SpawningSpeed au fil du temps
     private int m_SpawningSpeed = 2;
     private int m_EnemyCount = 0;
@@ -126,18 +127,18 @@ public class WaveManager : MonoBehaviour
         //Création une par une des vagues avec une difficulté incrémentée ET un changement de l'arbre cible à chaque tier du nombre de vague total
         float t_ScalingDifficulty = 4f;
         
-        for(int i = 0; i < WaveCount; i++)
+        for(int i = 0; i <= WaveCount; i++)
         {
-            if(i <= WaveCount / 3)
+            if(i + 1 <= WaveCount / 3)
             {
                 m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1));
                 t_ScalingDifficulty += 2;
-            } else if (i <= 2*(WaveCount / 3))
+            } else if (i + 1 <= 2*(WaveCount / 3))
             {
                 m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1));
                 t_ScalingDifficulty += 2;
             }
-            else if(i >= 2 * (WaveCount / 3))
+            else if(i + 1 > 2 * (WaveCount / 3))
             {
                 m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1));
                 t_ScalingDifficulty += 2;
@@ -146,11 +147,13 @@ public class WaveManager : MonoBehaviour
             {
                 Debug.LogError("Le nombre de Vague n'est pas divisible par 3!");
             }
+            Debug.Log(m_Waves[m_Waves.Count - 1].TargetTree);
             
-            
-            
+
+
+
         }
-        
+        m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
         StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         
     }
@@ -201,7 +204,8 @@ public class WaveManager : MonoBehaviour
         {
             m_Waves[0].Stop();
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
-            m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
+            StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
+            //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);
             if (m_Waves.Count > 0)
             {
@@ -218,7 +222,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown)
     {
         m_Waves[0].Start();
-        m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+        
         //Debug.Log(m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
@@ -231,6 +235,8 @@ public class WaveManager : MonoBehaviour
         }
         for(; a_Countdown > 0; a_Countdown--)
         {
+            m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+            //Debug.Log(m_Waves[0].TargetTree);
             Debug.Log("La vague #" + m_Waves[0].PositionNumber + " commence dans : " + a_Countdown);
             yield return new WaitForSecondsRealtime(1);
         }
