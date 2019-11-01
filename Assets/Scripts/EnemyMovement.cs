@@ -48,7 +48,14 @@ public class EnemyMovement : MonoBehaviour
     {
         if(WaveManager.Instance.TargetTree != null && !IsDying)
         {
-            m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
+            if (IsAttacking)
+            {
+                m_agent.SetDestination(transform.position);
+            }
+            else
+            {
+                m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
+            }
             //CheckMinDistance();
         }
 

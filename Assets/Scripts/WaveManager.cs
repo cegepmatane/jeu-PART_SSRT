@@ -198,7 +198,7 @@ public class WaveManager : MonoBehaviour
         else if (!m_Waves[0].Active)
         {
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
-            m_Waves[0].TargetTree.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
+            m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);
             if (m_Waves.Count > 0)
             {
@@ -215,7 +215,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown)
     {
         m_Waves[0].Start();
-        m_Waves[0].TargetTree.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", m_ActiveTreeTexture);
+        //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
