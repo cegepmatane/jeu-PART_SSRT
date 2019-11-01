@@ -29,9 +29,9 @@ public class Spike : MonoBehaviour
     private void FixedUpdate()
     {
         float speed = travellingSpeed * Time.deltaTime;
-        if (m_isInRange)
-            transform.position = Vector3.MoveTowards(transform.position, m_hit.point, speed);
-        else
+        //if (m_isInRange)
+        //    transform.position = Vector3.MoveTowards(transform.position, m_hit.point, speed);
+        //else
             transform.position = Vector3.MoveTowards(transform.position, transform.position + (transform.forward*spikeRange), speed);
 
 

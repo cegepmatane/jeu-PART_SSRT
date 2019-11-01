@@ -109,6 +109,7 @@ public class WaveManager : MonoBehaviour
         m_EnemyCount--;
         if(m_EnemyCount == 0)
         {
+            m_Waves[0].Stop();
             PrepareNextWave();
 
         }
@@ -215,9 +216,13 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown)
     {
         m_Waves[0].Start();
-        //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+        m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
+            if(!m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHealing)
+            {
+                //Appeler la guerison
+            }
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
             yield return new WaitForSecondsRealtime(1);
         }

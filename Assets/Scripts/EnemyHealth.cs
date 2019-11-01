@@ -27,4 +27,13 @@ public class EnemyHealth : MonoBehaviour
     {
         m_MaxHP -= a_DamageAmount;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Spike")
+        {
+            TakeDamage(50);
+            Destroy(other.gameObject);
+        }
+    }
 }
