@@ -5,7 +5,7 @@ using UnityEngine;
 public class ManaFlower : Activable
 {
     [SerializeField]
-    private int m_ManaAdd = 12;
+    private int m_ManaAdd = 50;
 
     private GameObject m_player;
 

@@ -48,6 +48,7 @@ public class PlayerAbilities : MonoBehaviour
 
             if (Input.GetButtonUp("Fire1") && m_Mana >= m_spikeCost)
             {
+                GetComponentInChildren<Animator>().SetTrigger("FireballCast");
                 m_Audio.clip = m_FireballReleased;
                 m_Audio.Play();
                 Instantiate(m_spikeSpell, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
