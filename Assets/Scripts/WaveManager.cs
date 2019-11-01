@@ -109,7 +109,7 @@ public class WaveManager : MonoBehaviour
         m_EnemyCount--;
         if(m_EnemyCount == 0)
         {
-            m_Waves[0].Stop();
+            //m_Waves[0].Stop();
             PrepareNextWave();
 
         }
@@ -150,6 +150,7 @@ public class WaveManager : MonoBehaviour
             
             
         }
+        
         StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         
     }
@@ -191,13 +192,14 @@ public class WaveManager : MonoBehaviour
 
     private void PrepareNextWave()
     {
-        if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHealing)
+        if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsDead)
         {
             Debug.Log("Vague échouée, elle recommencera sous peu...");
             StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
         }
-        else if (!m_Waves[0].Active)
+        else
         {
+            m_Waves[0].Stop();
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
             m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);
@@ -217,11 +219,12 @@ public class WaveManager : MonoBehaviour
     {
         m_Waves[0].Start();
         m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+        //Debug.Log(m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
             if(!m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHealing)
             {
-                //Appeler la guerison
+                StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
             }
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
             yield return new WaitForSecondsRealtime(1);
@@ -263,6 +266,7 @@ public class WaveManager : MonoBehaviour
     {
         get
         {
+            
             return m_Waves[0].TargetTree;
         }
     }

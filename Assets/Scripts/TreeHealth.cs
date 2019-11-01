@@ -12,18 +12,21 @@ public class TreeHealth : MonoBehaviour
     void Awake()
     {
         GameManager.Instance.AddTree(this.gameObject);
+        currentHP = maxHP;
     }
     // Start is called before the first frame update
     void Start()
     {
         
-        currentHP = maxHP;
+        
+        //Debug.Log("HP MAX: " + maxHP + " / HP CURRENT: " + currentHP);
     }
 
     public bool IsHurt
     {
         get
         {
+            //Debug.Log("HP MAX: " + maxHP + " / HP CURRENT: " + currentHP);
             if (currentHP < maxHP)
             {
                 return true;
@@ -40,9 +43,9 @@ public class TreeHealth : MonoBehaviour
     {
         get
         {
-            if (currentHP <= 0)
+            if (!IsAlive)
             {
-                currentHP = 0;
+                
                 return true;
             }
             else

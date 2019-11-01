@@ -8,9 +8,9 @@ public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent m_agent;
 
-    public List<Transform> m_waypoints;
+    //public List<Transform> m_waypoints;
     //Le currentWaypoint correspond au Transform de l'enfant "basePosition" dans chaque arbre
-    public Transform m_currentWaypoint;
+    //public Transform m_currentWaypoint;
     public Collider treeCollider;
 
     private bool IsAttacking;
@@ -46,6 +46,7 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        
         if(WaveManager.Instance.TargetTree != null && !IsDying)
         {
             if (IsAttacking)
@@ -67,7 +68,7 @@ public class EnemyMovement : MonoBehaviour
             Debug.Log("Les ennemis changent de cible !");
         } 
         */
-
+        
         if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
             
@@ -125,7 +126,7 @@ public class EnemyMovement : MonoBehaviour
             t_Color.a -= 0.008f;
             if(t_Color.a <= 0f)
             {
-                IsDying = false;
+               
                 Die();
             }
             GetComponent<MeshRenderer>().material.color = t_Color;

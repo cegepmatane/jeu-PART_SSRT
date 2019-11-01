@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Nothing happens...\nYet...");
     }
     //TODO: Trouver pourquoi qu'aussitot cette coroutine commence, celle du Fade() de l'EnemyMovement s'arrete...
-    private IEnumerator RegenerateTree(GameObject a_Tree)
+    public IEnumerator RegenerateTree(GameObject a_Tree)
     {
         
         TreeHealth t_TreeHealth = a_Tree.GetComponent<TreeHealth>();
@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
             t_TreeHealth.HealDamage();
             yield return new WaitForSeconds(m_regenRate);
         }
+        yield break;
 
     }
     
