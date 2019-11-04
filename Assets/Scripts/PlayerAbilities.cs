@@ -18,6 +18,7 @@ public class PlayerAbilities : MonoBehaviour
     private Camera m_camera;
     //private Text m_UiText;
     private GameObject m_UiManaBar;
+    private GameObject m_UiDarknessBar;
 
     private AudioSource m_Audio;
     [SerializeField] private AudioClip m_FireballAppear;
@@ -31,7 +32,7 @@ public class PlayerAbilities : MonoBehaviour
         m_camera = GetComponentInChildren<Camera>();
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
         m_UiManaBar = transform.Find("Canvas").transform.Find("ManaBar").gameObject;
-
+        m_UiDarknessBar = transform.Find("Canvas").transform.Find("DarknessBar").gameObject;
         m_Audio = GetComponentInChildren<AudioSource>();
     }
 
@@ -68,6 +69,7 @@ public class PlayerAbilities : MonoBehaviour
         //m_UiText.text = "Mana : " + m_Mana;
         
         m_UiManaBar.GetComponent<RectTransform>().localScale = new Vector3((float)m_Mana / MAX_MANA, 1, 1);
+        m_UiDarknessBar.GetComponent<RectTransform>().localScale = new Vector3(1, (float)m_Darkness / MAX_DARKNESS, 1);
     }
 
     public bool addMana(int a_mana)
