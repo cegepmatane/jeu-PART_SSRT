@@ -7,8 +7,11 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private GameObject Prefab_PlayerModel;
+    [SerializeField]
+    private GameObject m_GlowyAmbience, m_ShadowAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private GameObject m_PlayerSpawner;
+    private bool m_DarkModeActivated = false;
     private GameObject m_Player;
     private float m_regenRate = 0.1f;
     //public List<Transform> m_Waypoints;
@@ -28,6 +31,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         m_Instance = this;
+        
+        if(m_GlowyAmbience == null || m_ShadowAmbience == null)
+        {
+            Debug.LogError("ShadowAmbience and/or GlowyAmbience are/is missing!");
+        }
     }
 
     void Start()
@@ -113,7 +121,8 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test2 :" + m_Waypoints.Count);
         Debug.Log("L'arbre est mort et se regénère!");
 
-        if (m_Player.GetComponent<PlayerAbilities>().increaseDarkness(20))
+        //Pour tester le ShadowRealm, mettez la valeur en paramètre à 100 pour le trigger après le premier échec!
+        if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(20))
         {
             InitiateShadowRealm();
         }
@@ -123,7 +132,14 @@ public class GameManager : MonoBehaviour
 
     private void InitiateShadowRealm()
     {
-        Debug.Log("Nothing happens...\nYet...");
+        if (!m_DarkModeActivated)
+        {
+            Debug.Log("Spooky time");
+            m_DarkModeActivated = true;
+            m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
+            m_GlowyAmbience.GetComponent<Light>().color = new Color32(153, 244, 247, 1);
+        }
+        
     }
     //TODO: Trouver pourquoi qu'aussitot cette coroutine commence, celle du Fade() de l'EnemyMovement s'arrete...
     public IEnumerator RegenerateTree(GameObject a_Tree)

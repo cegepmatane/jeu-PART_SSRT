@@ -93,6 +93,10 @@ public class PlayerAbilities : MonoBehaviour
         {
             int darknessDiff = MAX_DARKNESS - m_Darkness;
             m_Darkness += (darknessDiff > a_darkness) ? a_darkness : darknessDiff;
+            if(m_Darkness == MAX_DARKNESS)
+            {
+                return false;
+            }
             return true;
         }
         else

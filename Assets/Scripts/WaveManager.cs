@@ -147,7 +147,7 @@ public class WaveManager : MonoBehaviour
             {
                 Debug.LogError("Le nombre de Vague n'est pas divisible par 3!");
             }
-            Debug.Log(m_Waves[m_Waves.Count - 1].TargetTree);
+            //Debug.Log(m_Waves[m_Waves.Count - 1].TargetTree);
             
 
 
