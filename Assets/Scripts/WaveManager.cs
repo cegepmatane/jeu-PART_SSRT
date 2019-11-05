@@ -195,6 +195,10 @@ public class WaveManager : MonoBehaviour
 
     private void PrepareNextWave()
     {
+        if (GameManager.Instance.DarkModeActivated)
+        {
+            return;
+        }
         if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsDead)
         {
             Debug.Log("Vague échouée, elle recommencera sous peu...");
