@@ -27,7 +27,7 @@ public class PlayerAbilities : MonoBehaviour
     private void Start()
     {
         m_Mana = MAX_MANA;
-        m_Darkness = 0;
+        m_Darkness = 90;
 
         m_camera = GetComponentInChildren<Camera>();
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();

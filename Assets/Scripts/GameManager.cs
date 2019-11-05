@@ -136,8 +136,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Spooky time");
             m_DarkModeActivated = true;
-            m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
-            m_GlowyAmbience.GetComponent<Light>().color = new Color32(153, 244, 247, 1);
+            m_ShadowAmbience.transform.eulerAngles = new Vector3(-90, 0, 0);
+            m_ShadowAmbience.GetComponent<Light>().color = new Color32(100, 100, 100, 1);
+            m_GlowyAmbience.GetComponent<Light>().intensity = 0.1f;
+
+            //TEST D'AMBIANCE
+            //Activation du fog (rougeâtre et dense)
+            RenderSettings.fog = true;
+            RenderSettings.fogColor = new Color32(15, 0, 0, 1);
+            RenderSettings.fogDensity = 0.05f;
         }
         
     }
