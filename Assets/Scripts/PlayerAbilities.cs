@@ -5,15 +5,46 @@ using UnityEngine.UI;
 
 public class PlayerAbilities : MonoBehaviour
 {
+    public class Spell
+    {
+        private GameObject m_Prefab;
+        private int m_Cost;
+        private Transform m_BasePosition;
+
+        public Spell(GameObject a_Prefab, int a_Cost)
+        {
+            m_Prefab = a_Prefab;
+            m_Cost = a_Cost;
+        }
+
+        public GameObject Prefab
+        {
+            get { return m_Prefab; }
+        }
+
+        public int Cost
+        {
+            get { return m_Cost; }
+        }
+
+        public Transform BasePosition
+        {
+            get { return m_BasePosition; }
+            set { m_BasePosition = value; }
+        }
+    }
+
     private const int MAX_MANA = 100;
     private const int MAX_DARKNESS = 100;
     private int m_Mana;
     private int m_Darkness;
 
-    private float m_castingCooldown;
+    private float m_CastingCooldown;
+    private int m_SelectedCost;
 
-    public GameObject m_spikeSpell;
-    private int m_spikeCost = 10;
+    //SPELLS
+    private List<Spell> m_Spells;
+    public GameObject Fireball;
 
     private Camera m_camera;
     //private Text m_UiText;
@@ -24,40 +55,43 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] private AudioClip m_FireballAppear;
     [SerializeField] private AudioClip m_FireballReleased;
 
+
     private void Start()
     {
         m_Mana = MAX_MANA;
         m_Darkness = 90;
 
+        //Construction de la liste de sorts
+        m_Spells.Add(new Spell(Fireball, 10));
+
+        //Le premier sort est sélectionné par défaut
+        m_SelectedCost = m_Spells[0].Cost;
+
         m_camera = GetComponentInChildren<Camera>();
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
         m_UiManaBar = transform.Find("Canvas").transform.Find("ManaBar").gameObject;
         m_UiDarknessBar = transform.Find("Canvas").transform.Find("DarknessBar").gameObject;
+
         m_Audio = GetComponentInChildren<AudioSource>();
     }
 
     private void FixedUpdate()
     {
         //Laisse un délai entre chaque sort
-        m_castingCooldown -= Time.deltaTime;
-        if (m_castingCooldown < 0)
+        m_CastingCooldown -= Time.deltaTime;
+        if (m_CastingCooldown < 0)
         {
-            //Clic gauche de souris
-            if (Input.GetButtonDown("Fire1"))
-            {
-                //m_Audio.clip = m_FireballAppear;
-                //m_Audio.Play();
-            }
-
-            if (Input.GetButtonUp("Fire1") && m_Mana >= m_spikeCost)
+            if (Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
             {
                 GetComponentInChildren<Animator>().SetTrigger("FireballCast");
                 m_Audio.clip = m_FireballReleased;
                 m_Audio.Play();
-                Instantiate(m_spikeSpell, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
-                m_Mana -= m_spikeCost;
 
-                m_castingCooldown = 1f;
+                m_Spells[0].BasePosition = GameObject.Find("joint8").transform;
+                Instantiate(m_Spells[0].Prefab, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
+                m_Mana -= m_SelectedCost;
+
+                m_CastingCooldown = 1f;
             }
         }
 

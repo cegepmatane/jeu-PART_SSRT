@@ -30,7 +30,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Spike")
+        if (other.gameObject.tag == "Fireball")
         {
             TakeDamage(50);
             Destroy(other.gameObject);

@@ -930,7 +930,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb5dd900d190e0429eb7c8286c408eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_spikeSpell: {fileID: 1985853420546834646, guid: 1664ab8e29e09ff41a19ff3991eba2be,
+  Fireball: {fileID: 1985853420546834646, guid: 1664ab8e29e09ff41a19ff3991eba2be,
     type: 3}
   m_FireballAppear: {fileID: 8300000, guid: f34ed0f0c698cd74099235bc8a2cabd2, type: 3}
   m_FireballReleased: {fileID: 8300000, guid: d1345195100e9024f847849618501560, type: 3}

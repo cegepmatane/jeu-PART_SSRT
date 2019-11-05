@@ -6,7 +6,7 @@ TagManager:
   tags:
   - Tree
   - Spawner
-  - Spike
+  - Fireball
   layers:
   - Default
   - TransparentFX
