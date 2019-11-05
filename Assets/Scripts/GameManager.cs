@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("L'arbre est mort et se regénère!");
 
         //Pour tester le ShadowRealm, mettez la valeur en paramètre à 100 pour le trigger après le premier échec!
-        if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(20))
+        if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(200))
         {
             InitiateShadowRealm();
         }
@@ -136,10 +136,36 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Spooky time");
             m_DarkModeActivated = true;
-            m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
-            m_GlowyAmbience.GetComponent<Light>().color = new Color32(153, 244, 247, 1);
+            //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
+            StartCoroutine(ShadowTransition());
+            Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
+            t_GlowyLight.color = new Color32(153, 244, 247, 1);
+            t_GlowyLight.intensity = 0.12f;
         }
         
+    }
+
+    private IEnumerator ShadowTransition()
+    {
+        if (m_DarkModeActivated)
+        {
+            while (m_ShadowAmbience.transform.eulerAngles.x != -30)
+            {
+                //Debug.Log("LUMIERE" + m_ShadowAmbience.transform.rotation.x);
+                m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x - 1, 0, 0);
+                yield return null;
+            }
+        } else
+        {
+            while (m_ShadowAmbience.transform.eulerAngles.x != 50)
+            {
+                //Debug.Log("LUMIERE" + m_ShadowAmbience.transform.rotation.x);
+                m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x + 1, 0, 0);
+                yield return null;
+            }
+        }
+        
+        yield break;
     }
     //TODO: Trouver pourquoi qu'aussitot cette coroutine commence, celle du Fade() de l'EnemyMovement s'arrete...
     public IEnumerator RegenerateTree(GameObject a_Tree)
