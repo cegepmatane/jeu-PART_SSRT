@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private GameObject Prefab_PlayerModel;
+    private int DarknessPerDefeat = 20;
     [SerializeField]
-    private GameObject m_GlowyAmbience, m_ShadowAmbience;
+    private GameObject Prefab_PlayerModel, m_GlowyAmbience, m_ShadowAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private GameObject m_PlayerSpawner;
     private bool m_DarkModeActivated = false;
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("L'arbre est mort et se regénère!");
 
         //Pour tester le ShadowRealm, mettez la valeur en paramètre à 100 (ou plus) pour le trigger après le premier échec!
-        if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(200))
+        if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(DarknessPerDefeat))
         {
             InitiateShadowRealm();
         }
