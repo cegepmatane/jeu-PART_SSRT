@@ -28,6 +28,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool DarkModeActivated
+    {
+        get
+        {
+            return m_DarkModeActivated;
+        }
+    }
+
     void Awake()
     {
         m_Instance = this;
@@ -121,7 +129,7 @@ public class GameManager : MonoBehaviour
         //Debug.Log("Test2 :" + m_Waypoints.Count);
         Debug.Log("L'arbre est mort et se regénère!");
 
-        //Pour tester le ShadowRealm, mettez la valeur en paramètre à 100 pour le trigger après le premier échec!
+        //Pour tester le ShadowRealm, mettez la valeur en paramètre à 100 (ou plus) pour le trigger après le premier échec!
         if (!m_Player.GetComponent<PlayerAbilities>().increaseDarkness(200))
         {
             InitiateShadowRealm();
