@@ -219,8 +219,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treeCollider: {fileID: 0}
-  damage: 5
-  attackRate: 2
+  Damage: 5
+  AttackRate: 2
+  MovementSpeed: 6
 --- !u!195 &693184873429775492
 NavMeshAgent:
   m_ObjectHideFlags: 0
