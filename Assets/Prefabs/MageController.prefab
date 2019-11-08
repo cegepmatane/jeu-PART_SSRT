@@ -971,7 +971,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7732688168658611989}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0329, y: -0.0194, z: 0.0192}
+  m_LocalPosition: {x: -0.0329, y: -0.0194, z: 0.0484}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6000642053397011414}
@@ -989,6 +989,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: arms
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: -4216859302048453862, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1059,11 +1064,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: 7999969644282850093, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_CastShadows
