@@ -111,7 +111,7 @@ MonoBehaviour:
   fireballRange: 50
   fireballDamage: 50
   m_Explosion: {fileID: 8300000, guid: f832877ead760e64a986f720f2002f2d, type: 3}
-  m_SoundPlayer: {fileID: 1433790079572863504, guid: 341f79e41e7debf4498cc6772af9cb37,
+  m_ExplosionEffect: {fileID: 4717401609522032641, guid: a3b8879db0a76fb489b9b106f7467375,
     type: 3}
 --- !u!82 &9119192058800120558
 AudioSource:
