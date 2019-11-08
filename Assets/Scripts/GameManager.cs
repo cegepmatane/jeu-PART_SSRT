@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int DarknessPerDefeat = 20;
     [SerializeField]
-    private GameObject Prefab_PlayerModel, m_GlowyAmbience, m_ShadowAmbience;
+    private float DarkModeTransitionTime = 5;
+    [SerializeField]
+    private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private GameObject m_PlayerSpawner;
     private bool m_DarkModeActivated = false;
@@ -40,9 +42,9 @@ public class GameManager : MonoBehaviour
     {
         m_Instance = this;
         
-        if(m_GlowyAmbience == null || m_ShadowAmbience == null)
+        if(m_GlowyAmbience == null)
         {
-            Debug.LogError("ShadowAmbience and/or GlowyAmbience are/is missing!");
+            Debug.LogError("GlowyAmbience is missing!");
         }
     }
 
@@ -149,41 +151,46 @@ public class GameManager : MonoBehaviour
             //Activation du fog (rougeâtre et dense)
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color32(15, 0, 0, 1);
-            RenderSettings.fogDensity = 0.03f;
+        
 
             //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
-            StartCoroutine(ShadowTransition());
-            Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
-            t_GlowyLight.color = new Color32(153, 244, 247, 1);
-            t_GlowyLight.intensity = 0.12f;
+            StartCoroutine(ShadowTransition(DarkModeTransitionTime));
+            
+            //t_GlowyLight.color = new Color32(235, 52, 52, 1);
+            
         }
         
     }
 
-    private IEnumerator ShadowTransition()
+    private IEnumerator ShadowTransition(float a_Duration)
     {
         if (m_DarkModeActivated)
         {
-            while (m_ShadowAmbience.transform.eulerAngles.x != -30)
+            Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
+            Color t_GlowColor = new Color32(235, 52, 52, 1);
+            float t_elapsedTime = 0;
+            //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
+
+            while (t_elapsedTime / a_Duration < 1)
             {
-                //Debug.Log("LUMIERE" + m_ShadowAmbience.transform.rotation.x);
-                m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x - 1, 0, 0);
+                t_GlowyLight.intensity = Mathf.Lerp(t_GlowyLight.intensity, 0.2f, t_elapsedTime / a_Duration);
+                t_GlowyLight.color = Color.Lerp(t_GlowyLight.color, new Color32(3, 240, 252, 1), t_elapsedTime / a_Duration);
+                RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.02f, t_elapsedTime / a_Duration);
+                //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
+                RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t_elapsedTime / a_Duration);
+                //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);
+                t_elapsedTime += Time.deltaTime;
                 yield return null;
             }
         }
         else
         {
-            while (m_ShadowAmbience.transform.eulerAngles.x != 50)
-            {
-                //Debug.Log("LUMIERE" + m_ShadowAmbience.transform.rotation.x);
-                m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x + 1, 0, 0);
-                yield return null;
-            }
+            //TODO: Actualiser l'effet miroir de la condition précédente ici...
+            
         }
         
         yield break;
     }
-    //TODO: Trouver pourquoi qu'aussitot cette coroutine commence, celle du Fade() de l'EnemyMovement s'arrete...
     public IEnumerator RegenerateTree(GameObject a_Tree)
     {
         

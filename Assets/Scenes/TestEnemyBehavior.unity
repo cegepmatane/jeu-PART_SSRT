@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.001
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.2253471, g: 0.2257031, b: 0.2264151, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
   m_HaloStrength: 0.5
@@ -326,6 +326,11 @@ PrefabInstance:
       propertyPath: m_ShadowAmbience
       value: 
       objectReference: {fileID: 832745508}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: DarknessPerDefeat
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 4633232383574388805, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -725,7 +730,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &832745509
 Light:
   m_ObjectHideFlags: 0
@@ -1044,17 +1049,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
-        type: 0}
     - target: {fileID: 5233910626561341178, guid: 3d49cb61a3d920b43b4fc598ae147b61,
         type: 3}
       propertyPath: m_FootstepSounds.Array.size
@@ -1135,6 +1129,17 @@ PrefabInstance:
       propertyPath: m_MouseLook.smooth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 9151416528497559297, guid: 60949b00f882989408973adbf03bbc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1319,7 +1324,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.7
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
