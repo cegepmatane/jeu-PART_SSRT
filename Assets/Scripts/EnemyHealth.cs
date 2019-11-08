@@ -23,17 +23,8 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void TakeDamage(int a_DamageAmount)
+    public void TakeDamage(int a_DamageAmount)
     {
         m_MaxHP -= a_DamageAmount;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Fireball")
-        {
-            TakeDamage(50);
-            Destroy(other.gameObject);
-        }
     }
 }

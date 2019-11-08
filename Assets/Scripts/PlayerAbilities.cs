@@ -82,7 +82,7 @@ public class PlayerAbilities : MonoBehaviour
         m_Audio = GetComponentInChildren<AudioSource>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //Laisse un délai entre chaque sort
         m_CastingCooldown -= Time.deltaTime;

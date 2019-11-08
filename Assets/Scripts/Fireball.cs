@@ -6,31 +6,33 @@ public class Fireball : MonoBehaviour
 {
     public float travellingSpeed = 50f;
     public float fireballRange = 50f;
-    private Camera m_Cam;
-    private RaycastHit m_Hit;
+    public int fireballDamage = 50;
     private float m_HitThreshold = 1f;
     private bool m_Trajectoire;
 
     private AudioSource m_Audio;
     [SerializeField] private AudioClip m_Explosion;
 
+    [SerializeField] private GameObject m_SoundPlayer;
+
     private void Awake()
     {
-        m_Cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         m_Audio = GetComponent<AudioSource>();
         m_Audio.clip = m_Explosion;
     }
 
     void Start()
     {
-        m_Trajectoire = Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out m_Hit, fireballRange) ? true : false;
+        //m_Trajectoire = Physics.Raycast(m_Cam.transform.position, m_Cam.transform.forward, out m_Hit, fireballRange);
         Destroy(gameObject, 2f);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         float speed = travellingSpeed * Time.deltaTime;
-        if (m_Trajectoire)
+        transform.position += transform.forward * speed;
+
+        /*if (m_Trajectoire)
         {
             transform.position = Vector3.MoveTowards(transform.position, m_Hit.point, speed);
             if (Mathf.Abs(transform.position.magnitude - m_Hit.point.magnitude) <= m_HitThreshold)
@@ -41,9 +43,24 @@ public class Fireball : MonoBehaviour
             }
         }
         else
-        {   
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + (transform.forward * fireballRange), speed);
-        }
+        {   */
+        //transform.position = Vector3.MoveTowards(transform.position, transform.position + (transform.forward * fireballRange), speed);
+
+        //}
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //Dans le cas où la fireball touche un ennemi
+        if (other.gameObject.GetComponent<EnemyHealth>() != null)
+            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(fireballDamage);
+
+        //Spawn du sound player et lancement du son
+        GameObject t_ExplosionSound = Instantiate(m_SoundPlayer, transform.position, Quaternion.identity);
+        t_ExplosionSound.GetComponent<FireballExplosion>().m_AudioClip = m_Explosion;
+
+        Debug.Log("EXPLOOOOOOSION !");
+        Destroy(gameObject);
     }
 
 }

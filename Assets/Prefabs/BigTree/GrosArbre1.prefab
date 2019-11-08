@@ -170,6 +170,7 @@ GameObject:
   - component: {fileID: 8911278853144064110}
   - component: {fileID: 3936729638442110967}
   - component: {fileID: 3936729638442110966}
+  - component: {fileID: 7806485670085955724}
   m_Layer: 10
   m_Name: GrosArbre1
   m_TagString: Untagged
@@ -249,6 +250,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 200
   Order: 0
+--- !u!136 &7806485670085955724
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5009128314758419641}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.95
+  m_Height: 6
+  m_Direction: 1
+  m_Center: {x: -0.29621625, y: 1.9365444, z: 0.012613059}
 --- !u!1 &5322435329827586318
 GameObject:
   m_ObjectHideFlags: 0
