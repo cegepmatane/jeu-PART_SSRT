@@ -12,7 +12,8 @@ public class SpawnerBehavior : MonoBehaviour
     //private List<GameObject> m_SpawnedEnemies;
 
     
-    public GameObject Enemy, TargetTree;
+    public GameObject BaseEnemy, HeavyEnemy, LightEnemy, TargetTree;
+
 
 
     private void Awake()
@@ -57,24 +58,24 @@ public class SpawnerBehavior : MonoBehaviour
     }
     */
 
-    public void BeginWave(int a_Count, int a_Interval)
+    public void BeginWave(int a_BaseCount, int a_HeavyCount, int a_LightCount, int a_Interval)
     {
-        StartCoroutine(SpawnEnemy(a_Count, a_Interval, 3));
+        StartCoroutine(SpawnEnemy(a_BaseCount, a_HeavyCount, a_LightCount, a_Interval, 3));
     }
 
     //a_Count représente le nombre d'ennemis à spawner pour ce spawner particulié
     //a_Interval représente le temps ENTRE chaque création d'un nouvel ennemi
     //a_Delay représente le délais AVANT de créer des ennemis, donc le temps entre l'arrivée des ennemis et le départ du jeu
-    public IEnumerator SpawnEnemy(int a_Count, int a_Interval, int a_Delay)
+    public IEnumerator SpawnEnemy(int a_BaseCount, int a_HeavyCount, int a_LightCount, int a_Interval, int a_Delay)
     {
         m_IsFinished = false;
         // Wait for the delivery delay.
         yield return new WaitForSeconds(a_Delay);
         //Debug.Log("AAA");
-        for (; a_Count > 0; a_Count--)
+        for (; a_BaseCount > 0; a_BaseCount--)
         {
             
-            GameObject t_Enemy = Instantiate(Enemy, this.gameObject.transform.position, Quaternion.identity);
+            GameObject t_Enemy = Instantiate(BaseEnemy, this.gameObject.transform.position, Quaternion.identity);
             //m_SpawnedEnemies.Add(t_Enemy);
             EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
             if(TargetTree != null)
@@ -83,6 +84,36 @@ public class SpawnerBehavior : MonoBehaviour
                 t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
             }
             
+            yield return new WaitForSeconds(a_Interval);
+        }
+
+        for (; a_HeavyCount > 0; a_HeavyCount--)
+        {
+
+            GameObject t_Enemy = Instantiate(HeavyEnemy, this.gameObject.transform.position, Quaternion.identity);
+            //m_SpawnedEnemies.Add(t_Enemy);
+            EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
+            if (TargetTree != null)
+            {
+                //t_EnemyMovement.m_currentWaypoint = TargetTree.transform.GetChild(0);
+                t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
+            }
+
+            yield return new WaitForSeconds(a_Interval);
+        }
+
+        for (; a_LightCount > 0; a_LightCount--)
+        {
+
+            GameObject t_Enemy = Instantiate(LightEnemy, this.gameObject.transform.position, Quaternion.identity);
+            //m_SpawnedEnemies.Add(t_Enemy);
+            EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
+            if (TargetTree != null)
+            {
+                //t_EnemyMovement.m_currentWaypoint = TargetTree.transform.GetChild(0);
+                t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
+            }
+
             yield return new WaitForSeconds(a_Interval);
         }
         m_IsFinished = true;

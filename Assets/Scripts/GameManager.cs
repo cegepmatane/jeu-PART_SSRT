@@ -164,30 +164,29 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ShadowTransition(float a_Duration)
     {
-        if (m_DarkModeActivated)
+        
+        Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
+        Color t_GlowColor = new Color32(235, 52, 52, 1);
+        float t_elapsedTime = 0;
+        //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
+        
+        while (t_elapsedTime / a_Duration < 1)
         {
-            Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
-            Color t_GlowColor = new Color32(235, 52, 52, 1);
-            float t_elapsedTime = 0;
-            //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
-
-            while (t_elapsedTime / a_Duration < 1)
+            float t = t_elapsedTime / a_Duration;
+            if (!m_DarkModeActivated)
             {
-                t_GlowyLight.intensity = Mathf.Lerp(t_GlowyLight.intensity, 0.2f, t_elapsedTime / a_Duration);
-                t_GlowyLight.color = Color.Lerp(t_GlowyLight.color, new Color32(3, 240, 252, 1), t_elapsedTime / a_Duration);
-                RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.02f, t_elapsedTime / a_Duration);
-                //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
-                RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t_elapsedTime / a_Duration);
-                //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);
-                t_elapsedTime += Time.deltaTime;
-                yield return null;
+                t = 1 - t;
             }
+            t_GlowyLight.intensity = Mathf.Lerp(t_GlowyLight.intensity, 0.2f, t);
+            t_GlowyLight.color = Color.Lerp(t_GlowyLight.color, new Color32(3, 240, 252, 1), t);
+            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.02f, t);
+            //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
+            RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t);
+            //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);
+            t_elapsedTime += Time.deltaTime;
+            yield return null;
         }
-        else
-        {
-            //TODO: Actualiser l'effet miroir de la condition précédente ici...
-            
-        }
+        
         
         yield break;
     }

@@ -62,7 +62,7 @@ public class PlayerAbilities : MonoBehaviour
     private void Start()
     {
         m_Mana = MAX_MANA;
-        m_Darkness = 90;
+        m_Darkness = 0;
 
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts

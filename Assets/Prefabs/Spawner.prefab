@@ -106,5 +106,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9f6b0755b431a47aef9fbb82bc3a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemy: {fileID: 2944938207777825594, guid: 50d16e651d5333f4e8b9b206876fa79d, type: 3}
+  BaseEnemy: {fileID: 2944938207777825594, guid: 50d16e651d5333f4e8b9b206876fa79d,
+    type: 3}
+  HeavyEnemy: {fileID: 948104530839735731, guid: 4d973df34f78ea7499b83a0c35a7ed04,
+    type: 3}
+  LightEnemy: {fileID: 2944938207777825594, guid: 50d16e651d5333f4e8b9b206876fa79d,
+    type: 3}
   TargetTree: {fileID: 0}
