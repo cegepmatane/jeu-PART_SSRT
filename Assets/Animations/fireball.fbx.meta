@@ -59,10 +59,11 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.20505619
+      - time: 0.33426967
         functionName: CastFireball()
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
+          type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

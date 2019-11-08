@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 985f2f9332d0511409d1f8b6b1b2e167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WaveCount: 2
+  WaveCount: 3
   MinimumWaitBetweenWaves: 5
   m_DefaultTreeTexture: {fileID: 2800000, guid: 34c038196e1dae249a6e16bb5ec0abfe,
     type: 3}
@@ -61,5 +61,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58c89360d74a4547bbf29d9128ac91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DarknessPerDefeat: 20
   Prefab_PlayerModel: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
     type: 3}
+  m_GlowyAmbience: {fileID: 0}
+  m_ShadowAmbience: {fileID: 0}

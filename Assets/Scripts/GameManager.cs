@@ -144,17 +144,13 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Spooky time");
             m_DarkModeActivated = true;
-<<<<<<< HEAD
-            m_ShadowAmbience.transform.eulerAngles = new Vector3(-90, 0, 0);
-            m_ShadowAmbience.GetComponent<Light>().color = new Color32(150, 150, 150, 1);
-            m_GlowyAmbience.GetComponent<Light>().intensity = 0.2f;
 
             //TEST D'AMBIANCE
             //Activation du fog (rougeâtre et dense)
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color32(15, 0, 0, 1);
             RenderSettings.fogDensity = 0.03f;
-=======
+
             //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
             StartCoroutine(ShadowTransition());
             Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
@@ -174,7 +170,8 @@ public class GameManager : MonoBehaviour
                 m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x - 1, 0, 0);
                 yield return null;
             }
-        } else
+        }
+        else
         {
             while (m_ShadowAmbience.transform.eulerAngles.x != 50)
             {
@@ -182,7 +179,6 @@ public class GameManager : MonoBehaviour
                 m_ShadowAmbience.transform.eulerAngles = new Vector3(m_ShadowAmbience.transform.eulerAngles.x + 1, 0, 0);
                 yield return null;
             }
->>>>>>> master
         }
         
         yield break;
@@ -213,6 +209,11 @@ public class GameManager : MonoBehaviour
         a_Tree.GetComponent<TreeHealth>().IsHealing = false;
         //m_Waypoints.Add(a_Tree.transform.GetChild(0));
         StopCoroutine(RegenerateTree(a_Tree));
+    }
+
+    public GameObject Player
+    {
+        get { return m_Player; }
     }
 
     /*

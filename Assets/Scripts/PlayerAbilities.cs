@@ -9,7 +9,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         private GameObject m_Prefab;
         private int m_Cost;
-        private Transform m_BasePosition;
+        private Vector3 m_BasePosition;
 
         public Spell(GameObject a_Prefab, int a_Cost)
         {
@@ -27,7 +27,7 @@ public class PlayerAbilities : MonoBehaviour
             get { return m_Cost; }
         }
 
-        public Transform BasePosition
+        public Vector3 BasePosition
         {
             get { return m_BasePosition; }
             set { m_BasePosition = value; }
@@ -44,6 +44,9 @@ public class PlayerAbilities : MonoBehaviour
 
     //SPELLS
     private List<Spell> m_Spells;
+    private Spell m_SelectedSpell;
+
+    //Spells gameobjects
     public GameObject Fireball;
 
     private Camera m_camera;
@@ -61,11 +64,15 @@ public class PlayerAbilities : MonoBehaviour
         m_Mana = MAX_MANA;
         m_Darkness = 90;
 
+        m_Spells = new List<Spell>();
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10));
+    
+
 
         //Le premier sort est sélectionné par défaut
-        m_SelectedCost = m_Spells[0].Cost;
+        m_SelectedSpell = m_Spells[0];
+        m_SelectedCost = m_SelectedSpell.Cost;
 
         m_camera = GetComponentInChildren<Camera>();
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
@@ -81,16 +88,15 @@ public class PlayerAbilities : MonoBehaviour
         m_CastingCooldown -= Time.deltaTime;
         if (m_CastingCooldown < 0)
         {
+            //Lancer le sort sélectionné
             if (Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
             {
                 GetComponentInChildren<Animator>().SetTrigger("FireballCast");
                 m_Audio.clip = m_FireballReleased;
                 m_Audio.Play();
-
-                m_Spells[0].BasePosition = GameObject.Find("joint8").transform;
-                Instantiate(m_Spells[0].Prefab, transform.position, Quaternion.LookRotation(m_camera.transform.forward));
-                m_Mana -= m_SelectedCost;
-
+                //
+                //A un certain point de l'animation du sort, un Animation Event appelle la fonction InstantiateSpell
+                //
                 m_CastingCooldown = 1f;
             }
         }
@@ -98,10 +104,17 @@ public class PlayerAbilities : MonoBehaviour
         updateUI();
     }
 
+    public void InstantiateSpell(Vector3 a_SpellPos)
+    {
+        m_SelectedSpell.BasePosition = a_SpellPos;
+        //Instantiation
+        Instantiate(m_SelectedSpell.Prefab, m_SelectedSpell.BasePosition, Quaternion.LookRotation(m_camera.transform.forward));
+        //Retrait du mana
+        m_Mana -= m_SelectedCost;
+    }
+
     private void updateUI()
     {
-        //m_UiText.text = "Mana : " + m_Mana;
-        
         m_UiManaBar.GetComponent<RectTransform>().localScale = new Vector3((float)m_Mana / MAX_MANA, 1, 1);
         m_UiDarknessBar.GetComponent<RectTransform>().localScale = new Vector3(1, (float)m_Darkness / MAX_DARKNESS, 1);
     }
