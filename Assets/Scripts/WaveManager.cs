@@ -9,14 +9,16 @@ public class WaveManager : MonoBehaviour
         
         private int m_PositionNumber;
         private float m_Difficulty;
+        private string m_WaveType;
         private GameObject m_TargetTree;
         private bool m_IsActive = false;
 
-        public Wave(float a_Difficulty, GameObject a_TargetTree, int a_PositionNumber)
+        public Wave(float a_Difficulty, GameObject a_TargetTree, int a_PositionNumber, string a_WaveType)
         {
             this.m_Difficulty = a_Difficulty;
             this.m_TargetTree = a_TargetTree;
             this.m_PositionNumber = a_PositionNumber;
+            this.m_WaveType = a_WaveType;
         }
 
         public float Difficulty
@@ -40,6 +42,14 @@ public class WaveManager : MonoBehaviour
             get
             {
                 return m_TargetTree;
+            }
+        }
+
+        public string WaveType
+        {
+            get
+            {
+                return m_WaveType;
             }
         }
 
@@ -131,17 +141,17 @@ public class WaveManager : MonoBehaviour
         {
             if(i + 1 <= WaveCount / 3)
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1));
-                t_ScalingDifficulty += 2;
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1, "low-tier"));
+                t_ScalingDifficulty += 3;
             } else if (i + 1 <= 2*(WaveCount / 3))
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1));
-                t_ScalingDifficulty += 2;
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1, "mid-tier"));
+                t_ScalingDifficulty += 3;
             }
             else if(i + 1 > 2 * (WaveCount / 3))
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1));
-                t_ScalingDifficulty += 2;
+                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1, "high-tier"));
+                t_ScalingDifficulty += 3;
             }
             else
             {
@@ -260,11 +270,36 @@ public class WaveManager : MonoBehaviour
     {
         Debug.Log("La vague #" + a_CurrentWave.PositionNumber + " vient de commencer !");
         //Le nombre d'enemy que chaque spawner aura à spawner est défini par l'arroundissement de la difficultée divisée par le nombre de spawners présents
-        int t_EnemyPerSpawn = (int) Mathf.Round(a_CurrentWave.Difficulty/m_Spawners.Count);
-        foreach(var spawner in m_Spawners)
+        int t_BasicEnemyPerSpawn = 0;
+        int t_HeavyEnemyPerSpawn = 0;
+        int t_LightEnemyPerSpawn = 0;
+        if (a_CurrentWave.WaveType == "low-tier")
         {
-            spawner.BeginWave(t_EnemyPerSpawn, m_SpawningSpeed);
+            t_BasicEnemyPerSpawn = (int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count);
+            foreach (var spawner in m_Spawners)
+            {
+                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
+            }
+        } else if(a_CurrentWave.WaveType == "mid-tier")
+        {
+            t_BasicEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3 * 2;
+            t_HeavyEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
+            foreach (var spawner in m_Spawners)
+            {
+                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
+            }
+        }else if (a_CurrentWave.WaveType == "high-tier")
+        {
+            t_BasicEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
+            t_HeavyEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
+            t_LightEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
+            foreach (var spawner in m_Spawners)
+            {
+                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
+            }
         }
+
+
         a_CurrentWave.Start();
       
         

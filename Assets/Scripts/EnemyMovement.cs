@@ -15,8 +15,9 @@ public class EnemyMovement : MonoBehaviour
 
     private bool IsAttacking;
     private bool IsDying;
-    public float damage = 1f;
-    public float attackRate = 2f;
+    [SerializeField]
+    public float Damage = 1f, AttackRate = 2f, MovementSpeed = 6f;
+    
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class EnemyMovement : MonoBehaviour
         IsDying = false;
         IsAttacking = false;
         EventManager.TriggerEvent("Enemy_Spawn");
+        m_agent.speed = MovementSpeed;
         //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
         //Ce comportement est maintenant désuet et géré par le GameManager
 
@@ -100,8 +102,8 @@ public class EnemyMovement : MonoBehaviour
     {
         while (IsAttacking)
         {
-            treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(damage);
-            yield return new WaitForSeconds(attackRate);                   
+            treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(Damage);
+            yield return new WaitForSeconds(AttackRate);                   
         }
     }
 
