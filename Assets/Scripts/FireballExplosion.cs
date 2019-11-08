@@ -41,7 +41,10 @@ public class FireballExplosion : MonoBehaviour
         foreach(Collider col in t_TouchedObjectsColliders)
         {
             if (col.gameObject.GetComponent<EnemyHealth>() != null)
+            {
                 col.gameObject.GetComponent<EnemyHealth>().TakeDamage(m_ExplosionDamage);
+                col.gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+            }
         }
 
     }
