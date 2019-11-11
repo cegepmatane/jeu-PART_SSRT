@@ -273,6 +273,8 @@ public class WaveManager : MonoBehaviour
         int t_BasicEnemyPerSpawn = 0;
         int t_HeavyEnemyPerSpawn = 0;
         int t_LightEnemyPerSpawn = 0;
+
+        //Dépendament du nombre de vagues, le premier tier des vagues ciblera le premier arbre et n'aura que des ennemis de base, chaque tier ciblant un arbre différent et ayant une composition d'ennemis différente
         if (a_CurrentWave.WaveType == "low-tier")
         {
             t_BasicEnemyPerSpawn = (int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count);

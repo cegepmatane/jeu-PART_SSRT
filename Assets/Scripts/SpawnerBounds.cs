@@ -9,16 +9,18 @@ public class SpawnerBounds : MonoBehaviour
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
     public int MaxTries = 10;
-
+    public int InitialSpawnAmount = 20;
+    private GameObject m_ManaFlowerContainer;
     public LayerMask HitLayers;
 
-    /*private void Start()
+    private void Start()
     {
-        for(int i = 0; i < 1000; i++)
+        m_ManaFlowerContainer = GameObject.Find("ManaFlowers");
+        for(int i = 0; i < InitialSpawnAmount; i++)
         {
             Spawn();
         }
-    }*/
+    }
 
     public bool Spawn()
     {
@@ -35,7 +37,11 @@ public class SpawnerBounds : MonoBehaviour
 
             if (t_DidHit)
             {
-                Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation);
+                GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation);
+                if(t_SpawnedItem.GetComponent<ManaFlower>() != null)
+                {
+                    t_SpawnedItem.transform.parent = m_ManaFlowerContainer.transform;
+                }
                 break;
             }
         }
