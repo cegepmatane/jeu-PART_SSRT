@@ -24,7 +24,10 @@ public class FlowerSpawner : MonoBehaviour
             return m_Instance;
         }
     }
-
+    void Awake()
+    {
+        m_Instance = this;
+    }
     void Start()
     {
 

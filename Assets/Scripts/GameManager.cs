@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_PlayerSpawner;
     private bool m_DarkModeActivated = false;
     private GameObject m_Player;
+    private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
     //public List<Transform> m_Waypoints;
 
@@ -41,7 +42,11 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         m_Instance = this;
-        
+        m_ManaFlowerContainer = GameObject.Find("ManaFlowers");
+        if(m_ManaFlowerContainer == null)
+        {
+            Debug.LogError("\"ManaFlowers\" is missing!");
+        }
         if(m_GlowyAmbience == null)
         {
             Debug.LogError("GlowyAmbience is missing!");
@@ -103,7 +108,11 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(m_ManaFlowerContainer.transform.childCount < FlowerSpawner.Instance.InitialSpawnAmount)
+        {
+            FlowerSpawner.Instance.Spawn();
+            Debug.Log("Nouvelle fleur sur la map!");
+        }
     }
 
     public void AddTree(GameObject a_Tree)
