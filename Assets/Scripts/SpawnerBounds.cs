@@ -37,11 +37,7 @@ public class SpawnerBounds : MonoBehaviour
 
             if (t_DidHit)
             {
-                GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation);
-                if(t_SpawnedItem.GetComponent<ManaFlower>() != null)
-                {
-                    t_SpawnedItem.transform.parent = m_ManaFlowerContainer.transform;
-                }
+                GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation);  
                 break;
             }
         }
