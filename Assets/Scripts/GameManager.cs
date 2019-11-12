@@ -160,8 +160,7 @@ public class GameManager : MonoBehaviour
             //Activation du fog (rougeâtre et dense)
             RenderSettings.fog = true;
             RenderSettings.fogColor = new Color32(15, 0, 0, 1);
-        
-
+  
             //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
             StartCoroutine(ShadowTransition(DarkModeTransitionTime));
             
@@ -188,7 +187,7 @@ public class GameManager : MonoBehaviour
             }
             t_GlowyLight.intensity = Mathf.Lerp(t_GlowyLight.intensity, 0.2f, t);
             t_GlowyLight.color = Color.Lerp(t_GlowyLight.color, new Color32(3, 240, 252, 1), t);
-            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.02f, t);
+            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.1f, t);
             //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
             RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t);
             //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);

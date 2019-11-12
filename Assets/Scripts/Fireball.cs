@@ -7,7 +7,6 @@ public class Fireball : MonoBehaviour
     public float travellingSpeed = 50f;
     public float fireballRange = 50f;
     public int fireballDamage = 50;
-    private float m_HitThreshold = 1f;
     private bool m_Trajectoire;
 
     private AudioSource m_Audio;
@@ -51,11 +50,8 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Dans le cas où la fireball touche un ennemi
-        if (other.gameObject.GetComponent<EnemyHealth>() != null)
-            other.gameObject.GetComponent<EnemyHealth>().TakeDamage(fireballDamage);
-
         //Spawn du sound player et lancement du son
+        //L'explosion gère les dégâts
         GameObject t_Explosion = Instantiate(m_ExplosionEffect, transform.position, Quaternion.identity);
         t_Explosion.GetComponent<FireballExplosion>().m_AudioClip = m_Explosion;
 

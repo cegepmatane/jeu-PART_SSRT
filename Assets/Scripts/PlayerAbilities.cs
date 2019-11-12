@@ -48,6 +48,7 @@ public class PlayerAbilities : MonoBehaviour
 
     //Spells gameobjects
     public GameObject Fireball;
+    public GameObject Laserbeam;
 
     private Camera m_camera;
     //private Text m_UiText;
@@ -55,8 +56,8 @@ public class PlayerAbilities : MonoBehaviour
     private GameObject m_UiDarknessBar;
 
     private AudioSource m_Audio;
-    [SerializeField] private AudioClip m_FireballAppear;
-    [SerializeField] private AudioClip m_FireballReleased;
+    [SerializeField] private AudioClip m_FireballSound;
+    [SerializeField] private AudioClip m_LaserbeamSound;
 
 
     private void Start()
@@ -67,6 +68,7 @@ public class PlayerAbilities : MonoBehaviour
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10));
+        m_Spells.Add(new Spell(Laserbeam, 30));
     
 
 
@@ -91,8 +93,18 @@ public class PlayerAbilities : MonoBehaviour
             //Lancer le sort sélectionné
             if (Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
             {
-                GetComponentInChildren<Animator>().SetTrigger("FireballCast");
-                m_Audio.clip = m_FireballReleased;
+
+                switch(m_SelectedSpell.Prefab.name)
+                {
+                    case "Fireball":
+                        GetComponentInChildren<Animator>().SetTrigger("FireballCast");
+                        m_Audio.clip = m_FireballSound;
+                        break;
+                    case "Laserbeam":
+                        GetComponentInChildren<Animator>().SetTrigger("FireballCast");
+                        m_Audio.clip = m_LaserbeamSound;
+                        break;
+                }
                 m_Audio.Play();
                 //
                 //A un certain point de l'animation du sort, un Animation Event appelle la fonction InstantiateSpell
