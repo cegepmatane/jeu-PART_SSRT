@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int DarknessPerDefeat = 20;
     [SerializeField]
-    private float DarkModeTransitionTime = 100;
+    private float DarkModeTransitionTime = 5;
     [SerializeField]
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
@@ -17,6 +17,10 @@ public class GameManager : MonoBehaviour
     private GameObject m_Player;
     private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
+    private Color m_InitialGlowyColor;
+    private float m_InitialGlowyIntensity;
+    private float m_InitialFogdensity = RenderSettings.fogDensity;
+    private Color m_InitialSkyColor = RenderSettings.ambientSkyColor;
     //public List<Transform> m_Waypoints;
 
     public static GameManager m_Instance;
@@ -56,6 +60,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("GlowyAmbience is missing!");
         }
+        m_InitialGlowyColor = m_GlowyAmbience.GetComponent<Light>().color;
+        m_InitialGlowyIntensity = m_GlowyAmbience.GetComponent<Light>().intensity;
     }
 
     void Start()
@@ -118,6 +124,14 @@ public class GameManager : MonoBehaviour
             FlowerSpawner.Instance.Spawn();
             Debug.Log("Nouvelle fleur sur la map!");
         }
+
+        if (m_DarkModeActivated)
+        {
+            if (!m_Player.GetComponent<PlayerAbilities>().decreaseDarkness(0.1f))
+            {
+                ReturnFromShadowRealm();
+            }
+        }
     }
 
     public void AddTree(GameObject a_Tree)
@@ -150,7 +164,7 @@ public class GameManager : MonoBehaviour
         {
             InitiateShadowRealm();
         }
-        StartCoroutine(RegenerateTree(a_Tree));
+        //StartCoroutine(RegenerateTree(a_Tree));
 
     }
 
@@ -164,10 +178,10 @@ public class GameManager : MonoBehaviour
             //TEST D'AMBIANCE
             //Activation du fog (rougeâtre et dense)
             RenderSettings.fog = true;
-            RenderSettings.fogColor = new Color32(15, 0, 0, 1);
+            //RenderSettings.fogColor = new Color32(15, 0, 0, 1);
   
             //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
-            StartCoroutine(ShadowTransition(DarkModeTransitionTime));
+            StartCoroutine(ShadowTransition(DarkModeTransitionTime, true));
             
             //t_GlowyLight.color = new Color32(235, 52, 52, 1);
             
@@ -175,27 +189,49 @@ public class GameManager : MonoBehaviour
         
     }
 
-    private IEnumerator ShadowTransition(float a_Duration)
+    private void ReturnFromShadowRealm()
+    {
+        if (m_DarkModeActivated)
+        {
+            Debug.Log("Vous vous échappez de la noirceur...");
+            m_DarkModeActivated = false;
+
+            
+            //RenderSettings.fog = false;
+            //RenderSettings.fogColor = new Color32(15, 0, 0, 1);
+
+            
+            StartCoroutine(ShadowTransition(DarkModeTransitionTime, false));
+
+            
+
+        }
+    }
+
+    private IEnumerator ShadowTransition(float a_Duration, bool IsInDarkMode)
     {
         
-        Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
-        Color t_GlowColor = new Color32(235, 52, 52, 1);
+        
+        //Color t_GlowColor = new Color32(235, 52, 52, 1);
         float t_ElapsedTime = 0;
+        Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
         //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
         
         while (t_ElapsedTime / a_Duration < 1)
         {
             float t = t_ElapsedTime / a_Duration;
-            if (!m_DarkModeActivated)
+            if (!IsInDarkMode)
             {
                 t = 1 - t;
+                
             }
-            t_GlowyLight.intensity = Mathf.Lerp(t_GlowyLight.intensity, 0.2f, t);
-            t_GlowyLight.color = Color.Lerp(t_GlowyLight.color, new Color32(3, 240, 252, 1), t);
-            RenderSettings.fogDensity = Mathf.Lerp(RenderSettings.fogDensity, 0.1f, t);
-            //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
-            RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t);
-            //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);
+            //Debug.Log("/" + t_ElapsedTime + "/" + a_Duration + "/" + t + "/");
+            t_GlowyLight.intensity = Mathf.Lerp(m_InitialGlowyIntensity, 0.2f, t);
+            t_GlowyLight.color = Color.Lerp(m_InitialGlowyColor, new Color32(3, 240, 252, 1), t);
+            RenderSettings.fogDensity = Mathf.Lerp(m_InitialFogdensity, 0.1f, t);
+            
+            RenderSettings.ambientSkyColor = Color.Lerp(m_InitialSkyColor, new Color32(40,40,40,1), t);
+       
             t_ElapsedTime += Time.deltaTime;
             yield return null;
         }

@@ -215,6 +215,7 @@ public class WaveManager : MonoBehaviour
         {
             Debug.Log("Vague échouée, elle recommencera sous peu...");
             StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+            StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
         }
         else
         {
