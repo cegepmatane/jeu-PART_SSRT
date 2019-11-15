@@ -3,7 +3,7 @@
 public class SpawnerBounds : MonoBehaviour
 {
     public GameObject[] Prefabs;
-    public enum ItemTypeArray { MANAFLOWER };
+    public enum ItemTypeArray { MANAFLOWER, OTHER };
     public ItemTypeArray ItemType;
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;

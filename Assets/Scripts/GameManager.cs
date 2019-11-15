@@ -126,7 +126,6 @@ public class GameManager : MonoBehaviour
         if (t_FlowerAmountDifference > 0)
         {
             m_FlowerSpawner.GetComponent<SpawnerBounds>().Spawn(t_FlowerAmountDifference);
-            Debug.Log("Nouvelle fleur sur la map!");
         }
 
         if (m_DarkModeActivated)
