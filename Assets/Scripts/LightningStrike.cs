@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DigitalRuby.LightningBolt;
 
 public class LightningStrike : MonoBehaviour
 {
@@ -18,8 +19,7 @@ public class LightningStrike : MonoBehaviour
     {
         GameObject t_Sparks = Instantiate(m_Sparks, transform.position, Quaternion.LookRotation(transform.forward));
 
-        DigitalRuby.LightningBolt.LightningBoltScript t_OriginalScript = GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
-
+        LightningBoltScript t_OriginalScript = GetComponent<LightningBoltScript>();
         t_OriginalScript.StartObject = null;
         t_OriginalScript.EndObject = null;
         t_OriginalScript.StartPosition = transform.position;
@@ -32,12 +32,13 @@ public class LightningStrike : MonoBehaviour
         else
             t_OriginalScript.EndPosition = transform.position + (transform.forward * lightningRange);
 
+
         BoxCollider t_LightningCollider = GetComponent<BoxCollider>();
         //On étire le collider sur la longueur de l'éclair
         t_LightningCollider.center = Vector3.forward * (t_OriginalScript.StartPosition - t_OriginalScript.EndPosition).magnitude / 2;
         t_LightningCollider.size = new Vector3(0.25f, 0.25f, (t_OriginalScript.StartPosition - t_OriginalScript.EndPosition).magnitude);
 
-        Destroy(m_Sparks, 0.4f);
+        Destroy(t_Sparks, 0.5f);
         Destroy(gameObject, 0.5f);
     }
 

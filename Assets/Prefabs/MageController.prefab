@@ -977,9 +977,14 @@ MonoBehaviour:
   Fireball: {fileID: 1985853420546834646, guid: 1664ab8e29e09ff41a19ff3991eba2be,
     type: 3}
   LightningStrike: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
+  Illuminate: {fileID: 8616140933870782381, guid: 81a48ff3a9fd9cd4f8f575bcd43ad1ed,
+    type: 3}
+  Shockwave: {fileID: 0}
   m_FireballSound: {fileID: 8300000, guid: d1345195100e9024f847849618501560, type: 3}
   m_LightningStrikeSound: {fileID: 8300000, guid: b721063fcd5529044b23b4e2d93ab5a1,
     type: 3}
+  m_IlluminateSound: {fileID: 8300000, guid: b94ad6a608dfb904184cb3c3cb50f40c, type: 3}
+  m_ShockwaveSound: {fileID: 8300000, guid: dfff9c5fe607ad34dae8176615e85a5e, type: 3}
 --- !u!1 &7732688168658611989
 GameObject:
   m_ObjectHideFlags: 0

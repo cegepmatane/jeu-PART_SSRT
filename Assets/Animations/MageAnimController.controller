@@ -79,7 +79,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lightning
+  m_Name: Illuminate
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -93,8 +93,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 1827226128182048838, guid: fa95714688bbd4448bb93f821c1e96eb,
-    type: 3}
+  m_Motion: {fileID: 7400000, guid: 43642b0ba09759346a0d8d7aecbc2e52, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -111,19 +110,19 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1177673790212088359}
-    m_Position: {x: 450, y: -140, z: 0}
+    m_Position: {x: 460, y: 30, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8256132891144258350}
-    m_Position: {x: 450, y: -70, z: 0}
+    m_Position: {x: 460, y: -100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8770405759742111784}
-    m_Position: {x: 450, y: 10, z: 0}
+    m_Position: {x: 460, y: -40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2672022582847291959}
-    m_Position: {x: 210, y: 260, z: 0}
+    m_Position: {x: 130, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3469479059731808600}
-    m_Position: {x: 460, y: 200, z: 0}
+    m_Position: {x: 460, y: 100, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 3264617008105066119}
@@ -133,9 +132,9 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
-  m_ExitPosition: {x: 770, y: -40, z: 0}
+  m_AnyStatePosition: {x: 150, y: -20, z: 0}
+  m_EntryPosition: {x: 150, y: 70, z: 0}
+  m_ExitPosition: {x: 790, y: -20, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -2672022582847291959}
 --- !u!1102 &-2672022582847291959
@@ -172,7 +171,10 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IlluminateCast
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8256132891144258350}
   m_Solo: 0
@@ -228,6 +230,12 @@ AnimatorController:
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: LightningStrikeCast
+    m_Type: 9
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 0}
+  - m_Name: IlluminateCast
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0

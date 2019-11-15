@@ -181,7 +181,7 @@ MonoBehaviour:
   m_LayersHit:
     serializedVersion: 2
     m_Bits: 2048
-  m_Detonation: {fileID: 4717401609522032641, guid: a3b8879db0a76fb489b9b106f7467375,
+  m_Sparks: {fileID: 6197659752509960654, guid: 12687939c091e5d4bbd4afd8621b500a,
     type: 3}
 --- !u!54 &-835877349050283513
 Rigidbody:

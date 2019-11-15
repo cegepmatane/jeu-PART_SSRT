@@ -22,9 +22,11 @@ public class SpellEventManager : MonoBehaviour
         GameManager.Instance.Player.GetComponent<PlayerAbilities>().InstantiateSpell(m_SpellPosition);
     }
 
-    private void CastLighting()
+    private void CastIlluminate()
     {
-
+        //La position du sort est le milieu entre les deux mains
+        m_SpellPosition = (rightHand.transform.position + leftHand.transform.position) / 2;
+        GameManager.Instance.Player.GetComponent<PlayerAbilities>().InstantiateSpell(m_SpellPosition);
     }
 
     private void CastShockwave()

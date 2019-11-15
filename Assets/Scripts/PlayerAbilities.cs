@@ -57,6 +57,8 @@ public class PlayerAbilities : MonoBehaviour
     //Spells gameobjects
     public GameObject Fireball;
     public GameObject LightningStrike;
+    public GameObject Illuminate;
+    public GameObject Shockwave;
 
     private Camera m_camera;
     //private Text m_UiText;
@@ -66,6 +68,8 @@ public class PlayerAbilities : MonoBehaviour
     private AudioSource m_Audio;
     [SerializeField] private AudioClip m_FireballSound;
     [SerializeField] private AudioClip m_LightningStrikeSound;
+    [SerializeField] private AudioClip m_IlluminateSound;
+    [SerializeField] private AudioClip m_ShockwaveSound;
 
 
     private void Start()
@@ -77,9 +81,9 @@ public class PlayerAbilities : MonoBehaviour
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10, 1));
         m_Spells.Add(new Spell(LightningStrike, 30, 2));
+        m_Spells.Add(new Spell(Illuminate, 10, 2));
+        m_Spells.Add(new Spell(Shockwave, 35, 2));
     
-
-
         //Le premier sort est sélectionné par défaut
         m_SelectedSpell = m_Spells[1];
         m_SelectedCost = m_SelectedSpell.Cost;
@@ -117,6 +121,14 @@ public class PlayerAbilities : MonoBehaviour
                         GetComponentInChildren<Animator>().SetTrigger("LightningStrikeCast");
                         m_Audio.clip = m_LightningStrikeSound;
                         break;
+                    case "Illuminate":
+                        GetComponentInChildren<Animator>().SetTrigger("IlluminateCast");
+                        m_Audio.clip = m_IlluminateSound;
+                        break;
+                    case "Shockwave":
+                        GetComponentInChildren<Animator>().SetTrigger("ShockwaveCast");
+                        m_Audio.clip = m_ShockwaveSound;
+                        break;
                 }
                 m_Audio.PlayOneShot(m_Audio.clip);
                 //
@@ -133,6 +145,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private void SpellChoice()
     {
+        //A AMELIORER
         if (Input.GetKey(KeyCode.Alpha1))
         {
             m_SelectedSpell = m_Spells[0];
@@ -142,6 +155,16 @@ public class PlayerAbilities : MonoBehaviour
         {
             m_SelectedSpell = m_Spells[1];
             Debug.Log("ECLAIR");
+        }
+        else if (Input.GetKey(KeyCode.Alpha3))
+        {
+            m_SelectedSpell = m_Spells[2];
+            Debug.Log("LUMIERE");
+        }
+        else if (Input.GetKey(KeyCode.Alpha4))
+        {
+            m_SelectedSpell = m_Spells[3];
+            Debug.Log("ONDE DE CHOC");
         }
 
     }
