@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     private GameObject m_FlowerSpawner;
     private Color m_InitialGlowyColor;
     private float m_InitialGlowyIntensity;
-    private float m_InitialFogdensity = RenderSettings.fogDensity;
-    private Color m_InitialSkyColor = RenderSettings.ambientSkyColor;
+    private float m_InitialFogdensity;
+    private Color m_InitialSkyColor;
     //public List<Transform> m_Waypoints;
 
     public static GameManager m_Instance;
@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         }
         m_InitialGlowyColor = m_GlowyAmbience.GetComponent<Light>().color;
         m_InitialGlowyIntensity = m_GlowyAmbience.GetComponent<Light>().intensity;
+        m_InitialSkyColor = RenderSettings.ambientSkyColor;
+        m_InitialFogdensity = RenderSettings.fogDensity;
     }
 
     void Start()

@@ -275,6 +275,11 @@ public class WaveManager : MonoBehaviour
         //Debug.Log("AAAAAAAAAAA");
         float t_ElapsedTime = 0f;
         m_TreeIsChangingColors = true;
+        List<Transform> t_RenderList = new List<Transform>();
+        foreach (Transform child in m_Waves[0].TargetTree.transform)
+        {
+            t_RenderList.Add(child);
+        }
         Color t_InitialColor = m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.color;
         while (t_ElapsedTime / a_Duration < 1)
         {
@@ -283,7 +288,11 @@ public class WaveManager : MonoBehaviour
             {
                 t = 1;
             }
-            m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.Lerp(t_InitialColor, a_NewColor, t));
+            foreach(Transform child in t_RenderList)
+            {
+                child.GetComponent<MeshRenderer> ().material.SetColor("_EmissionColor", Color.Lerp(t_InitialColor, a_NewColor, t));
+            }
+            //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.Lerp(t_InitialColor, a_NewColor, t));
             t_ElapsedTime += Time.deltaTime;
             //Debug.Log(t_ElapsedTime);
             yield return null;
