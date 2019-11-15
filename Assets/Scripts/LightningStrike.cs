@@ -12,8 +12,12 @@ public class LightningStrike : MonoBehaviour
     private bool m_Trajectoire;
     private RaycastHit m_Hit;
 
+    [SerializeField] private GameObject m_Sparks;
+
     void Start()
     {
+        GameObject t_Sparks = Instantiate(m_Sparks, transform.position, Quaternion.LookRotation(transform.forward));
+
         DigitalRuby.LightningBolt.LightningBoltScript t_OriginalScript = GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>();
 
         t_OriginalScript.StartObject = null;
@@ -33,6 +37,7 @@ public class LightningStrike : MonoBehaviour
         t_LightningCollider.center = Vector3.forward * (t_OriginalScript.StartPosition - t_OriginalScript.EndPosition).magnitude / 2;
         t_LightningCollider.size = new Vector3(0.25f, 0.25f, (t_OriginalScript.StartPosition - t_OriginalScript.EndPosition).magnitude);
 
+        Destroy(m_Sparks, 0.4f);
         Destroy(gameObject, 0.5f);
     }
 
