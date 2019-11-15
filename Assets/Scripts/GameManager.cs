@@ -39,6 +39,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject ContainerManaFlower
+    {
+        get { return m_ManaFlowerContainer; }
+    }
+
     void Awake()
     {
         m_Instance = this;
