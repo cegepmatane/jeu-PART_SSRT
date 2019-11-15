@@ -9,16 +9,7 @@ public class Fireball : MonoBehaviour
     public int fireballDamage = 50;
     private bool m_Trajectoire;
 
-    private AudioSource m_Audio;
-    [SerializeField] private AudioClip m_Explosion;
-
     [SerializeField] private GameObject m_ExplosionEffect;
-
-    private void Awake()
-    {
-        m_Audio = GetComponent<AudioSource>();
-        m_Audio.clip = m_Explosion;
-    }
 
     void Start()
     {
@@ -50,12 +41,10 @@ public class Fireball : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Spawn du sound player et lancement du son
-        //L'explosion gère les dégâts
+        //L'explosion gère les dégâts et le son d'explosion
         GameObject t_Explosion = Instantiate(m_ExplosionEffect, transform.position, Quaternion.identity);
-        t_Explosion.GetComponent<FireballExplosion>().m_AudioClip = m_Explosion;
 
-        Debug.Log("EXPLOOOOOOSION !");
+        //Debug.Log("EXPLOOOOOOSION !");
         Destroy(gameObject);
     }
 

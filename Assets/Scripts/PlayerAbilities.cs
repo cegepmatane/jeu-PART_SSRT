@@ -43,12 +43,13 @@ public class PlayerAbilities : MonoBehaviour
     private int m_SelectedCost;
 
     //SPELLS
+    //private bool m_IsMousePressed;
     private List<Spell> m_Spells;
     private Spell m_SelectedSpell;
 
     //Spells gameobjects
     public GameObject Fireball;
-    public GameObject Laserbeam;
+    public GameObject LightningStrike;
 
     private Camera m_camera;
     //private Text m_UiText;
@@ -57,7 +58,7 @@ public class PlayerAbilities : MonoBehaviour
 
     private AudioSource m_Audio;
     [SerializeField] private AudioClip m_FireballSound;
-    [SerializeField] private AudioClip m_LaserbeamSound;
+    [SerializeField] private AudioClip m_LightningStrikeSound;
 
 
     private void Start()
@@ -68,12 +69,13 @@ public class PlayerAbilities : MonoBehaviour
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10));
-        m_Spells.Add(new Spell(Laserbeam, 30));
+        m_Spells.Add(new Spell(LightningStrike, 30));
     
 
 
         //Le premier sort est sélectionné par défaut
-        m_SelectedSpell = m_Spells[0];
+        m_SelectedSpell = m_Spells[1];
+        m_SelectedCost = m_SelectedSpell.Cost;
         m_SelectedCost = m_SelectedSpell.Cost;
 
         m_camera = GetComponentInChildren<Camera>();
@@ -90,8 +92,12 @@ public class PlayerAbilities : MonoBehaviour
         m_CastingCooldown -= Time.deltaTime;
         if (m_CastingCooldown < 0)
         {
+            //bool mouseWasPressed = m_IsMousePressed;
+            //if (Input.GetButtonDown("Fire1") && mouseWasPressed)
+                //m_IsMousePressed = true;
+
             //Lancer le sort sélectionné
-            if (Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
+            if (/*m_IsMousePressed &&*/ Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
             {
 
                 switch(m_SelectedSpell.Prefab.name)
@@ -100,20 +106,37 @@ public class PlayerAbilities : MonoBehaviour
                         GetComponentInChildren<Animator>().SetTrigger("FireballCast");
                         m_Audio.clip = m_FireballSound;
                         break;
-                    case "Laserbeam":
-                        GetComponentInChildren<Animator>().SetTrigger("FireballCast");
-                        m_Audio.clip = m_LaserbeamSound;
+                    case "LightningStrike":
+                        Debug.Log(m_SelectedSpell.Prefab.name);
+                        GetComponentInChildren<Animator>().SetTrigger("LightningStrikeCast");
+                        m_Audio.clip = m_LightningStrikeSound;
                         break;
                 }
-                m_Audio.Play();
+                m_Audio.PlayOneShot(m_Audio.clip);
                 //
                 //A un certain point de l'animation du sort, un Animation Event appelle la fonction InstantiateSpell
                 //
+                //m_IsMousePressed = false;
                 m_CastingCooldown = 1f;
             }
         }
 
         updateUI();
+    }
+
+    private void SpellChoice()
+    {
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            m_SelectedSpell = m_Spells[0];
+            Debug.Log("BOULE DE FEU");
+        }
+        else if (Input.GetKey(KeyCode.Alpha2))
+        {
+            m_SelectedSpell = m_Spells[1];
+            Debug.Log("ECLAIR");
+        }
+
     }
 
     public void InstantiateSpell(Vector3 a_SpellPos)

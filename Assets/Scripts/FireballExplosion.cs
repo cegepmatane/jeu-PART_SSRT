@@ -5,7 +5,7 @@ using UnityEngine;
 public class FireballExplosion : MonoBehaviour
 {
     private AudioSource m_AudioSource;
-    public AudioClip m_AudioClip;
+    [SerializeField]private AudioClip m_AudioClip;
 
     [SerializeField] private int m_ExplosionDamage;
     [SerializeField] private float m_ExplosionRadius;
