@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private GameObject m_Player;
     private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
+    private GameObject m_FlowerSpawner;
     private Color m_InitialGlowyColor;
     private float m_InitialGlowyIntensity;
     private float m_InitialFogdensity = RenderSettings.fogDensity;
@@ -119,9 +120,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(m_ManaFlowerContainer.transform.childCount < FlowerSpawner.Instance.InitialSpawnAmount)
+        int t_FlowerAmountDifference = m_FlowerSpawner.GetComponent<SpawnerBounds>().InitialSpawnAmount - m_ManaFlowerContainer.transform.childCount;
+        if (t_FlowerAmountDifference > 0)
         {
-            FlowerSpawner.Instance.Spawn();
+            m_FlowerSpawner.GetComponent<SpawnerBounds>().Spawn(t_FlowerAmountDifference);
             Debug.Log("Nouvelle fleur sur la map!");
         }
 
@@ -150,6 +152,15 @@ public class GameManager : MonoBehaviour
     public void AddPlayerSpawner(GameObject a_PlayerSpawner)
     {
         m_PlayerSpawner = a_PlayerSpawner;
+    }
+
+    public void AddGenericSpawner(GameObject a_GenericSpawner)
+    {
+        if(a_GenericSpawner.GetComponent<SpawnerBounds>().ItemType == SpawnerBounds.ItemTypeArray.MANAFLOWER)
+        {
+            m_FlowerSpawner = a_GenericSpawner;
+        }
+
     }
 
     public void KillTree(GameObject a_Tree)

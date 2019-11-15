@@ -3,7 +3,8 @@
 public class SpawnerBounds : MonoBehaviour
 {
     public GameObject[] Prefabs;
-
+    public enum ItemTypeArray { MANAFLOWER };
+    public ItemTypeArray ItemType;
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
     public int MaxTries = 10;
@@ -11,6 +12,7 @@ public class SpawnerBounds : MonoBehaviour
     public Transform ParentContainer;
     public LayerMask ValidLayers;
     public LayerMask InvalidLayers;
+    
 
 
 
@@ -26,6 +28,7 @@ public class SpawnerBounds : MonoBehaviour
     private void Start()
     {
         Spawn(InitialSpawnAmount);
+        GameManager.Instance.AddGenericSpawner(this.gameObject);
     }
 
     //Returns the quantity that was actually spawned
