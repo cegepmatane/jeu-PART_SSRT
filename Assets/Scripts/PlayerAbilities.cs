@@ -114,7 +114,6 @@ public class PlayerAbilities : MonoBehaviour
                         m_Audio.clip = m_FireballSound;
                         break;
                     case "LightningStrike":
-                        Debug.Log(m_SelectedSpell.Prefab.name);
                         GetComponentInChildren<Animator>().SetTrigger("LightningStrikeCast");
                         m_Audio.clip = m_LightningStrikeSound;
                         break;
