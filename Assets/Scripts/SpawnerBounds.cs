@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpawnerBounds : MonoBehaviour
 {
@@ -9,43 +7,49 @@ public class SpawnerBounds : MonoBehaviour
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
     public int MaxTries = 10;
-    public int InitialSpawnAmount = 20;
-    private GameObject m_ManaFlowerContainer;
-    public LayerMask HitLayers;
+    public int InitialSpawnAmount = 0;
+    public Transform ParentContainer;
+    public LayerMask ValidLayers;
+    public LayerMask InvalidLayers;
+
 
     private void Start()
     {
-        m_ManaFlowerContainer = GameObject.Find("ManaFlowers");
-        for(int i = 0; i < InitialSpawnAmount; i++)
-        {
-            Spawn();
-        }
+        Spawn(InitialSpawnAmount);
     }
 
-    public bool Spawn()
+    //Returns the quantity that was actually spawned
+    public int Spawn(int a_Qty)
     {
+        int t_SpawnedQty = 0;
+
         RaycastHit t_Hit;
-        bool t_DidHit = false; ;
+        bool t_DidHit;
 
-        for (int i = 0; i < MaxTries; i++)
+        for (int i = 0; i < a_Qty; i++)
         {
-            float t_PosX = Mathf.Lerp(Bound1.position.x, Bound2.position.x, Random.value);
-            float t_PosZ = Mathf.Lerp(Bound1.position.z, Bound2.position.z, Random.value);
+            t_DidHit = false;
 
-            
-            t_DidHit = Physics.Raycast(new Vector3(t_PosX, transform.position.y, t_PosZ), Vector3.down, out t_Hit, RaycastLenght, HitLayers);
-
-            if (t_DidHit)
+            for (int j = 0; j < MaxTries; j++)
             {
-                GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation);  
-                break;
+                //Random pos between bounds
+                float t_PosX = Mathf.Lerp(Bound1.position.x, Bound2.position.x, Random.value);
+                float t_PosZ = Mathf.Lerp(Bound1.position.z, Bound2.position.z, Random.value);
+
+                t_DidHit = Physics.Raycast(new Vector3(t_PosX, transform.position.y, t_PosZ), Vector3.down, out t_Hit, RaycastLenght, ValidLayers | InvalidLayers);
+
+                //If we had a hit and the hit is on a valid layer, proceed to spawning
+                if (t_DidHit && ValidLayers == (ValidLayers | (1 << t_Hit.transform.gameObject.layer)))
+                {
+                    GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation, ParentContainer);
+                    t_SpawnedQty++;
+                    break;
+                }
             }
         }
 
-        if (!t_DidHit)
-            Debug.Log(gameObject.name + " tried to Spawn, but did not find a valid location");
+        Debug.Log(string.Format("{0} spawned {1}/{2} {3}.", gameObject.name, t_SpawnedQty, a_Qty, Prefab.name));
 
-
-        return t_DidHit;
+        return t_SpawnedQty;
     }
 }
