@@ -10,11 +10,13 @@ public class PlayerAbilities : MonoBehaviour
         private GameObject m_Prefab;
         private int m_Cost;
         private Vector3 m_BasePosition;
+        private float m_Duration;
 
-        public Spell(GameObject a_Prefab, int a_Cost)
+        public Spell(GameObject a_Prefab, int a_Cost, float a_Duration)
         {
             m_Prefab = a_Prefab;
             m_Cost = a_Cost;
+            m_Duration = a_Duration;
         }
 
         public GameObject Prefab
@@ -31,6 +33,11 @@ public class PlayerAbilities : MonoBehaviour
         {
             get { return m_BasePosition; }
             set { m_BasePosition = value; }
+        }
+
+        public float Duration
+        {
+            get { return m_Duration; }
         }
     }
 
@@ -68,8 +75,8 @@ public class PlayerAbilities : MonoBehaviour
 
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts
-        m_Spells.Add(new Spell(Fireball, 10));
-        m_Spells.Add(new Spell(LightningStrike, 30));
+        m_Spells.Add(new Spell(Fireball, 10, 1));
+        m_Spells.Add(new Spell(LightningStrike, 30, 2));
     
 
 
@@ -117,10 +124,11 @@ public class PlayerAbilities : MonoBehaviour
                 //A un certain point de l'animation du sort, un Animation Event appelle la fonction InstantiateSpell
                 //
                 //m_IsMousePressed = false;
-                m_CastingCooldown = 1f;
+                m_CastingCooldown = m_SelectedSpell.Duration;
             }
-        }
 
+            SpellChoice();
+        }
         updateUI();
     }
 

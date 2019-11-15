@@ -23,7 +23,7 @@ public class LightningStrike : MonoBehaviour
         else
             t_OriginalScript.EndPosition = transform.position + (transform.forward * lightningRange);
 
-        Destroy(gameObject, 1f);
+        Destroy(gameObject, 0.5f);
     }
 
     private void Update()
