@@ -44,7 +44,7 @@ public class PlayerAbilities : MonoBehaviour
     private const int MAX_MANA = 100;
     private const int MAX_DARKNESS = 100;
     private int m_Mana;
-    private int m_Darkness;
+    private float m_Darkness;
 
     private float m_CastingCooldown;
     private int m_SelectedCost;
@@ -183,7 +183,7 @@ public class PlayerAbilities : MonoBehaviour
         m_UiManaBar.GetComponent<RectTransform>().localScale = new Vector3((float)m_Mana / MAX_MANA, 1, 1);
         m_UiDarknessBar.GetComponent<RectTransform>().localScale = new Vector3(1, (float)m_Darkness / MAX_DARKNESS, 1);
     }
-
+    //Si ceci retourne FALSE, cela veut dire que la mana est au maximum!
     public bool addMana(int a_mana)
     {   
         if (m_Mana < MAX_MANA)
@@ -198,14 +198,34 @@ public class PlayerAbilities : MonoBehaviour
         }
         
     }
-
-    public bool increaseDarkness(int a_darkness)
+    //Si ceci retourne FALSE, cela veut dire que la darkness est au maximum!
+    public bool increaseDarkness(float a_darkness)
     {
         if (m_Darkness < MAX_DARKNESS)
         {
-            int darknessDiff = MAX_DARKNESS - m_Darkness;
+            float darknessDiff = MAX_DARKNESS - m_Darkness;
             m_Darkness += (darknessDiff > a_darkness) ? a_darkness : darknessDiff;
             if(m_Darkness == MAX_DARKNESS)
+            {
+                return false;
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+    //Si ceci retourne FALSE, cela veut dire qu'il n'y a plus de darkness restante!
+    public bool decreaseDarkness(float a_darkness)
+    {
+        Debug.Log(m_Darkness);
+        if (m_Darkness > 0)
+        {
+
+            m_Darkness -= (m_Darkness > a_darkness) ? a_darkness : m_Darkness;
+            if (m_Darkness == 0)
             {
                 return false;
             }

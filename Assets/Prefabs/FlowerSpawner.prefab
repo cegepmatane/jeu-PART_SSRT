@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3708684740298360035}
-  - component: {fileID: 3708684740298360032}
+  - component: {fileID: 8404422020533708779}
   m_Layer: 0
   m_Name: FlowerSpawner
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3708684740298360032
+--- !u!114 &8404422020533708779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,10 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3708684740298360033}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c55a0b6425a5a144b19ad87db8b6507, type: 3}
+  m_Script: {fileID: 11500000, guid: 3137d3a30e4655c458dbd9e6a99d7d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlowerVariants:
+  Prefabs:
   - {fileID: 586948126771750870, guid: 40ca910ea6b114947adca3660023311e, type: 3}
   - {fileID: 5199426239299080823, guid: 9800f4cf697f5434480030130504ef15, type: 3}
   - {fileID: 4230978259002413619, guid: 5b39bc57a6e1a2243a32f5a0d9b59da4, type: 3}
@@ -56,10 +56,13 @@ MonoBehaviour:
   RaycastLenght: 100
   MaxTries: 10
   InitialSpawnAmount: 20
-  HitLayers:
+  ParentContainer: {fileID: 0}
+  ValidLayers:
     serializedVersion: 2
     m_Bits: 2048
-  m_ManaFlowerContainer: {fileID: 0}
+  InvalidLayers:
+    serializedVersion: 2
+    m_Bits: 1847
 --- !u!1 &3708684741062925190
 GameObject:
   m_ObjectHideFlags: 0

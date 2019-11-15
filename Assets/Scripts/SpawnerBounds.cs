@@ -2,8 +2,9 @@
 
 public class SpawnerBounds : MonoBehaviour
 {
-    public GameObject Prefab;
-
+    public GameObject[] Prefabs;
+    public enum ItemTypeArray { MANAFLOWER, OTHER };
+    public ItemTypeArray ItemType;
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
     public int MaxTries = 10;
@@ -11,11 +12,23 @@ public class SpawnerBounds : MonoBehaviour
     public Transform ParentContainer;
     public LayerMask ValidLayers;
     public LayerMask InvalidLayers;
+    
 
+
+
+    private void Awake()
+    {
+        if(Prefabs.Length < 1)
+        {
+            Debug.LogError(gameObject.name + "does not have anything to spawn. Stopping.");
+            this.enabled = false;
+        }
+    }
 
     private void Start()
     {
         Spawn(InitialSpawnAmount);
+        GameManager.Instance.AddGenericSpawner(this.gameObject);
     }
 
     //Returns the quantity that was actually spawned
@@ -41,14 +54,16 @@ public class SpawnerBounds : MonoBehaviour
                 //If we had a hit and the hit is on a valid layer, proceed to spawning
                 if (t_DidHit && ValidLayers == (ValidLayers | (1 << t_Hit.transform.gameObject.layer)))
                 {
-                    GameObject t_SpawnedItem = Instantiate(Prefab, t_Hit.point, Prefab.transform.rotation, ParentContainer);
+                    var t_ToSpawn = Prefabs[Random.Range(0, Prefabs.Length)];
+
+                    GameObject t_SpawnedItem = Instantiate(t_ToSpawn, t_Hit.point, t_ToSpawn.transform.rotation, ParentContainer);
                     t_SpawnedQty++;
                     break;
                 }
             }
         }
 
-        Debug.Log(string.Format("{0} spawned {1}/{2} {3}.", gameObject.name, t_SpawnedQty, a_Qty, Prefab.name));
+        Debug.Log(string.Format("{0} spawned {1}/{2} objects.", gameObject.name, t_SpawnedQty, a_Qty));
 
         return t_SpawnedQty;
     }
