@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int DarknessPerDefeat = 20;
     [SerializeField]
-    private float DarkModeTransitionTime = 5;
+    private float DarkModeTransitionTime = 100;
     [SerializeField]
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
@@ -175,12 +175,12 @@ public class GameManager : MonoBehaviour
         
         Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
         Color t_GlowColor = new Color32(235, 52, 52, 1);
-        float t_elapsedTime = 0;
+        float t_ElapsedTime = 0;
         //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
         
-        while (t_elapsedTime / a_Duration < 1)
+        while (t_ElapsedTime / a_Duration < 1)
         {
-            float t = t_elapsedTime / a_Duration;
+            float t = t_ElapsedTime / a_Duration;
             if (!m_DarkModeActivated)
             {
                 t = 1 - t;
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
             //RenderSettings.ambientIntensity = Mathf.Lerp(RenderSettings.ambientIntensity, -4f, t_elapsedTime / a_Duration);
             RenderSettings.ambientSkyColor = Color.Lerp(RenderSettings.ambientSkyColor, new Color32(40,40,40,1), t);
             //m_ShadowAmbience.transform.rotation = Quaternion.Lerp(m_ShadowAmbience.transform.rotation, Quaternion.Euler(new Vector3(-20,-180,0)) , t_elapsedTime / a_Duration);
-            t_elapsedTime += Time.deltaTime;
+            t_ElapsedTime += Time.deltaTime;
             yield return null;
         }
         
