@@ -242,6 +242,16 @@ PrefabInstance:
       propertyPath: m_GlowyAmbience
       value: 
       objectReference: {fileID: 1753107988}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_GlowyAmbience
+      value: 
+      objectReference: {fileID: 1753107988}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: DarkModeTransitionTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4633232383574388805, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -296,16 +306,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: m_GlowyAmbience
-      value: 
-      objectReference: {fileID: 1753107988}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: DarkModeTransitionTime
-      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8402e82e45b21c04ba824bfba623daa5, type: 3}

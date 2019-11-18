@@ -47,7 +47,14 @@ public class LightningStrike : MonoBehaviour
         if (other.gameObject.GetComponent<EnemyHealth>() != null)
         {
             other.gameObject.GetComponent<EnemyHealth>().TakeDamage(lightningDamage);
-            other.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+            if (other.gameObject.GetComponent<EnemyMovement>().EnemyType == EnemyMovement.EnemyTypeEnum.SKELETAL)
+            {
+                other.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.magenta;
+            }
+            else
+            {
+                other.gameObject.GetComponent<MeshRenderer>().material.color = Color.magenta;
+            }
         }
     }
 }

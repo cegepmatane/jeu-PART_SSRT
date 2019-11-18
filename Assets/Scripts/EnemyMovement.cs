@@ -7,14 +7,16 @@ using System.Linq;
 public class EnemyMovement : MonoBehaviour
 {
     private NavMeshAgent m_agent;
-
+    private Animator m_Animator;
     //public List<Transform> m_waypoints;
     //Le currentWaypoint correspond au Transform de l'enfant "basePosition" dans chaque arbre
     //public Transform m_currentWaypoint;
     public Collider treeCollider;
-
+    public enum EnemyTypeEnum { BASIC, SKELETAL};
+    public EnemyTypeEnum EnemyType = EnemyTypeEnum.BASIC;
     private bool IsAttacking;
     private bool IsDying;
+    
     [SerializeField]
     public float Damage = 1f, AttackRate = 2f, MovementSpeed = 6f;
     
@@ -22,6 +24,10 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         m_agent = GetComponent<NavMeshAgent>();
+        if(GetComponent<Animator>() != null)
+        {
+            m_Animator = GetComponent<Animator>();
+        }
     }
 
     // Start is called before the first frame update
@@ -48,6 +54,19 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+        
+        if (m_Animator)
+        {
+            
+            if (GetComponent<NavMeshAgent>().velocity != new Vector3(0, 0, 0))
+            {
+                m_Animator.SetBool("IsMoving", true);
+            } else
+            {
+                m_Animator.SetBool("IsMoving", false);
+            }
+            
+        } 
         
         if(WaveManager.Instance.TargetTree != null && !IsDying)
         {
@@ -103,6 +122,7 @@ public class EnemyMovement : MonoBehaviour
         while (IsAttacking)
         {
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(Damage);
+            m_Animator.SetTrigger("TriggerAttack");
             yield return new WaitForSeconds(AttackRate);                   
         }
     }
@@ -113,6 +133,8 @@ public class EnemyMovement : MonoBehaviour
         {
             IsAttacking = false;
             IsDying = true;
+            m_agent.SetDestination(transform.position);
+            m_Animator.SetTrigger("TriggerDeath");
             StopCoroutine("Attack");
             StartCoroutine("Fade");
         }
@@ -122,20 +144,38 @@ public class EnemyMovement : MonoBehaviour
     private IEnumerator Fade()
     {
         //Debug.Log("Un ennemi s'efface...");
-        while(IsDying)
+        if (EnemyType == EnemyTypeEnum.BASIC)
         {
-            Color t_Color = GetComponent<MeshRenderer>().material.color;
-            t_Color.a -= 0.008f;
-            if(t_Color.a <= 0f)
+            while (IsDying)
             {
-               
-                Die();
+                Color t_Color = GetComponent<MeshRenderer>().material.color;
+                t_Color.a -= 0.008f;
+                if (t_Color.a <= 0f)
+                {
+
+                    Die();
+                }
+                GetComponent<MeshRenderer>().material.color = t_Color;
+                gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+                //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
+                yield return null;
             }
-            GetComponent<MeshRenderer>().material.color = t_Color;
-            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
-            //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
-            yield return null;
+        } else if (EnemyType == EnemyTypeEnum.SKELETAL){
+            while (IsDying)
+            {
+                
+                Color t_Color = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color;
+                t_Color.a -= 0.008f;
+                if (t_Color.a <= 0f)
+                {
+
+                    Die();
+                }
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = t_Color;            
+                yield return null; 
+            }
         }
+        
         
         yield return null;
     }
