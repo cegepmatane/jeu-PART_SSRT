@@ -108,8 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseEnemy: {fileID: 7864139695186240922, guid: 52c09ae1234bcf649a78319eeee71070,
     type: 3}
-  HeavyEnemy: {fileID: 948104530839735731, guid: 4d973df34f78ea7499b83a0c35a7ed04,
+  HeavyEnemy: {fileID: 8815838702381257399, guid: 4d973df34f78ea7499b83a0c35a7ed04,
     type: 3}
-  LightEnemy: {fileID: 2944938207777825594, guid: 50d16e651d5333f4e8b9b206876fa79d,
+  LightEnemy: {fileID: 4468531608528402799, guid: 076828fbfe73ff54cb71e74a613a909d,
     type: 3}
   TargetTree: {fileID: 0}

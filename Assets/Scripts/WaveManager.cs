@@ -135,22 +135,22 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         //Création une par une des vagues avec une difficulté incrémentée ET un changement de l'arbre cible à chaque tier du nombre de vague total
-        float t_ScalingDifficulty = 4f;
+        float t_ScalingDifficulty = 9f;
         
         for(int i = 0; i <= WaveCount; i++)
         {
             if(i + 1 <= WaveCount / 3)
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1, "low-tier"));
+                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1, "high-tier"));
                 t_ScalingDifficulty += 3;
             } else if (i + 1 <= 2*(WaveCount / 3))
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1, "mid-tier"));
+                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1, "high-tier"));
                 t_ScalingDifficulty += 3;
             }
             else if(i + 1 > 2 * (WaveCount / 3))
             {
-                m_Waves.Add(new Wave(1 + t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1, "high-tier"));
+                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1, "high-tier"));
                 t_ScalingDifficulty += 3;
             }
             else

@@ -69,6 +69,7 @@ public class SpawnerBehavior : MonoBehaviour
     public IEnumerator SpawnEnemy(int a_BaseCount, int a_HeavyCount, int a_LightCount, int a_Interval, int a_Delay)
     {
         m_IsFinished = false;
+        
         // Wait for the delivery delay.
         yield return new WaitForSeconds(a_Delay);
         //Debug.Log("AAA");
@@ -105,13 +106,19 @@ public class SpawnerBehavior : MonoBehaviour
         for (; a_LightCount > 0; a_LightCount--)
         {
 
-            GameObject t_Enemy = Instantiate(LightEnemy, this.gameObject.transform.position, Quaternion.identity);
+            GameObject t_Enemy1 = Instantiate(LightEnemy, this.gameObject.transform.position, Quaternion.identity);
+            GameObject t_Enemy2 = Instantiate(LightEnemy, this.gameObject.transform.position + new Vector3(1,0,0), Quaternion.identity);
+            GameObject t_Enemy3 = Instantiate(LightEnemy, this.gameObject.transform.position + new Vector3(0,0,1), Quaternion.identity);
             //m_SpawnedEnemies.Add(t_Enemy);
-            EnemyMovement t_EnemyMovement = t_Enemy.GetComponent<EnemyMovement>();
+            EnemyMovement t_EnemyMovement1 = t_Enemy1.GetComponent<EnemyMovement>();
+            EnemyMovement t_EnemyMovement2 = t_Enemy2.GetComponent<EnemyMovement>();
+            EnemyMovement t_EnemyMovement3 = t_Enemy3.GetComponent<EnemyMovement>();
             if (TargetTree != null)
             {
                 //t_EnemyMovement.m_currentWaypoint = TargetTree.transform.GetChild(0);
-                t_EnemyMovement.treeCollider = TargetTree.GetComponent<Collider>();
+                t_EnemyMovement1.treeCollider = TargetTree.GetComponent<Collider>();
+                t_EnemyMovement2.treeCollider = TargetTree.GetComponent<Collider>();
+                t_EnemyMovement3.treeCollider = TargetTree.GetComponent<Collider>();
             }
 
             yield return new WaitForSeconds(a_Interval);

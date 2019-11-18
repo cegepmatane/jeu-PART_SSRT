@@ -122,7 +122,10 @@ public class EnemyMovement : MonoBehaviour
         while (IsAttacking)
         {
             treeCollider.gameObject.GetComponent<TreeHealth>().ApplyDamage(Damage);
-            m_Animator.SetTrigger("TriggerAttack");
+            if (m_Animator)
+            {
+                m_Animator.SetTrigger("TriggerAttack");
+            }
             yield return new WaitForSeconds(AttackRate);                   
         }
     }
@@ -134,7 +137,10 @@ public class EnemyMovement : MonoBehaviour
             IsAttacking = false;
             IsDying = true;
             m_agent.SetDestination(transform.position);
-            m_Animator.SetTrigger("TriggerDeath");
+            if (m_Animator)
+            {
+                m_Animator.SetTrigger("TriggerDeath");
+            }
             StopCoroutine("Attack");
             StartCoroutine("Fade");
         }
