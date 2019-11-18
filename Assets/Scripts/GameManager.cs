@@ -247,6 +247,7 @@ public class GameManager : MonoBehaviour
             t_ElapsedTime += Time.deltaTime;
             yield return null;
         }
+        WaveManager.Instance.PrepareNextWave();
         
         
         yield break;

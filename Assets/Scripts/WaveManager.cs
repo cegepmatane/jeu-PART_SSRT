@@ -166,7 +166,7 @@ public class WaveManager : MonoBehaviour
         //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
         
             
-        StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+        StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves, m_Waves[0].TargetTree));
         
     }
 
@@ -205,8 +205,9 @@ public class WaveManager : MonoBehaviour
         
     }
 
-    private void PrepareNextWave()
+    public void PrepareNextWave()
     {
+        GameObject t_PreviousTree = m_Waves[0].TargetTree;
         if (GameManager.Instance.DarkModeActivated)
         {
             return;
@@ -214,7 +215,7 @@ public class WaveManager : MonoBehaviour
         if (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsDead)
         {
             Debug.Log("Vague échouée, elle recommencera sous peu...");
-            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+            StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves, t_PreviousTree));
             StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
         }
         else
@@ -226,7 +227,7 @@ public class WaveManager : MonoBehaviour
             m_Waves.RemoveAt(0);
             if (m_Waves.Count > 0)
             {
-                StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves));
+                StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves, t_PreviousTree));
             }
             else
             {
@@ -236,7 +237,7 @@ public class WaveManager : MonoBehaviour
     }
 
     //La "prochaine" vague ou la vague active est TOUJOURS la première de la liste, puisque une vague complétée disparais et laisse la place à la deuxieme de la liste
-    private IEnumerator WaitForNextWave(int a_Countdown)
+    private IEnumerator WaitForNextWave(int a_Countdown, GameObject a_PreviousTree)
     {
         m_Waves[0].Start();
         StartCoroutine(FadeTreeColor(Color.magenta, COLOR_CHANGE_DURATION));
