@@ -1533,7 +1533,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7226757523c8e24ebb26f412175c350, type: 2}
+  - {fileID: 2100000, guid: f08a8a23d96fac44ab617fffee4ef701, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2216,7 +2216,7 @@ Transform:
   m_GameObject: {fileID: 7864139695186240922}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 21.99, z: 80.33}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 6360584156613823666}
   - {fileID: 5749464582221930257}
@@ -2258,7 +2258,7 @@ MonoBehaviour:
   EnemyType: 1
   Damage: 5
   AttackRate: 2
-  MovementSpeed: 6
+  MovementSpeed: 5
 --- !u!136 &3422379769444241132
 CapsuleCollider:
   m_ObjectHideFlags: 0

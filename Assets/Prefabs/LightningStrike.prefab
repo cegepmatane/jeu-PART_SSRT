@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   travellingSpeed: 70
   lightningRange: 50
-  lightningDamage: 75
+  lightningDamage: 150
   m_LayersHit:
     serializedVersion: 2
     m_Bits: 2048

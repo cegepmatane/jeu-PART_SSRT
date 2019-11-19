@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 481517550}
   - component: {fileID: 481517552}
   - component: {fileID: 481517551}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ Canvas:
   m_GameObject: {fileID: 481517549}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 5233910626570977594}
   m_PlaneDistance: 0.5
   m_PixelPerfect: 0
@@ -63,7 +63,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!114 &481517552
 MonoBehaviour:
@@ -115,7 +115,7 @@ GameObject:
   - component: {fileID: 1968245151}
   - component: {fileID: 1968245153}
   - component: {fileID: 1968245152}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: CenterDot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 1979290988}
   - component: {fileID: 1979290990}
   - component: {fileID: 1979290989}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ManaText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 3956103357255965027}
   - component: {fileID: 1414951474087592561}
   - component: {fileID: 8266196212391448924}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ManaBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 8308415866431421819}
   - component: {fileID: 3945149677145188590}
   - component: {fileID: 4307856186821791879}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: DarknessBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 8282206443580827889}
   - component: {fileID: 6875354602103690725}
   - component: {fileID: 3155650210765073165}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: ManaFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -489,7 +489,7 @@ GameObject:
   - component: {fileID: 3031488675621317512}
   - component: {fileID: 1270587080027313843}
   - component: {fileID: 1406702453699948286}
-  m_Layer: 8
+  m_Layer: 5
   m_Name: DarknessFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +635,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
