@@ -1,30 +1,43 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
+    
+    
+    [Serializable]
     public class Wave
     {
         private int m_PositionNumber;
-        private float m_Difficulty;
-        private string m_WaveType;
+        public enum PossibleTrees { FirstTree, SecondTree, ThirdTree};
+        [SerializeField]
+        private int m_NumberOfSkeletons, m_NumberOfGolems, m_NumberOfSwarmers;
+        public PossibleTrees FocusedTree;
         private GameObject m_TargetTree;
         private bool m_IsActive = false;
 
-        public Wave(float a_Difficulty, GameObject a_TargetTree, int a_PositionNumber, string a_WaveType)
-        {
-            this.m_Difficulty = a_Difficulty;
-            this.m_TargetTree = a_TargetTree;
-            this.m_PositionNumber = a_PositionNumber;
-            this.m_WaveType = a_WaveType;
-        }
 
-        public float Difficulty
+        public int NumberOfSkeletons
         {
             get
             {
-                return m_Difficulty;
+                return m_NumberOfSkeletons;
+            }
+        }
+        public int NumberOfGolems
+        {
+            get
+            {
+                return m_NumberOfGolems;
+            }
+        }
+        public int NumberOfSwarmers
+        {
+            get
+            {
+                return m_NumberOfSwarmers;
             }
         }
 
@@ -34,6 +47,11 @@ public class WaveManager : MonoBehaviour
             {
                 return m_PositionNumber;
             }
+
+            set
+            {
+                m_PositionNumber = value;
+            }
         }
 
         public GameObject TargetTree
@@ -42,13 +60,9 @@ public class WaveManager : MonoBehaviour
             {
                 return m_TargetTree;
             }
-        }
-
-        public string WaveType
-        {
-            get
+            set
             {
-                return m_WaveType;
+                m_TargetTree = value;
             }
         }
 
@@ -71,14 +85,12 @@ public class WaveManager : MonoBehaviour
         }
     }
     private const float COLOR_CHANGE_DURATION = 3f;
-    public static WaveManager m_Instance;
-    //WaveCount doit toujours être un multiple de 3!
-    public int WaveCount = 3;
+    public static WaveManager m_Instance; 
     public int MinimumWaitBetweenWaves = 5;
-
-    [SerializeField]
+    
     private Texture m_DefaultTreeTexture, m_ActiveTreeTexture;
     private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
+    [SerializeField]
     private List<Wave> m_Waves = new List<Wave>();
     
     //TODO influencer m_SpawningSpeed au fil du temps
@@ -134,36 +146,25 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        //Création une par une des vagues avec une difficulté incrémentée ET un changement de l'arbre cible à chaque tier du nombre de vague total
-        float t_ScalingDifficulty = 9f;
-        
-        for(int i = 0; i <= WaveCount; i++)
+        for(int i = 0; i < m_Waves.Count; i++)
         {
-            if(i + 1 <= WaveCount / 3)
+            m_Waves[i].PositionNumber = i + 1;
+            switch (m_Waves[i].FocusedTree)
             {
-                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[0], i + 1, "high-tier"));
-                t_ScalingDifficulty += 3;
-            } else if (i + 1 <= 2*(WaveCount / 3))
-            {
-                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[1], i + 1, "high-tier"));
-                t_ScalingDifficulty += 3;
+                case Wave.PossibleTrees.FirstTree:
+                    m_Waves[i].TargetTree = GameManager.Instance.TreeList[0];
+                    break;
+                case Wave.PossibleTrees.SecondTree:
+                    m_Waves[i].TargetTree = GameManager.Instance.TreeList[1];
+                    break;
+                case Wave.PossibleTrees.ThirdTree:
+                    m_Waves[i].TargetTree = GameManager.Instance.TreeList[2];
+                    break;
             }
-            else if(i + 1 > 2 * (WaveCount / 3))
-            {
-                m_Waves.Add(new Wave(t_ScalingDifficulty, GameManager.Instance.TreeList[2], i + 1, "high-tier"));
-                t_ScalingDifficulty += 3;
-            }
-            else
-            {
-                Debug.LogError("Le nombre de Vague n'est pas divisible par 3!");
-            }
-            //Debug.Log(m_Waves[m_Waves.Count - 1].TargetTree);
-            
-
-
-
         }
-        //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
+        
+        
+        
         
             
         StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves, m_Waves[0].TargetTree));
@@ -306,37 +307,25 @@ public class WaveManager : MonoBehaviour
     private void InitiateWave(Wave a_CurrentWave)
     {
         Debug.Log("La vague #" + a_CurrentWave.PositionNumber + " vient de commencer !");
-        //Le nombre d'enemy que chaque spawner aura à spawner est défini par l'arroundissement de la difficultée divisée par le nombre de spawners présents
-        int t_BasicEnemyPerSpawn = 0;
-        int t_HeavyEnemyPerSpawn = 0;
-        int t_LightEnemyPerSpawn = 0;
-
-        //Dépendament du nombre de vagues, le premier tier des vagues ciblera le premier arbre et n'aura que des ennemis de base, chaque tier ciblant un arbre différent et ayant une composition d'ennemis différente
-        if (a_CurrentWave.WaveType == "low-tier")
+        List<GameObject> t_Spawners = GameManager.Instance.EnemySpawners;
+        int t_SkeletonsToSpawn = Mathf.FloorToInt(a_CurrentWave.NumberOfSkeletons / t_Spawners.Count);
+        int t_ExtraSkeletons = a_CurrentWave.NumberOfSkeletons % t_Spawners.Count;
+        int t_GolemsToSpawn = Mathf.FloorToInt(a_CurrentWave.NumberOfGolems / t_Spawners.Count);
+        int t_ExtraGolems = a_CurrentWave.NumberOfGolems % t_Spawners.Count;
+        int t_SwarmersToSpawn = Mathf.FloorToInt(a_CurrentWave.NumberOfSwarmers / t_Spawners.Count);
+        int t_ExtraSwarmers = a_CurrentWave.NumberOfSwarmers % t_Spawners.Count;
+        int t_RandomNumber = UnityEngine.Random.Range(0, t_Spawners.Count - 1);
+        for(int i = 0; i < t_Spawners.Count; i++)
         {
-            t_BasicEnemyPerSpawn = (int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count);
-            foreach (var spawner in m_Spawners)
+            if(i == t_RandomNumber)
             {
-                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
-            }
-        } else if(a_CurrentWave.WaveType == "mid-tier")
-        {
-            t_BasicEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3 * 2;
-            t_HeavyEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
-            foreach (var spawner in m_Spawners)
+                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn + t_ExtraSkeletons, t_GolemsToSpawn + t_ExtraGolems, t_SwarmersToSpawn + t_ExtraSwarmers, m_SpawningSpeed, 3));             
+            } else
             {
-                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
-            }
-        }else if (a_CurrentWave.WaveType == "high-tier")
-        {
-            t_BasicEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
-            t_HeavyEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
-            t_LightEnemyPerSpawn = ((int)Mathf.Round(a_CurrentWave.Difficulty / m_Spawners.Count)) / 3;
-            foreach (var spawner in m_Spawners)
-            {
-                spawner.BeginWave(t_BasicEnemyPerSpawn, t_HeavyEnemyPerSpawn, t_LightEnemyPerSpawn, m_SpawningSpeed);
+                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn, t_GolemsToSpawn, t_SwarmersToSpawn, m_SpawningSpeed, 3));
             }
         }
+
 
 
         a_CurrentWave.Start();
@@ -355,6 +344,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
+    /*
     public void AddSpawner(SpawnerBehavior a_SpawnerBehavior)
     {
         m_Spawners.Add(a_SpawnerBehavior);
@@ -364,7 +354,7 @@ public class WaveManager : MonoBehaviour
     {
         m_Spawners.Remove(a_SpawnerBehavior);
     }
-
+    */
 
 }
 

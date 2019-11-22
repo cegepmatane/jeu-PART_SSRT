@@ -2256,6 +2256,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   treeCollider: {fileID: 0}
   EnemyType: 1
+  m_AlternateMaterial: {fileID: 2100000, guid: 2b9615b582955e34aa8a62512cfb5a62, type: 2}
   Damage: 5
   AttackRate: 2
   MovementSpeed: 5

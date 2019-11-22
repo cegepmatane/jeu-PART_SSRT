@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
+    private List<GameObject> m_EnemySpawners = new List<GameObject>();
     private GameObject m_PlayerSpawner;
     private bool m_DarkModeActivated = false;
     private GameObject m_Player;
@@ -125,7 +126,7 @@ public class GameManager : MonoBehaviour
         int t_FlowerAmountDifference = m_FlowerSpawner.GetComponent<SpawnerBounds>().InitialSpawnAmount - m_ManaFlowerContainer.transform.childCount;
         if (t_FlowerAmountDifference > 0)
         {
-            m_FlowerSpawner.GetComponent<SpawnerBounds>().Spawn(t_FlowerAmountDifference);
+            m_FlowerSpawner.GetComponent<SpawnerBounds>().RandomSpawn(t_FlowerAmountDifference);
         }
 
         if (m_DarkModeActivated)
@@ -157,10 +158,17 @@ public class GameManager : MonoBehaviour
 
     public void AddGenericSpawner(GameObject a_GenericSpawner)
     {
-        if(a_GenericSpawner.GetComponent<SpawnerBounds>().ItemType == SpawnerBounds.ItemTypeArray.MANAFLOWER)
+        switch (a_GenericSpawner.GetComponent<SpawnerBounds>().ItemType)
         {
-            m_FlowerSpawner = a_GenericSpawner;
+            case SpawnerBounds.ItemTypeArray.MANAFLOWER:
+                m_FlowerSpawner = a_GenericSpawner;
+                break;
+            case SpawnerBounds.ItemTypeArray.ENEMY:
+                m_EnemySpawners.Add(a_GenericSpawner);
+                break;
+
         }
+        
 
     }
 
@@ -282,6 +290,11 @@ public class GameManager : MonoBehaviour
     public GameObject Player
     {
         get { return m_Player; }
+    }
+
+    public List<GameObject> EnemySpawners
+    {
+        get { return m_EnemySpawners; }
     }
 
     /*

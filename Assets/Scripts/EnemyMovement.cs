@@ -16,7 +16,8 @@ public class EnemyMovement : MonoBehaviour
     public EnemyTypeEnum EnemyType = EnemyTypeEnum.BASIC;
     private bool IsAttacking;
     private bool IsDying;
-    
+    [SerializeField]
+    private Material m_AlternateMaterial;
     [SerializeField]
     public float Damage = 1f, AttackRate = 2f, MovementSpeed = 6f;
     
@@ -167,6 +168,7 @@ public class EnemyMovement : MonoBehaviour
                 yield return null;
             }
         } else if (EnemyType == EnemyTypeEnum.SKELETAL){
+            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
             while (IsDying)
             {
                 
@@ -182,17 +184,18 @@ public class EnemyMovement : MonoBehaviour
             }
         }
         else if (EnemyType == EnemyTypeEnum.WONDERWALL){
+            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
             while (IsDying)
             {
                 
-                Color t_Color = gameObject.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().material.color;
+                Color t_Color = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color;
                 t_Color.a -= 0.008f;
                 if (t_Color.a <= 0f)
                 {
 
                     Die();
                 }
-                gameObject.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().material.color = t_Color;            
+                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = t_Color;            
                 yield return null; 
             }
         }

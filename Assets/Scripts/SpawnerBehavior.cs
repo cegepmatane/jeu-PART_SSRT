@@ -18,7 +18,7 @@ public class SpawnerBehavior : MonoBehaviour
 
     private void Awake()
     {
-        WaveManager.Instance.AddSpawner(this);
+        //WaveManager.Instance.AddSpawner(this);
 
         //m_SpawnedEnemies = new List<GameObject>();
     }
