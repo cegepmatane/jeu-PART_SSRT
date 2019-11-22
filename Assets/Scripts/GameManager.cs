@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
         int t_FlowerAmountDifference = m_FlowerSpawner.GetComponent<SpawnerBounds>().InitialSpawnAmount - m_ManaFlowerContainer.transform.childCount;
         if (t_FlowerAmountDifference > 0)
         {
-            m_FlowerSpawner.GetComponent<SpawnerBounds>().Spawn(t_FlowerAmountDifference);
+            m_FlowerSpawner.GetComponent<SpawnerBounds>().RandomSpawn(t_FlowerAmountDifference);
         }
 
         if (m_DarkModeActivated)

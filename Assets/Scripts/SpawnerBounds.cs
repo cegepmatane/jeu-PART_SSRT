@@ -27,13 +27,17 @@ public class SpawnerBounds : MonoBehaviour
     }
 
     private void Start()
-    {
-        Spawn(InitialSpawnAmount);
+    {   
+        if(ItemType == ItemTypeArray.MANAFLOWER || ItemType == ItemTypeArray.OTHER)
+        {
+            RandomSpawn(InitialSpawnAmount);
+        }
+        
         GameManager.Instance.AddGenericSpawner(this.gameObject);
     }
 
     //Returns the quantity that was actually spawned
-    public int Spawn(int a_Qty)
+    public int RandomSpawn(int a_Qty)
     {
         int t_SpawnedQty = 0;
 
@@ -71,7 +75,7 @@ public class SpawnerBounds : MonoBehaviour
 
     //Il faut absolument que, dans la liste de prefab, que le skelete soit 1er, le golem 2e et le swarmer 3e
     //TODO: choix de type d'ennemi plus flexible
-    public int SpawnEnemy(int a_Qty, int a_EnemyType)
+    public int FixedSpawn(int a_Qty, int a_Index)
     {
         int t_SpawnedQty = 0;
 
@@ -93,7 +97,7 @@ public class SpawnerBounds : MonoBehaviour
                 //If we had a hit and the hit is on a valid layer, proceed to spawning
                 if (t_DidHit && ValidLayers == (ValidLayers | (1 << t_Hit.transform.gameObject.layer)))
                 {
-                    var t_ToSpawn = Prefabs[a_EnemyType];
+                    var t_ToSpawn = Prefabs[a_Index];
 
                     GameObject t_SpawnedItem = Instantiate(t_ToSpawn, t_Hit.point, t_ToSpawn.transform.rotation, ParentContainer);
                     if (WaveManager.Instance.TargetTree != null)
@@ -120,7 +124,7 @@ public class SpawnerBounds : MonoBehaviour
         //Debug.Log("AAA");
         for (; a_BaseCount > 0; a_BaseCount--)
         {
-            SpawnEnemy(1, 0);
+            FixedSpawn(1, 0);
 
             yield return new WaitForSeconds(a_Interval);
         }
@@ -128,7 +132,7 @@ public class SpawnerBounds : MonoBehaviour
         for (; a_HeavyCount > 0; a_HeavyCount--)
         {
 
-            SpawnEnemy(1, 1);
+            FixedSpawn(1, 1);
 
             yield return new WaitForSeconds(a_Interval);
         }
@@ -136,7 +140,7 @@ public class SpawnerBounds : MonoBehaviour
         for (; a_LightCount > 0; a_LightCount--)
         {
 
-            SpawnEnemy(1, 2);
+            FixedSpawn(1, 2);
 
             yield return new WaitForSeconds(a_Interval / 2.9f);
         }
