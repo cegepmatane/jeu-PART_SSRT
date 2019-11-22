@@ -31,6 +31,8 @@ public class SpellEventManager : MonoBehaviour
 
     private void CastShockwave()
     {
-
+        //La position du sort est la position du joueur
+        m_SpellPosition = transform.position;
+        GameManager.Instance.Player.GetComponent<PlayerAbilities>().InstantiateSpell(m_SpellPosition);
     }
 }

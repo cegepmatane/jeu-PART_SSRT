@@ -69,7 +69,6 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] private AudioClip m_FireballSound;
     [SerializeField] private AudioClip m_LightningStrikeSound;
     [SerializeField] private AudioClip m_IlluminateSound;
-    [SerializeField] private AudioClip m_ShockwaveSound;
 
 
     private void Start()
@@ -85,8 +84,7 @@ public class PlayerAbilities : MonoBehaviour
         m_Spells.Add(new Spell(Shockwave, 35, 2));
     
         //Le premier sort est sélectionné par défaut
-        m_SelectedSpell = m_Spells[1];
-        m_SelectedCost = m_SelectedSpell.Cost;
+        m_SelectedSpell = m_Spells[0];
         m_SelectedCost = m_SelectedSpell.Cost;
 
         m_camera = GetComponentInChildren<Camera>();
@@ -95,6 +93,7 @@ public class PlayerAbilities : MonoBehaviour
         m_UiDarknessBar = transform.Find("Canvas").transform.Find("DarknessBar").gameObject;
 
         m_Audio = GetComponentInChildren<AudioSource>();
+
     }
 
     private void Update()
@@ -127,10 +126,10 @@ public class PlayerAbilities : MonoBehaviour
                         break;
                     case "Shockwave":
                         GetComponentInChildren<Animator>().SetTrigger("ShockwaveCast");
-                        m_Audio.clip = m_ShockwaveSound;
                         break;
                 }
                 m_Audio.PlayOneShot(m_Audio.clip);
+
                 //
                 //A un certain point de l'animation du sort, un Animation Event appelle la fonction InstantiateSpell
                 //
@@ -173,7 +172,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         m_SelectedSpell.BasePosition = a_SpellPos;
         //Instantiation
-        Instantiate(m_SelectedSpell.Prefab, m_SelectedSpell.BasePosition, Quaternion.LookRotation(m_camera.transform.forward));
+        Instantiate(m_SelectedSpell.Prefab, m_SelectedSpell.BasePosition, m_SelectedSpell.Prefab.name == "Shockwave" ? Quaternion.Euler(-90,0,0) : Quaternion.LookRotation(m_camera.transform.forward));
         //Retrait du mana
         m_Mana -= m_SelectedCost;
     }

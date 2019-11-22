@@ -884,7 +884,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 50
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -979,12 +979,13 @@ MonoBehaviour:
   LightningStrike: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}
   Illuminate: {fileID: 8616140933870782381, guid: 81a48ff3a9fd9cd4f8f575bcd43ad1ed,
     type: 3}
-  Shockwave: {fileID: 0}
+  Shockwave: {fileID: 9127119552212857267, guid: 9e7d84b8c2a10b643b5e58c128f9ffcc,
+    type: 3}
   m_FireballSound: {fileID: 8300000, guid: d1345195100e9024f847849618501560, type: 3}
   m_LightningStrikeSound: {fileID: 8300000, guid: b721063fcd5529044b23b4e2d93ab5a1,
     type: 3}
   m_IlluminateSound: {fileID: 8300000, guid: b94ad6a608dfb904184cb3c3cb50f40c, type: 3}
-  m_ShockwaveSound: {fileID: 8300000, guid: dfff9c5fe607ad34dae8176615e85a5e, type: 3}
+  m_ShockwaveSound: {fileID: 8300000, guid: ffffd990b592d6546913fd2a4cf03c66, type: 3}
 --- !u!1 &7732688168658611989
 GameObject:
   m_ObjectHideFlags: 0
