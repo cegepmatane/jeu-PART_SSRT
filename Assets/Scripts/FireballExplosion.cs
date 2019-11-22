@@ -43,7 +43,7 @@ public class FireballExplosion : MonoBehaviour
             if (col.gameObject.GetComponent<EnemyHealth>() != null)
             {
                 col.gameObject.GetComponent<EnemyHealth>().TakeDamage(m_ExplosionDamage);
-                if(col.gameObject.GetComponent<EnemyMovement>().EnemyType == EnemyMovement.EnemyTypeEnum.SKELETAL)
+                if(col.gameObject.GetComponentInChildren<SkinnedMeshRenderer>() != null)
                 {
                     col.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
                 }

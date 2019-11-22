@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8328890638892344248}
   - component: {fileID: 7462188937847938245}
   - component: {fileID: 3881296577551702860}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: typhula01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,5 +107,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AutoPickup: 1
   m_PickupButton: 0
-  m_player: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
-    type: 3}
+  m_ManaAdd: 50

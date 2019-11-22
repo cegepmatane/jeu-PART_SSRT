@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7518386723696728966}
   - component: {fileID: 3537926333982767119}
   - component: {fileID: 714740272913934546}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Typhula04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
