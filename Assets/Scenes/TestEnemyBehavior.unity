@@ -147,6 +147,11 @@ PrefabInstance:
       propertyPath: DarkModeTransitionTime
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: DarknessPerDefeat
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 4633232383574388805, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -220,7 +225,7 @@ PrefabInstance:
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSkeletons
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
@@ -230,7 +235,7 @@ PrefabInstance:
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSwarmers
-      value: 30
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8402e82e45b21c04ba824bfba623daa5, type: 3}
@@ -1148,7 +1153,7 @@ PrefabInstance:
     - target: {fileID: 8404422020533708779, guid: c6ec826ad9c8e8641afcb2406dc0ae7d,
         type: 3}
       propertyPath: InitialSpawnAmount
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6ec826ad9c8e8641afcb2406dc0ae7d, type: 3}
