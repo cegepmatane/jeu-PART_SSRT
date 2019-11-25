@@ -96,7 +96,7 @@ public class WaveManager : MonoBehaviour
     //TODO influencer m_SpawningSpeed au fil du temps
     private int m_SpawningSpeed = 2;
     private int m_EnemyCount = 0;
-    private bool m_TreeIsChangingColors = false;
+    
 
     public static WaveManager Instance
     {
@@ -225,7 +225,7 @@ public class WaveManager : MonoBehaviour
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
             StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
             //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
-            m_Waves.RemoveAt(0);
+            m_Waves.RemoveAt(0);            
             if (m_Waves.Count > 0)
             {
                 StartCoroutine(WaitForNextWave(MinimumWaitBetweenWaves, t_PreviousTree));
@@ -241,7 +241,7 @@ public class WaveManager : MonoBehaviour
     private IEnumerator WaitForNextWave(int a_Countdown, GameObject a_PreviousTree)
     {
         m_Waves[0].Start();
-        StartCoroutine(FadeTreeColor(Color.magenta, COLOR_CHANGE_DURATION));
+        
         //Debug.Log(m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt);
         while (m_Waves[0].TargetTree.GetComponent<TreeHealth>().IsHurt)
         {
@@ -252,7 +252,8 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
             yield return new WaitForSecondsRealtime(1);
         }
-        for(; a_Countdown > 0; a_Countdown--)
+        StartCoroutine(m_Waves[0].TargetTree.GetComponent<TreeHealth>().FadeTreeColor(Color.magenta, COLOR_CHANGE_DURATION));
+        for (; a_Countdown > 0; a_Countdown--)
         {
             
             //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.magenta);
@@ -272,37 +273,7 @@ public class WaveManager : MonoBehaviour
         
     }
 
-    private IEnumerator FadeTreeColor(Color a_NewColor, float a_Duration)
-    {
-        //Debug.Log("AAAAAAAAAAA");
-        float t_ElapsedTime = 0f;
-        m_TreeIsChangingColors = true;
-        List<Transform> t_RenderList = new List<Transform>();
-        foreach (Transform child in m_Waves[0].TargetTree.transform)
-        {
-            t_RenderList.Add(child);
-        }
-        Color t_InitialColor = m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.color;
-        while (t_ElapsedTime / a_Duration < 1)
-        {
-            float t = t_ElapsedTime / a_Duration;
-            if(t > 1)
-            {
-                t = 1;
-            }
-            foreach(Transform child in t_RenderList)
-            {
-                child.GetComponent<MeshRenderer> ().material.SetColor("_EmissionColor", Color.Lerp(t_InitialColor, a_NewColor, t));
-            }
-            //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetColor("_EmissionColor", Color.Lerp(t_InitialColor, a_NewColor, t));
-            t_ElapsedTime += Time.deltaTime;
-            //Debug.Log(t_ElapsedTime);
-            yield return null;
-        }
-        m_TreeIsChangingColors = false;
-
-        yield break;
-    }
+    
 
     private void InitiateWave(Wave a_CurrentWave)
     {
@@ -357,5 +328,3 @@ public class WaveManager : MonoBehaviour
     */
 
 }
-
-
