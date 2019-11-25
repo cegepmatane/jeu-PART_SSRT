@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnerBounds : MonoBehaviour
 {
     public GameObject[] Prefabs;
-    public enum ItemTypeArray { MANAFLOWER, ENEMY, OTHER };
+    public enum ItemTypeArray { MANAFLOWER, ENEMY, SHADOW, OTHER };
     public ItemTypeArray ItemType;
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
@@ -103,7 +103,10 @@ public class SpawnerBounds : MonoBehaviour
                     if (WaveManager.Instance.TargetTree != null)
                     {
                         //t_EnemyMovement.m_currentWaypoint = TargetTree.transform.GetChild(0);
-                        t_SpawnedItem.GetComponent<EnemyMovement>().treeCollider = WaveManager.Instance.TargetTree.GetComponent<Collider>();
+                        if (ItemType == ItemTypeArray.ENEMY)
+                        {
+                            t_SpawnedItem.GetComponent<EnemyMovement>().treeCollider = WaveManager.Instance.TargetTree.GetComponent<Collider>();
+                        }
                     }
                     t_SpawnedQty++;
                     break;

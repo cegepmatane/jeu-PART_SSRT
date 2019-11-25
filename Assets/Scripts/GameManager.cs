@@ -8,14 +8,14 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private int DarknessPerDefeat = 20;
     [SerializeField]
-    private float DarkModeTransitionTime = 5;
+    private float DarkModeTransitionTime = 5, m_DarknessDissipationRate = 0.1f;
     [SerializeField]
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private List<GameObject> m_EnemySpawners = new List<GameObject>();
-    private GameObject m_PlayerSpawner;
+    private GameObject m_PlayerSpawner, m_ShadowSpawner;
     private bool m_DarkModeActivated = false;
-    private GameObject m_Player;
+    private GameObject m_Player, m_ShadowEntity;
     private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
     private GameObject m_FlowerSpawner;
@@ -131,7 +131,7 @@ public class GameManager : MonoBehaviour
 
         if (m_DarkModeActivated)
         {
-            if (!m_Player.GetComponent<PlayerAbilities>().decreaseDarkness(0.1f))
+            if (!m_Player.GetComponent<PlayerAbilities>().decreaseDarkness(m_DarknessDissipationRate))
             {
                 ReturnFromShadowRealm();
             }
@@ -166,11 +166,19 @@ public class GameManager : MonoBehaviour
             case SpawnerBounds.ItemTypeArray.ENEMY:
                 m_EnemySpawners.Add(a_GenericSpawner);
                 break;
+            case SpawnerBounds.ItemTypeArray.SHADOW:
+                m_ShadowSpawner = a_GenericSpawner;
+                break;
 
-        }
-        
-
+        }       
     }
+
+    public void AddShadowEntity(GameObject a_ShadowEntity)
+    {
+        m_ShadowEntity = a_ShadowEntity;
+    }
+
+
 
     public void KillTree(GameObject a_Tree)
     {
@@ -236,7 +244,13 @@ public class GameManager : MonoBehaviour
         float t_ElapsedTime = 0;
         Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
         //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
-        
+        if (!IsInDarkMode)
+        {
+            if (m_ShadowEntity)
+            {
+                m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+            }
+        }
         while (t_ElapsedTime / a_Duration < 1)
         {
             float t = t_ElapsedTime / a_Duration;
@@ -254,6 +268,10 @@ public class GameManager : MonoBehaviour
        
             t_ElapsedTime += Time.deltaTime;
             yield return null;
+        }
+        if (IsInDarkMode)
+        {
+            m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
         }
         WaveManager.Instance.PrepareNextWave();
         

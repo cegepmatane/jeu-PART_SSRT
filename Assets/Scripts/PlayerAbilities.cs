@@ -219,7 +219,7 @@ public class PlayerAbilities : MonoBehaviour
     //Si ceci retourne FALSE, cela veut dire qu'il n'y a plus de darkness restante!
     public bool decreaseDarkness(float a_darkness)
     {
-        Debug.Log(m_Darkness);
+
         if (m_Darkness > 0)
         {
 
