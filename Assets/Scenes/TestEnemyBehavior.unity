@@ -145,7 +145,7 @@ PrefabInstance:
     - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: DarkModeTransitionTime
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_DarknessDissipationRate
-      value: 0.01
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 4633232383574388805, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
@@ -1455,7 +1455,7 @@ PrefabInstance:
     - target: {fileID: 9180479379759420945, guid: 21683e2e491ff4d4293977cd29f70a14,
         type: 3}
       propertyPath: m_LayerMask.m_Bits
-      value: 2871
+      value: 2359
       objectReference: {fileID: 0}
     - target: {fileID: 9180479379759420945, guid: 21683e2e491ff4d4293977cd29f70a14,
         type: 3}
