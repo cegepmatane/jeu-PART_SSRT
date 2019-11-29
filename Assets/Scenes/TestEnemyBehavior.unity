@@ -132,31 +132,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: m_GlowyAmbience
-      value: 
-      objectReference: {fileID: 1753107988}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: m_GlowyAmbience
-      value: 
-      objectReference: {fileID: 1753107988}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: DarkModeTransitionTime
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: DarknessPerDefeat
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
-        type: 3}
-      propertyPath: m_DarknessDissipationRate
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 4633232383574388805, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -247,6 +222,31 @@ PrefabInstance:
       propertyPath: m_Waves.Array.data[0].FocusedTree
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_GlowyAmbience
+      value: 
+      objectReference: {fileID: 1753107988}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_GlowyAmbience
+      value: 
+      objectReference: {fileID: 1753107988}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: DarkModeTransitionTime
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: DarknessPerDefeat
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_DarknessDissipationRate
+      value: 0.01
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8402e82e45b21c04ba824bfba623daa5, type: 3}
 --- !u!1001 &185519874
@@ -316,6 +316,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8063446358594426438, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91,
+        type: 3}
+      propertyPath: Prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 9038090328443639227, guid: 191a60dd0c1262545b906eda00b95ce8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91, type: 3}
 --- !u!1001 &355373376
@@ -494,6 +500,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8063446358594426438, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91,
+        type: 3}
+      propertyPath: Prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 9038090328443639227, guid: 191a60dd0c1262545b906eda00b95ce8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91, type: 3}
 --- !u!1001 &678963348
@@ -891,17 +903,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
-        type: 0}
     - target: {fileID: 5233910626561341178, guid: 3d49cb61a3d920b43b4fc598ae147b61,
         type: 3}
       propertyPath: m_FootstepSounds.Array.size
@@ -982,6 +983,17 @@ PrefabInstance:
       propertyPath: m_MouseLook.smooth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 9151416528497559297, guid: 60949b00f882989408973adbf03bbc7b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1797,6 +1809,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8063446358594426438, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91,
+        type: 3}
+      propertyPath: Prefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 9038090328443639227, guid: 191a60dd0c1262545b906eda00b95ce8,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8bb164ce49fd60d4d837dcc0fd4e0d91, type: 3}
 --- !u!1001 &9180479380955900208
