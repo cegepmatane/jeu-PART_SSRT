@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> m_EnemySpawners = new List<GameObject>();
     private GameObject m_PlayerSpawner, m_ShadowSpawner;
     private bool m_DarkModeActivated = false;
-    private GameObject m_Player, m_ShadowEntity, m_LightFlower;
+    private GameObject m_Player, m_ShadowEntity, m_LightFlower = null;
     private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
     private GameObject m_FlowerSpawner;
@@ -48,6 +48,11 @@ public class GameManager : MonoBehaviour
     public GameObject ContainerManaFlower
     {
         get { return m_ManaFlowerContainer; }
+    }
+
+    public GameObject LightFlower
+    {
+        get { return m_LightFlower; }
     }
 
     void Awake()
@@ -169,8 +174,6 @@ public class GameManager : MonoBehaviour
             case SpawnerBounds.ItemTypeArray.SHADOW:
                 m_ShadowSpawner = a_GenericSpawner;
                 break;
-            
-
         }       
     }
 
