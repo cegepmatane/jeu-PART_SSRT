@@ -69,7 +69,7 @@ public class EnemyMovement : MonoBehaviour
             
         } 
         
-        if(WaveManager.Instance.TargetTree != null && !IsDying)
+        if(WaveManager.Instance.TargetTree != null && !IsDying && m_agent.enabled)
         {
             if (IsAttacking)
             {

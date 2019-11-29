@@ -5091,7 +5091,7 @@ MonoBehaviour:
   m_Lifetime: 2
   m_ShockwaveRadius: 30
   m_ShockwaveDamage: 10
-  m_RepulsionForce: 25
+  m_RepulsionForce: 50
 --- !u!82 &7936620006041518196
 AudioSource:
   m_ObjectHideFlags: 0

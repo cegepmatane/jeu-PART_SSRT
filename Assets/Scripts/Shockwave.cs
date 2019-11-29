@@ -9,7 +9,7 @@ public class Shockwave : MonoBehaviour
     [SerializeField] private float m_ShockwaveRadius = 5f;
     [SerializeField] private int m_ShockwaveDamage = 10;
     private Vector3 m_RepulsionDirection;
-    [SerializeField] private float m_RepulsionForce = 100f;
+    [SerializeField] private float m_RepulsionForce = 50f;
 
     // Start is called before the first frame update
     void Start()
@@ -40,13 +40,11 @@ public class Shockwave : MonoBehaviour
 
                 //Désactiver le NavMeshAgent
                 col.gameObject.GetComponent<NavMeshAgent>().enabled = false;
-                col.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-                //Appliquer la répulsion
-                col.gameObject.GetComponent<Rigidbody>().AddForce((-m_RepulsionDirection) * m_RepulsionForce, ForceMode.Impulse);
-                //col.gameObject.GetComponent<NavMeshAgent>().velocity = -m_RepulsionDirection * m_RepulsionForce;
+
+                col.gameObject.GetComponent<Rigidbody>().AddForce((-m_RepulsionDirection) * m_RepulsionForce, ForceMode.VelocityChange);
 
                 //Réactiver le NavMeshAgent
-                StartCoroutine("ActivateAgent", col.gameObject);
+                StartCoroutine(ActivateAgent(col.gameObject));
 
                 if (col.gameObject.GetComponentInChildren<SkinnedMeshRenderer>() != null)
                 {
@@ -64,27 +62,10 @@ public class Shockwave : MonoBehaviour
 
     IEnumerator ActivateAgent(GameObject a_enemy)
     {
-        yield return new WaitForSeconds(0.5f);
-
-        a_enemy.GetComponent<NavMeshAgent>().enabled = true;
+        yield return new WaitForSeconds(1f);
         Vector3 t_Target = GameManager.Instance.Player.transform.position;
 
-        NavMeshPath path = new NavMeshPath();
-        if (NavMesh.CalculatePath(transform.position, t_Target, NavMesh.AllAreas, path))
-        {
-            bool isvalid = true;
-
-            if (path.status != NavMeshPathStatus.PathComplete)
-                isvalid = false;
-
-            if (isvalid)
-            {
-                a_enemy.GetComponent<NavMeshAgent>().Warp(a_enemy.transform.position);
-                a_enemy.GetComponent<NavMeshAgent>().SetDestination(t_Target);
-                a_enemy.GetComponent<Rigidbody>().isKinematic = true;
-            }
-                
-        }
+        a_enemy.GetComponent<NavMeshAgent>().enabled = true;
 
         StopCoroutine("ActivateAgent");
     }
