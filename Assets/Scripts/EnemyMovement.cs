@@ -149,6 +149,8 @@ public class EnemyMovement : MonoBehaviour
         {
             while (IsDying)
             {
+                Material t_Mat1 = GetComponent<MeshRenderer>().material;
+                Material t_Mat2 = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material;
                 Color t_Color = GetComponent<MeshRenderer>().material.color;
                 t_Color.a -= 0.008f;
                 if (t_Color.a <= 0f)
@@ -156,28 +158,12 @@ public class EnemyMovement : MonoBehaviour
 
                     Die();
                 }
-                GetComponent<MeshRenderer>().material.color = t_Color;
-                gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+                t_Mat1.color = t_Color;
+                t_Mat2.color = t_Color;
                 //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
                 yield return null;
             }
-        } else if (EnemyType == EnemyTypeEnum.SKELETAL){
-            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
-            while (IsDying)
-            {
-                
-                Color t_Color = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color;
-                t_Color.a -= 0.008f;
-                if (t_Color.a <= 0f)
-                {
-
-                    Die();
-                }
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = t_Color;            
-                yield return null; 
-            }
-        }
-        else if (EnemyType == EnemyTypeEnum.WONDERWALL)
+        } else if (EnemyType == EnemyTypeEnum.SKELETAL || EnemyType == EnemyTypeEnum.WONDERWALL)
         {
             gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_AlternateMaterial;
             Material t_Mat = gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material;
