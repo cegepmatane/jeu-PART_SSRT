@@ -11,9 +11,7 @@ public class ManaFlower : Activable
 
     protected override void Activate()
     {
-        // TODO Utiliser GameManager
-        m_player = GameObject.FindGameObjectWithTag("Player");
-
+        m_player = GameManager.Instance.Player;
         RegainMana();
     }
 

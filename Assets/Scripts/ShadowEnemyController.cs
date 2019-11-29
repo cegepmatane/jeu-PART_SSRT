@@ -48,9 +48,7 @@ public class ShadowEnemyController : MonoBehaviour
             }
         }
 
-        m_agent.speed = m_MovementSpeed;
-        
-        
+        m_agent.speed = m_MovementSpeed;   
     }
 
     public void AppearingSequence()
@@ -115,7 +113,7 @@ public class ShadowEnemyController : MonoBehaviour
     }
 
     private void Die()
-    {       
+    {
         Destroy(gameObject);
     }
 

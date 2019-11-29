@@ -13,9 +13,9 @@ public class GameManager : MonoBehaviour
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private List<GameObject> m_EnemySpawners = new List<GameObject>();
-    private GameObject m_PlayerSpawner, m_ShadowSpawner;
+    private GameObject m_PlayerSpawner, m_ShadowSpawner, m_LightFlowerSpawner;
     private bool m_DarkModeActivated = false;
-    private GameObject m_Player, m_ShadowEntity;
+    private GameObject m_Player, m_ShadowEntity, m_LightFlower;
     private GameObject m_ManaFlowerContainer;
     private float m_regenRate = 0.1f;
     private GameObject m_FlowerSpawner;
@@ -169,6 +169,9 @@ public class GameManager : MonoBehaviour
             case SpawnerBounds.ItemTypeArray.SHADOW:
                 m_ShadowSpawner = a_GenericSpawner;
                 break;
+            case SpawnerBounds.ItemTypeArray.LIGHTFLOWER:
+                m_LightFlowerSpawner = a_GenericSpawner;
+                break;
 
         }       
     }
@@ -176,6 +179,11 @@ public class GameManager : MonoBehaviour
     public void AddShadowEntity(GameObject a_ShadowEntity)
     {
         m_ShadowEntity = a_ShadowEntity;
+    }
+
+    public void AddLightFlower(GameObject a_LightFlower)
+    {
+        m_LightFlower = a_LightFlower;
     }
 
 
@@ -249,6 +257,7 @@ public class GameManager : MonoBehaviour
             if (m_ShadowEntity)
             {
                 m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+                m_LightFlower.GetComponent<LightFlower>().DisappearingSequence();
             }
         }
         while (t_ElapsedTime / a_Duration < 1)
@@ -272,6 +281,7 @@ public class GameManager : MonoBehaviour
         if (IsInDarkMode)
         {
             m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
+            m_LightFlowerSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
         }
         WaveManager.Instance.PrepareNextWave();
         
@@ -314,14 +324,4 @@ public class GameManager : MonoBehaviour
     {
         get { return m_EnemySpawners; }
     }
-
-    /*
-    public List<Transform> Waypoints
-    {
-        get
-        {
-            return m_Waypoints;
-        }
-    } 
-    */
 }

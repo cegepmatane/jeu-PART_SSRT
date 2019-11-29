@@ -985,7 +985,6 @@ MonoBehaviour:
   m_LightningStrikeSound: {fileID: 8300000, guid: b721063fcd5529044b23b4e2d93ab5a1,
     type: 3}
   m_IlluminateSound: {fileID: 8300000, guid: b94ad6a608dfb904184cb3c3cb50f40c, type: 3}
-  m_ShockwaveSound: {fileID: 8300000, guid: ffffd990b592d6546913fd2a4cf03c66, type: 3}
 --- !u!1 &7732688168658611989
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using System.Collections;
 public class SpawnerBounds : MonoBehaviour
 {
     public GameObject[] Prefabs;
-    public enum ItemTypeArray { MANAFLOWER, ENEMY, SHADOW, OTHER };
+    public enum ItemTypeArray { MANAFLOWER, ENEMY, SHADOW, LIGHTFLOWER, OTHER };
     public ItemTypeArray ItemType;
     public Transform Bound1, Bound2;
     public float RaycastLenght = 100;
@@ -28,7 +28,7 @@ public class SpawnerBounds : MonoBehaviour
 
     private void Start()
     {   
-        if(ItemType == ItemTypeArray.MANAFLOWER || ItemType == ItemTypeArray.OTHER)
+        if(ItemType == ItemTypeArray.MANAFLOWER || ItemType == ItemTypeArray.LIGHTFLOWER || ItemType == ItemTypeArray.OTHER)
         {
             RandomSpawn(InitialSpawnAmount);
         }
