@@ -10,10 +10,11 @@ public class LightFlower : Activable
     private enum PhaseArray { APPEARING, DISAPPEARING };
     private PhaseArray m_CurrentPhase;
     private GameObject m_player;
+    private Light m_Light;
 
     private void Start()
     {
-        Debug.LogWarning("LIGH FLOWER SPAWNED");
+        Debug.LogWarning("LIGHT FLOWER SPAWNED");
         GameManager.Instance.AddLightFlower(gameObject);
 
         Color t_Color = GetComponent<MeshRenderer>().material.color;
@@ -22,18 +23,8 @@ public class LightFlower : Activable
         AppearingSequence();
     }
 
-    public void AppearingSequence()
-    {
-        m_CurrentPhase = PhaseArray.APPEARING;
-        StartCoroutine(Fade());
-    }
-
-    public void DisappearingSequence()
-    {
-        m_CurrentPhase = PhaseArray.DISAPPEARING;
-        StartCoroutine(Fade());
-    }
-
+    
+    
     private IEnumerator Fade()
     {
         float t_FadeDirection = 0f;
@@ -77,13 +68,29 @@ public class LightFlower : Activable
 
     private void DecreaseDarkness()
     {
+        GameManager.Instance.LightPickup();
         if (m_player.GetComponent<PlayerAbilities>().decreaseDarkness(m_DarknessDecrease))
         {
             Destroy(gameObject);
 
         }
+    }
+
+    public void AppearingSequence()
+    {
+
+
+        m_CurrentPhase = PhaseArray.APPEARING;
+        StartCoroutine(Fade());
 
 
     }
+
+    public void DisappearingSequence()
+    {
+        m_CurrentPhase = PhaseArray.DISAPPEARING;
+        StartCoroutine(Fade());
+    }
+
 }
 

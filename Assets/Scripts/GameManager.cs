@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private GameObject Prefab_PlayerModel, m_GlowyAmbience;
     private List<GameObject> m_Trees = new List<GameObject>();
     private List<GameObject> m_EnemySpawners = new List<GameObject>();
-    private GameObject m_PlayerSpawner, m_ShadowSpawner, m_LightFlowerSpawner;
+    private GameObject m_PlayerSpawner, m_ShadowSpawner;
     private bool m_DarkModeActivated = false;
     private GameObject m_Player, m_ShadowEntity, m_LightFlower;
     private GameObject m_ManaFlowerContainer;
@@ -169,9 +169,7 @@ public class GameManager : MonoBehaviour
             case SpawnerBounds.ItemTypeArray.SHADOW:
                 m_ShadowSpawner = a_GenericSpawner;
                 break;
-            case SpawnerBounds.ItemTypeArray.LIGHTFLOWER:
-                m_LightFlowerSpawner = a_GenericSpawner;
-                break;
+            
 
         }       
     }
@@ -186,7 +184,23 @@ public class GameManager : MonoBehaviour
         m_LightFlower = a_LightFlower;
     }
 
+    public void LightPickup()
+    {
+        m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+        StartCoroutine(WaitForEnemyToDisappear());
 
+    }
+
+    private IEnumerator WaitForEnemyToDisappear()
+    {
+        while(m_ShadowEntity != null)
+        {
+            yield return null;
+        }
+        m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
+        m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 1);
+        yield break; 
+    }
 
     public void KillTree(GameObject a_Tree)
     {
@@ -281,7 +295,7 @@ public class GameManager : MonoBehaviour
         if (IsInDarkMode)
         {
             m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
-            m_LightFlowerSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
+            m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 1);
         }
         WaveManager.Instance.PrepareNextWave();
         
