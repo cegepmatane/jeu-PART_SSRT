@@ -36,7 +36,19 @@ public class Illuminate : MonoBehaviour
 
     private void Update()
     {
-        transform.position += Vector3.up * Time.deltaTime * speed;
+        if (GameManager.Instance.LightFlower == null)
+        { 
+            transform.position += Vector3.up * Time.deltaTime * speed;
+        } else
+        {
+            Vector3 t_FlowerPosition = GameManager.Instance.LightFlower.transform.position;
+            Vector3 t_Target = new Vector3(t_FlowerPosition.x, t_FlowerPosition.y + 5, t_FlowerPosition.z);
+            transform.position = Vector3.MoveTowards(transform.position, t_Target, (speed * 2) * Time.deltaTime);
+            
+        }
+
+        
+        
     }
 
     private IEnumerator Fluctuation()
