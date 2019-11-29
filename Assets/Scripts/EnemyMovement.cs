@@ -25,10 +25,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         m_agent = GetComponent<NavMeshAgent>();
-        if(GetComponentInChildren<Animator>() != null)
-        {
-            m_Animator = GetComponentInChildren<Animator>();
-        }
+        m_Animator = GetComponentInChildren<Animator>();
     }
 
     // Start is called before the first frame update
@@ -55,11 +52,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
-        
         if (m_Animator)
         {
-            
-            if (GetComponent<NavMeshAgent>().velocity != new Vector3(0, 0, 0))
+            if (m_agent.velocity != new Vector3(0, 0, 0))
             {
                 m_Animator.SetBool("IsMoving", true);
             } else
@@ -94,7 +89,7 @@ public class EnemyMovement : MonoBehaviour
         if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
             
-            m_agent.SetDestination(transform.position);
+            
             DeathSequence();
         }
     }
@@ -137,7 +132,7 @@ public class EnemyMovement : MonoBehaviour
         {
             IsAttacking = false;
             IsDying = true;
-            m_agent.SetDestination(transform.position);
+            m_agent.isStopped = true;
             if (m_Animator)
             {
                 m_Animator.SetTrigger("TriggerDeath");
@@ -145,7 +140,6 @@ public class EnemyMovement : MonoBehaviour
             StopCoroutine("Attack");
             StartCoroutine("Fade");
         }
-        
     }
 
     private IEnumerator Fade()
@@ -183,23 +177,23 @@ public class EnemyMovement : MonoBehaviour
                 yield return null; 
             }
         }
-        else if (EnemyType == EnemyTypeEnum.WONDERWALL){
-            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
+        else if (EnemyType == EnemyTypeEnum.WONDERWALL)
+        {
+            gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_AlternateMaterial;
+            Material t_Mat = gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material;
             while (IsDying)
             {
-                
-                Color t_Color = gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color;
+                Color t_Color = t_Mat.color;
                 t_Color.a -= 0.008f;
                 if (t_Color.a <= 0f)
                 {
-
                     Die();
                 }
-                gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material.color = t_Color;            
+                t_Mat.color = t_Color;   
+                
                 yield return null; 
             }
         }
-        
         
         yield return null;
     }
