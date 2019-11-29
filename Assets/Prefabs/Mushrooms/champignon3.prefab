@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2732670126586221828}
   - component: {fileID: 3287622875128021952}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: champignon3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 4876075773851337638}
   - component: {fileID: 4068961161833258335}
   - component: {fileID: 8740174302542272160}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: champignon_3_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2063211391638518636}
   - component: {fileID: 3306814632176829702}
   - component: {fileID: 7445977724675875570}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: champignon_3_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

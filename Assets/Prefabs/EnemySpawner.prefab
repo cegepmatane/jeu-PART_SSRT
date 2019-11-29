@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefabs:
   - {fileID: 7864139695186240922, guid: 52c09ae1234bcf649a78319eeee71070, type: 3}
-  - {fileID: 6466791649636017842, guid: 191a60dd0c1262545b906eda00b95ce8, type: 3}
-  - {fileID: 4468531608528402799, guid: 076828fbfe73ff54cb71e74a613a909d, type: 3}
+  - {fileID: 9038090328443639227, guid: 191a60dd0c1262545b906eda00b95ce8, type: 3}
+  - {fileID: 895831498103450042, guid: d6e65385560b1c34097bcfd58145fad2, type: 3}
   ItemType: 1
   Bound1: {fileID: 422263451564624516}
   Bound2: {fileID: 6000044167442851687}

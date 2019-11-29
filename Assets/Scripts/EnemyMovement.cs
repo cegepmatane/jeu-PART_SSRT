@@ -12,7 +12,7 @@ public class EnemyMovement : MonoBehaviour
     //Le currentWaypoint correspond au Transform de l'enfant "basePosition" dans chaque arbre
     //public Transform m_currentWaypoint;
     public Collider treeCollider;
-    public enum EnemyTypeEnum { BASIC, SKELETAL, WONDERWALL};
+    public enum EnemyTypeEnum { BASIC, SKELETAL, WONDERWALL, BIGGIE};
     public EnemyTypeEnum EnemyType = EnemyTypeEnum.BASIC;
     private bool IsAttacking;
     private bool IsDying;
@@ -167,7 +167,7 @@ public class EnemyMovement : MonoBehaviour
                 //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
                 yield return null;
             }
-        } else if (EnemyType == EnemyTypeEnum.SKELETAL){
+        } else if (EnemyType == EnemyTypeEnum.SKELETAL || EnemyType == EnemyTypeEnum.BIGGIE){
             gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
             while (IsDying)
             {

@@ -38,8 +38,10 @@ public class Shockwave : MonoBehaviour
                 //Calcul de la direction de répulsion
                 m_RepulsionDirection = (transform.position - col.gameObject.transform.position).normalized;
 
-                //Désactiver le NavMeshAgent
+                //Désactiver le NavMeshAgent et le mode Kinematic
                 col.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+                col.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
 
                 col.gameObject.GetComponent<Rigidbody>().AddForce((-m_RepulsionDirection) * m_RepulsionForce, ForceMode.VelocityChange);
 
@@ -57,7 +59,6 @@ public class Shockwave : MonoBehaviour
 
             }
         }
-
     }
 
     IEnumerator ActivateAgent(GameObject a_enemy)
@@ -66,6 +67,7 @@ public class Shockwave : MonoBehaviour
         Vector3 t_Target = GameManager.Instance.Player.transform.position;
 
         a_enemy.GetComponent<NavMeshAgent>().enabled = true;
+        a_enemy.GetComponent<Rigidbody>().isKinematic = true;
 
         StopCoroutine("ActivateAgent");
     }

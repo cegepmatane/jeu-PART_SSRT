@@ -17,7 +17,6 @@
 			
 			Material {
 				Diffuse[_Color]
-				
 			}
 			SetTexture[_MainTex] {
 				constantColor[_Color]
