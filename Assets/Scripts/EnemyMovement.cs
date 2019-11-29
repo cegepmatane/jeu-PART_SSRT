@@ -25,9 +25,9 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         m_agent = GetComponent<NavMeshAgent>();
-        if(GetComponent<Animator>() != null)
+        if(GetComponentInChildren<Animator>() != null)
         {
-            m_Animator = GetComponent<Animator>();
+            m_Animator = GetComponentInChildren<Animator>();
         }
     }
 
