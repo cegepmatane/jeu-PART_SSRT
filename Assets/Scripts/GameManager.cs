@@ -187,12 +187,16 @@ public class GameManager : MonoBehaviour
         m_LightFlower = a_LightFlower;
     }
 
-    public void LightPickup()
+    //Appelez cette fonction à chaque fois que le joueur se fait toucher par le shadow enemy, OU qu'il ramasse une lightflower
+    public void EndShadowCycle()
     {
         m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+        m_LightFlower.GetComponent<LightFlower>().DisappearingSequence();
         StartCoroutine(WaitForEnemyToDisappear());
 
     }
+
+    
 
     private IEnumerator WaitForEnemyToDisappear()
     {
@@ -247,6 +251,7 @@ public class GameManager : MonoBehaviour
         if (m_DarkModeActivated)
         {
             Debug.Log("Vous vous échappez de la noirceur...");
+            m_Player.GetComponent<PlayerAbilities>().NumberOfLives = 3;
             m_DarkModeActivated = false;
 
             
@@ -336,6 +341,11 @@ public class GameManager : MonoBehaviour
     {
         get { return m_Player; }
     }
+    public GameObject ShadowEntity
+    {
+        get { return m_ShadowEntity; }     
+    }
+
 
     public List<GameObject> EnemySpawners
     {

@@ -7,7 +7,7 @@ public class LightFlower : Activable
 {
     [SerializeField]
     private int m_DarknessDecrease = 20;
-    private enum PhaseArray { APPEARING, DISAPPEARING };
+    private enum PhaseArray { APPEARING, ACTIVE, DISAPPEARING };
     private PhaseArray m_CurrentPhase;
     private GameObject m_player;
     private Light m_Light;
@@ -17,9 +17,9 @@ public class LightFlower : Activable
         Debug.LogWarning("LIGHT FLOWER SPAWNED");
         GameManager.Instance.AddLightFlower(gameObject);
 
-        Color t_Color = GetComponent<MeshRenderer>().material.color;
+        Color t_Color = GetComponent<MeshRenderer>().material.GetColor("_Color");
         t_Color.a = 0f;
-        GetComponent<MeshRenderer>().material.color = t_Color;
+        GetComponent<MeshRenderer>().material.SetColor("_Color", t_Color);
         AppearingSequence();
     }
 
@@ -38,9 +38,10 @@ public class LightFlower : Activable
         }
         while (m_CurrentPhase == PhaseArray.APPEARING || m_CurrentPhase == PhaseArray.DISAPPEARING)
         {
-            Color t_Color = GetComponent<MeshRenderer>().material.color;
-            t_Color.a -= 0.001f * t_FadeDirection;
-
+            
+            Color t_Color = GetComponent<MeshRenderer>().material.GetColor("_Color");
+            t_Color.a -= 0.005f * t_FadeDirection;
+            
             if (t_Color.a <= 0f)
             {
                 Die();
@@ -48,8 +49,11 @@ public class LightFlower : Activable
             else if (t_Color.a >= 1f)
             {
                 t_Color.a = 1.0f;
+                m_CurrentPhase = PhaseArray.ACTIVE;
+                
+
             }
-            GetComponent<MeshRenderer>().material.color = t_Color;
+            GetComponent<MeshRenderer>().material.SetColor("_Color", t_Color);
             yield return null;
         }
         yield return null;
@@ -68,7 +72,7 @@ public class LightFlower : Activable
 
     private void DecreaseDarkness()
     {
-        GameManager.Instance.LightPickup();
+        GameManager.Instance.EndShadowCycle();
         if (m_player.GetComponent<PlayerAbilities>().decreaseDarkness(m_DarknessDecrease))
         {
             Destroy(gameObject);

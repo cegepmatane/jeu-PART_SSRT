@@ -74,9 +74,9 @@ public class ShadowEnemyController : MonoBehaviour
         Vector3 t_OppositeDirection = -GameManager.Instance.Player.transform.position;
         m_CurrentPhase = PhaseArray.DISAPPEARING;
         
-        m_MovementSpeed = 2f;
+        m_MovementSpeed = 4f;
         m_agent.SetDestination(t_OppositeDirection);
-        m_agent.speed = 2f;
+        m_agent.speed = m_MovementSpeed;
         StartCoroutine(Fade());
         
 
@@ -117,10 +117,7 @@ public class ShadowEnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider collider)
-    {
-        
-    }
+    
 
     private void OnTriggerExit(Collider collider)
     {

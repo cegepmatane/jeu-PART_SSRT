@@ -11,6 +11,7 @@ public class PlayerAbilities : MonoBehaviour
         private int m_Cost;
         private Vector3 m_BasePosition;
         private float m_Duration;
+        
 
         public Spell(GameObject a_Prefab, int a_Cost, float a_Duration)
         {
@@ -45,7 +46,7 @@ public class PlayerAbilities : MonoBehaviour
     private const int MAX_DARKNESS = 100;
     private int m_Mana;
     private float m_Darkness;
-
+    private int m_NumberOfLives = 3;
     private float m_CastingCooldown;
     private int m_SelectedCost;
 
@@ -82,7 +83,7 @@ public class PlayerAbilities : MonoBehaviour
         m_Spells.Add(new Spell(LightningStrike, 30, 2));
         m_Spells.Add(new Spell(Illuminate, 10, 2));
         m_Spells.Add(new Spell(Shockwave, 35, 2));
-    
+
         //Le premier sort est sélectionné par défaut
         m_SelectedSpell = m_Spells[0];
         m_SelectedCost = m_SelectedSpell.Cost;
@@ -104,13 +105,13 @@ public class PlayerAbilities : MonoBehaviour
         {
             //bool mouseWasPressed = m_IsMousePressed;
             //if (Input.GetButtonDown("Fire1") && mouseWasPressed)
-                //m_IsMousePressed = true;
+            //m_IsMousePressed = true;
 
             //Lancer le sort sélectionné
             if (/*m_IsMousePressed &&*/ Input.GetButtonUp("Fire1") && m_Mana >= m_SelectedCost)
             {
 
-                switch(m_SelectedSpell.Prefab.name)
+                switch (m_SelectedSpell.Prefab.name)
                 {
                     case "Fireball":
                         GetComponentInChildren<Animator>().SetTrigger("FireballCast");
@@ -172,7 +173,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         m_SelectedSpell.BasePosition = a_SpellPos;
         //Instantiation
-        Instantiate(m_SelectedSpell.Prefab, m_SelectedSpell.BasePosition, m_SelectedSpell.Prefab.name == "Shockwave" ? Quaternion.Euler(-90,0,0) : Quaternion.LookRotation(m_camera.transform.forward));
+        Instantiate(m_SelectedSpell.Prefab, m_SelectedSpell.BasePosition, m_SelectedSpell.Prefab.name == "Shockwave" ? Quaternion.Euler(-90, 0, 0) : Quaternion.LookRotation(m_camera.transform.forward));
         //Retrait du mana
         m_Mana -= m_SelectedCost;
     }
@@ -184,7 +185,7 @@ public class PlayerAbilities : MonoBehaviour
     }
     //Si ceci retourne FALSE, cela veut dire que la mana est au maximum!
     public bool addMana(int a_mana)
-    {   
+    {
         if (m_Mana < MAX_MANA)
         {
             int manaDiff = MAX_MANA - m_Mana;
@@ -195,7 +196,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             return false;
         }
-        
+
     }
     //Si ceci retourne FALSE, cela veut dire que la darkness est au maximum!
     public bool increaseDarkness(float a_darkness)
@@ -204,7 +205,7 @@ public class PlayerAbilities : MonoBehaviour
         {
             float darknessDiff = MAX_DARKNESS - m_Darkness;
             m_Darkness += (darknessDiff > a_darkness) ? a_darkness : darknessDiff;
-            if(m_Darkness == MAX_DARKNESS)
+            if (m_Darkness == MAX_DARKNESS)
             {
                 return false;
             }
@@ -235,5 +236,21 @@ public class PlayerAbilities : MonoBehaviour
             return false;
         }
 
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>())
+        {
+            Debug.Log("CONTACT!");
+            NumberOfLives--;
+            GameManager.Instance.EndShadowCycle();
+        }
+    }
+
+    public int NumberOfLives
+    {
+        get { return m_NumberOfLives; }
+        set { m_NumberOfLives = value; }
     }
 }
