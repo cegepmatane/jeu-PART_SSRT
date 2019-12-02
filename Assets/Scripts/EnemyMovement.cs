@@ -163,9 +163,7 @@ public class EnemyMovement : MonoBehaviour
                 //Debug.Log("Alpha = " + this.GetComponent<MeshRenderer>().material.color.a);
                 yield return null;
             }
-        } else if (EnemyType == EnemyTypeEnum.SKELETAL || EnemyType == EnemyTypeEnum.BIGGIE){
-            gameObject.transform.GetChild(0).GetComponent<SkinnedMeshRenderer>().material = m_AlternateMaterial;
-        } else if (EnemyType == EnemyTypeEnum.SKELETAL || EnemyType == EnemyTypeEnum.WONDERWALL)
+        } else if (EnemyType == EnemyTypeEnum.SKELETAL || EnemyType == EnemyTypeEnum.WONDERWALL || EnemyType == EnemyTypeEnum.BIGGIE)
         {
             gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_AlternateMaterial;
             Material t_Mat = gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material;
