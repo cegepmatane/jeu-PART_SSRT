@@ -118,9 +118,8 @@ public class SpawnerBounds : MonoBehaviour
 
         return t_SpawnedQty;
     }
-    public IEnumerator SpawnEnemyLoop(int a_BaseCount, int a_HeavyCount, int a_LightCount, int a_Interval, int a_Delay)
+    public IEnumerator SpawnEnemyLoop(int a_BaseCount, int a_HeavyCount, int a_LightCount, float a_BaseInterval, float a_HeavyInterval, float a_LightInterval, int a_Delay)
     {
-       
 
         // Wait for the delivery delay.
         yield return new WaitForSeconds(a_Delay);
@@ -129,7 +128,7 @@ public class SpawnerBounds : MonoBehaviour
         {
             FixedSpawn(1, 0);
 
-            yield return new WaitForSeconds(a_Interval);
+            yield return new WaitForSeconds(a_BaseInterval);
         }
 
         for (; a_HeavyCount > 0; a_HeavyCount--)
@@ -137,7 +136,7 @@ public class SpawnerBounds : MonoBehaviour
 
             FixedSpawn(1, 1);
 
-            yield return new WaitForSeconds(a_Interval);
+            yield return new WaitForSeconds(a_HeavyInterval);
         }
 
         for (; a_LightCount > 0; a_LightCount--)
@@ -145,7 +144,7 @@ public class SpawnerBounds : MonoBehaviour
 
             FixedSpawn(1, 2);
 
-            yield return new WaitForSeconds(a_Interval / 2.9f);
+            yield return new WaitForSeconds(a_LightInterval);
         }
         
     }

@@ -92,9 +92,8 @@ public class WaveManager : MonoBehaviour
     private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
     [SerializeField]
     private List<Wave> m_Waves = new List<Wave>();
-    
-    //TODO influencer m_SpawningSpeed au fil du temps
-    private int m_SpawningSpeed = 2;
+    [SerializeField]
+    private float m_BaseSpawningSpeed = 2, m_HeavySpawningSpeed = 2, m_LightSpawningSpeed = 2;
     private int m_EnemyCount = 0;
     
 
@@ -146,7 +145,10 @@ public class WaveManager : MonoBehaviour
 
     void Start()
     {
-        for(int i = 0; i < m_Waves.Count; i++)
+        m_BaseSpawningSpeed = 1 / m_BaseSpawningSpeed;
+        m_HeavySpawningSpeed = 1 / m_HeavySpawningSpeed;
+        m_LightSpawningSpeed = 1 / m_LightSpawningSpeed;
+        for (int i = 0; i < m_Waves.Count; i++)
         {
             m_Waves[i].PositionNumber = i + 1;
             switch (m_Waves[i].FocusedTree)
@@ -288,12 +290,15 @@ public class WaveManager : MonoBehaviour
         int t_RandomNumber = UnityEngine.Random.Range(0, t_Spawners.Count - 1);
         for(int i = 0; i < t_Spawners.Count; i++)
         {
+            //TODO Remplacer le magic number 3 qui représente le délais avant le commencement de la boucle de spawning
             if(i == t_RandomNumber)
             {
-                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn + t_ExtraSkeletons, t_GolemsToSpawn + t_ExtraGolems, t_SwarmersToSpawn + t_ExtraSwarmers, m_SpawningSpeed, 3));             
+                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn + t_ExtraSkeletons, t_GolemsToSpawn + t_ExtraGolems, t_SwarmersToSpawn + t_ExtraSwarmers,
+                    m_BaseSpawningSpeed, m_HeavySpawningSpeed, m_LightSpawningSpeed, 3));             
             } else
             {
-                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn, t_GolemsToSpawn, t_SwarmersToSpawn, m_SpawningSpeed, 3));
+                StartCoroutine(t_Spawners[i].GetComponent<SpawnerBounds>().SpawnEnemyLoop(t_SkeletonsToSpawn, t_GolemsToSpawn, t_SwarmersToSpawn,
+                    m_BaseSpawningSpeed, m_HeavySpawningSpeed, m_LightSpawningSpeed, 3));
             }
         }
 
