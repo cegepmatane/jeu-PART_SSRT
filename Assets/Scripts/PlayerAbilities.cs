@@ -65,6 +65,7 @@ public class PlayerAbilities : MonoBehaviour
     //private Text m_UiText;
     private GameObject m_UiManaBar;
     private GameObject m_UiDarknessBar;
+    private GameObject m_UiHurtScreen;
 
     private AudioSource m_Audio;
     [SerializeField] private AudioClip m_FireballSound;
@@ -92,6 +93,7 @@ public class PlayerAbilities : MonoBehaviour
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
         m_UiManaBar = transform.Find("Canvas").transform.Find("ManaBar").gameObject;
         m_UiDarknessBar = transform.Find("Canvas").transform.Find("DarknessBar").gameObject;
+        m_UiHurtScreen = transform.Find("Canvas").transform.Find("HurtScreen").gameObject;
 
         m_Audio = GetComponentInChildren<AudioSource>();
 
@@ -182,6 +184,16 @@ public class PlayerAbilities : MonoBehaviour
     {
         m_UiManaBar.GetComponent<RectTransform>().localScale = new Vector3((float)m_Mana / MAX_MANA, 1, 1);
         m_UiDarknessBar.GetComponent<RectTransform>().localScale = new Vector3(1, (float)m_Darkness / MAX_DARKNESS, 1);
+       
+        float t_OpacityLevel = 255 - (m_NumberOfLives * 85);
+        if(t_OpacityLevel != 0)
+        {
+            t_OpacityLevel = 1 / (255 / t_OpacityLevel);
+        }
+        Color t_color = m_UiHurtScreen.GetComponent<RawImage>().color;
+        
+        m_UiHurtScreen.GetComponent<RawImage>().color = new Color(t_color.r,t_color.g,t_color.b, t_OpacityLevel);
+        Debug.Log(m_UiHurtScreen.GetComponent<RawImage>().color);
     }
     //Si ceci retourne FALSE, cela veut dire que la mana est au maximum!
     public bool addMana(int a_mana)
