@@ -70,11 +70,11 @@ public class ShadowEnemyController : MonoBehaviour
 
     public void DisappearingSequence()
     {
-
-        Vector3 t_OppositeDirection = -GameManager.Instance.Player.transform.position;
         m_CurrentPhase = PhaseArray.DISAPPEARING;
+        Vector3 t_OppositeDirection = -GameManager.Instance.Player.transform.position.normalized;
         
-        m_MovementSpeed = 4f;
+        
+        m_MovementSpeed = 1f;
         m_agent.SetDestination(t_OppositeDirection);
         m_agent.speed = m_MovementSpeed;
         StartCoroutine(Fade());
