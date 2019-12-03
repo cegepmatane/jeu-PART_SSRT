@@ -20,7 +20,9 @@ public class EnemyMovement : MonoBehaviour
     private Material m_AlternateMaterial;
     [SerializeField]
     public float Damage = 1f, AttackRate = 2f, MovementSpeed = 6f;
-    
+    private Vector3 m_OriginalPos;
+    private float m_LastPosUpdateTime;
+    private Vector3 m_LastUpdatedPos;
 
     private void Awake()
     {
@@ -31,6 +33,10 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        m_OriginalPos = transform.position;
+        m_LastUpdatedPos = transform.position;
+        m_LastPosUpdateTime = 0;
+
         IsDying = false;
         IsAttacking = false;
         EventManager.TriggerEvent("Enemy_Spawn");
@@ -72,19 +78,23 @@ public class EnemyMovement : MonoBehaviour
             }
             else
             {
+                if (!m_agent.isOnNavMesh)
+                    DeathSequence();
+                //Si l'ennemi se coince dans la NavMesh
+                //check a un intervalle de 5 secondes si le monstre n'a pas bougé. Le warp a sa position de départ
+                else if(m_LastPosUpdateTime > 5f && Vector3.Distance(m_LastUpdatedPos, transform.position) < 1f)
+                {
+                    m_agent.Warp(m_OriginalPos);
+                    m_LastPosUpdateTime = 0;
+                }
+
                 m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
+                m_LastPosUpdateTime += Time.deltaTime;
             }
-            //CheckMinDistance();
+            
         }
 
         //Les ennemis ne peuvent plus changer de cible; La cible meure, ils meurent aussi, et la vague recommence quand la cible ressucite
-
-        /*
-        else if (UpdateWaypoint())
-        {
-            Debug.Log("Les ennemis changent de cible !");
-        } 
-        */
         
         if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
@@ -93,25 +103,6 @@ public class EnemyMovement : MonoBehaviour
             DeathSequence();
         }
     }
-    /*
-    private bool UpdateWaypoint()
-    {
-        isAttacking = false;
-        StopCoroutine("Attack");
-
-       
-        if (GameManager.Instance.Waypoints.Count == 0)
-        {
-            return false;
-        }
-
-        //Update du waypoint et du collider
-        m_currentWaypoint = GameManager.Instance.Waypoints[0];
-        treeCollider = m_currentWaypoint.GetComponentInParent<CapsuleCollider>();
-
-        return true;
-    }
-    */
 
     private IEnumerator Attack()
     {

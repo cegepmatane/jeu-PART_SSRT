@@ -63,11 +63,11 @@ public class Shockwave : MonoBehaviour
 
     IEnumerator ActivateAgent(GameObject a_enemy)
     {
-        yield return new WaitForSeconds(1f);
-        Vector3 t_Target = GameManager.Instance.Player.transform.position;
+        yield return new WaitForSeconds(0.1f);
+        //Vector3 t_Target = GameManager.Instance.Player.transform.position;
 
         a_enemy.GetComponent<NavMeshAgent>().enabled = true;
-        a_enemy.GetComponent<Rigidbody>().isKinematic = true;
+        //a_enemy.GetComponent<Rigidbody>().isKinematic = true;
 
         StopCoroutine("ActivateAgent");
     }
