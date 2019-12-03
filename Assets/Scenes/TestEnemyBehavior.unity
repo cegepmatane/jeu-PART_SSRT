@@ -205,17 +205,17 @@ PrefabInstance:
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSkeletons
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfGolems
-      value: 5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSwarmers
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
@@ -903,6 +903,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 5233910626561341178, guid: 3d49cb61a3d920b43b4fc598ae147b61,
         type: 3}
       propertyPath: m_FootstepSounds.Array.size
@@ -983,17 +994,6 @@ PrefabInstance:
       propertyPath: m_MouseLook.smooth
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Name
-      value: PlayerSpawner
-      objectReference: {fileID: 0}
-    - target: {fileID: 9151416528497559298, guid: 60949b00f882989408973adbf03bbc7b,
-        type: 3}
-      propertyPath: m_Icon
-      value: 
-      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000,
-        type: 0}
     - target: {fileID: 9151416528497559297, guid: 60949b00f882989408973adbf03bbc7b,
         type: 3}
       propertyPath: m_LocalPosition.x

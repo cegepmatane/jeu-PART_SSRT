@@ -11,10 +11,12 @@ public class Illuminate : MonoBehaviour
     private float m_GlowingIntensity;
     private float m_MinIntensity;
     private float m_MaxIntensity;
+
     private bool m_IsGrowing;
     public float fluctuationSpeed = 0.1f;
     public float speed = 2f;
     public float lifetime = 5f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +26,11 @@ public class Illuminate : MonoBehaviour
         m_SphereSize = m_MinSize;
 
         m_GlowingColor = GetComponent<MeshRenderer>().material.GetColor("_EmissionColor");
-        m_GlowingIntensity = 2f;
-        m_MinIntensity = 1.5f;
-        m_MaxIntensity = 2.5f;
+        m_GlowingIntensity = 0f;
+        m_MinIntensity = 1.0f;
+        m_MaxIntensity = 1.2f;
+
+        GetComponent<Light>().intensity = 0f;
 
         m_IsGrowing = true;
         StartCoroutine("Fluctuation");
@@ -46,15 +50,20 @@ public class Illuminate : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, t_Target, (speed * 2) * Time.deltaTime);
             
         }
-
-        
-        
     }
 
     private IEnumerator Fluctuation()
     {
         while (true)
         {
+            if (m_GlowingIntensity < (m_MaxIntensity + m_MinIntensity) /2)
+            {
+                GetComponent<Light>().intensity = m_GlowingIntensity += 0.1f;
+                GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", m_GlowingColor * m_GlowingIntensity);
+                
+                yield return null;
+            }
+
             if ((transform.localScale.magnitude < m_MaxSize.magnitude) && m_IsGrowing)
             {
                 m_GlowingIntensity += 0.01f;
@@ -71,7 +80,6 @@ public class Illuminate : MonoBehaviour
             {
                 m_IsGrowing = !m_IsGrowing;
             }
-
 
             yield return new WaitForSeconds(fluctuationSpeed);
         }
