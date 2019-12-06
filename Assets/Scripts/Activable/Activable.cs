@@ -23,7 +23,7 @@ public abstract class Activable : MonoBehaviour
     }
 
 
-    private void Awake()
+    protected void Awake()
     {
         m_TriggerCount = 0;
 
