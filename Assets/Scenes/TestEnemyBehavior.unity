@@ -222,6 +222,21 @@ PrefabInstance:
       propertyPath: m_Waves.Array.data[0].FocusedTree
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_BaseSpawningSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_HeavySpawningSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_LightSpawningSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_GlowyAmbience
