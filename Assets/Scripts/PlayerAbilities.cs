@@ -91,9 +91,9 @@ public class PlayerAbilities : MonoBehaviour
 
         m_camera = GetComponentInChildren<Camera>();
         //m_UiText = transform.Find("Canvas").transform.Find("Text").gameObject.GetComponent<Text>();
-        m_UiManaBar = transform.Find("Canvas").transform.Find("ManaBar").gameObject;
-        m_UiDarknessBar = transform.Find("Canvas").transform.Find("DarknessBar").gameObject;
-        m_UiHurtScreen = transform.Find("Canvas").transform.Find("HurtScreen").gameObject;
+        m_UiManaBar = transform.Find("UIGame").transform.Find("ManaBar").gameObject;
+        m_UiDarknessBar = transform.Find("UIGame").transform.Find("DarknessBar").gameObject;
+        m_UiHurtScreen = transform.Find("UIGame").transform.Find("HurtScreen").gameObject;
 
         m_Audio = GetComponentInChildren<AudioSource>();
 
@@ -255,7 +255,15 @@ public class PlayerAbilities : MonoBehaviour
         if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>())
         {
             Debug.Log("CONTACT!");
-            NumberOfLives--;
+            int t_NewLivesNumber = NumberOfLives - 1;
+            if(t_NewLivesNumber < 0)
+            {
+                GameManager.Instance.Defeat();
+            } else
+            {
+                NumberOfLives = t_NewLivesNumber;
+            }
+            
             GameManager.Instance.EndShadowCycle();
         }
     }

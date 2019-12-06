@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -327,6 +328,14 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         Debug.Log("Toute les vagues ont été détruites! Ceci est un message placeholder! GG");
+    }
+
+    public void Defeat()
+    {
+        m_Player.GetComponent<FirstPersonController>().enabled = false;
+        m_Player.transform.Find("UIGame").GetComponent<Canvas>().enabled = false;
+        m_Player.transform.Find("UIGameEnd").GetComponent<Canvas>().enabled = true;
+        Debug.Log("Vous avez échoué...");
     }
 
     public void ReviveTree(GameObject a_Tree)

@@ -1239,6 +1239,7 @@ GameObject:
   - component: {fileID: 1935898972}
   - component: {fileID: 1935898971}
   - component: {fileID: 1935898974}
+  - component: {fileID: 1935898976}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1347,6 +1348,18 @@ MonoBehaviour:
   temporalResponse: 0.35
   debugMode: 7
   lightOnly: 0
+--- !u!114 &1935898976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935898970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415e0e1bc33925f4ab24e110b19cf295, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1974172433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1403,11 +1416,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: 2a663ff66b677eb4c91a7a870375b085, type: 3}
+    m_FontSize: 25
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1415,7 +1428,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quitter
+  m_Text: Quit
 --- !u!222 &1974172436
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1749,11 +1762,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 1
+    m_Font: {fileID: 12800000, guid: 2a663ff66b677eb4c91a7a870375b085, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -1761,7 +1774,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Jouer
+  m_Text: Play
 --- !u!222 &2125172033
 CanvasRenderer:
   m_ObjectHideFlags: 0
