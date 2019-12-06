@@ -88,6 +88,7 @@ GameObject:
   m_Component:
   - component: {fileID: 14222929410878940}
   - component: {fileID: 594784369721834264}
+  - component: {fileID: 4214958294983915396}
   m_Layer: 0
   m_Name: grosChampignon
   m_TagString: Untagged
@@ -134,6 +135,20 @@ LODGroup:
     renderers:
     - renderer: {fileID: 7128142266286012621}
   m_Enabled: 1
+--- !u!136 &4214958294983915396
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920909545242992591}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.3896046
+  m_Height: 8.299397
+  m_Direction: 1
+  m_Center: {x: 0.04118538, y: 3.9462323, z: -0.22240067}
 --- !u!1 &4600746453249305267
 GameObject:
   m_ObjectHideFlags: 0

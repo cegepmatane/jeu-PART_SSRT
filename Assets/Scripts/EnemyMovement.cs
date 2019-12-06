@@ -24,6 +24,11 @@ public class EnemyMovement : MonoBehaviour
     private float m_LastPosUpdateTime;
     private Vector3 m_LastUpdatedPos;
 
+    public AudioClip[] sounds;
+    public AudioClip hurtSound;
+    private AudioClip m_SelectedSound;
+    private float m_LastSoundTime;
+
     private void Awake()
     {
         m_agent = GetComponent<NavMeshAgent>();
@@ -36,6 +41,9 @@ public class EnemyMovement : MonoBehaviour
         m_OriginalPos = transform.position;
         m_LastUpdatedPos = transform.position;
         m_LastPosUpdateTime = 0;
+
+        m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length - 1)];
+        m_LastSoundTime = 0f;
 
         IsDying = false;
         IsAttacking = false;
@@ -58,6 +66,17 @@ public class EnemyMovement : MonoBehaviour
 
     private void Update()
     {
+
+        if(m_LastSoundTime > 5f)
+        {
+            //Jouer le son de l'ennemi (pour l'ambiance)
+            GetComponent<AudioSource>().PlayOneShot(m_SelectedSound);
+            m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length - 1)];
+
+            m_LastSoundTime = 0f;
+        }
+        m_LastSoundTime += Time.deltaTime;
+
         if (m_Animator)
         {
             if (m_agent.velocity != new Vector3(0, 0, 0))
@@ -91,6 +110,7 @@ public class EnemyMovement : MonoBehaviour
                     m_LastPosUpdateTime = 0f;
                     m_LastUpdatedPos = transform.position;
                 }
+
 
                 m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
             }

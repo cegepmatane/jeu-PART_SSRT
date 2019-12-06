@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4411730673813681307
+--- !u!1 &2122341279618782927
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,116 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1038572706944027705}
-  - component: {fileID: 8016992261956985253}
-  - component: {fileID: 5964437876271513090}
+  - component: {fileID: 3111789425055868124}
+  - component: {fileID: 2548146134729077272}
+  - component: {fileID: 2122341279618782926}
   m_Layer: 0
-  m_Name: Nepenthes_LOD0
+  m_Name: fleur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1038572706944027705
+--- !u!4 &3111789425055868124
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4411730673813681307}
+  m_GameObject: {fileID: 2122341279618782927}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 60.1554, y: 2.6246252, z: 64.23578}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_Children:
+  - {fileID: 4201186719592109661}
+  - {fileID: 5656471024056159126}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!205 &2548146134729077272
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122341279618782927}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: -0.29567194, y: 3.51533, z: -0.062213898}
+  m_Size: 7.4550157
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.25
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 2892379448813074126}
+  - screenRelativeHeight: 0.01
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 8909610285065673479}
+  m_Enabled: 1
+--- !u!136 &2122341279618782926
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122341279618782927}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.0446281
+  m_Height: 7.9718018
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.1528893, z: 0}
+--- !u!1 &6337002638061121804
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4201186719592109661}
+  - component: {fileID: 5668321657227705488}
+  - component: {fileID: 2892379448813074126}
+  m_Layer: 0
+  m_Name: fleur_LOD0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4201186719592109661
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6337002638061121804}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
-  m_Father: {fileID: 7011416636811334141}
+  m_Father: {fileID: 3111789425055868124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8016992261956985253
+--- !u!33 &5668321657227705488
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4411730673813681307}
-  m_Mesh: {fileID: -9183776013365271717, guid: f277316c1fd9cf449953df9dc4a1006d, type: 3}
---- !u!23 &5964437876271513090
+  m_GameObject: {fileID: 6337002638061121804}
+  m_Mesh: {fileID: -419365711966496204, guid: 418ceac1d500a054cb04ec15275418f9, type: 3}
+--- !u!23 &2892379448813074126
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4411730673813681307}
+  m_GameObject: {fileID: 6337002638061121804}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -57,7 +128,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 667b108c0001de645b79b6df417591c7, type: 2}
+  - {fileID: 2100000, guid: 6d2535847fc2c6544a2e4c7a3c55b50b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +149,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &6275440146795045870
+--- !u!1 &8316410023643270906
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,101 +157,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7011416636811334141}
-  - component: {fileID: 7583517368566761273}
+  - component: {fileID: 5656471024056159126}
+  - component: {fileID: 5562794578282134391}
+  - component: {fileID: 8909610285065673479}
   m_Layer: 0
-  m_Name: Nepenthes
+  m_Name: fleur_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7011416636811334141
+--- !u!4 &5656471024056159126
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275440146795045870}
-  m_LocalRotation: {x: -0, y: 0.7497115, z: -0, w: 0.66176486}
-  m_LocalPosition: {x: 12.919335, y: 5.070007, z: 29.755009}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1038572706944027705}
-  - {fileID: 2191355416900070702}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 97.131004, z: 0}
---- !u!205 &7583517368566761273
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6275440146795045870}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: -0.000012993813, y: 1.1775148, z: 0.014754057}
-  m_Size: 2.919319
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.25
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 5964437876271513090}
-  - screenRelativeHeight: 0.01
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7414024822235134543}
-  m_Enabled: 1
---- !u!1 &8607713000485934213
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2191355416900070702}
-  - component: {fileID: 8107072571225661036}
-  - component: {fileID: 7414024822235134543}
-  m_Layer: 0
-  m_Name: Nepenthes_LOD1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2191355416900070702
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607713000485934213}
+  m_GameObject: {fileID: 8316410023643270906}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
-  m_Father: {fileID: 7011416636811334141}
+  m_Father: {fileID: 3111789425055868124}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8107072571225661036
+--- !u!33 &5562794578282134391
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607713000485934213}
-  m_Mesh: {fileID: 80689561079397749, guid: f277316c1fd9cf449953df9dc4a1006d, type: 3}
---- !u!23 &7414024822235134543
+  m_GameObject: {fileID: 8316410023643270906}
+  m_Mesh: {fileID: 8153345925122809811, guid: 418ceac1d500a054cb04ec15275418f9, type: 3}
+--- !u!23 &8909610285065673479
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8607713000485934213}
+  m_GameObject: {fileID: 8316410023643270906}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -191,7 +206,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 667b108c0001de645b79b6df417591c7, type: 2}
+  - {fileID: 2100000, guid: 6d2535847fc2c6544a2e4c7a3c55b50b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

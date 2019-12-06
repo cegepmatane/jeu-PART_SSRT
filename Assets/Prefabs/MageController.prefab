@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 5233910626570977594}
   - component: {fileID: 5233910626564365594}
   - component: {fileID: 5233910626560447324}
+  - component: {fileID: 4117078466985473642}
   m_Layer: 8
   m_Name: FirstPersonCharacter
   m_TagString: MainCamera
@@ -645,7 +646,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -672,6 +673,42 @@ Behaviour:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5233910626572092184}
   m_Enabled: 1
+--- !u!114 &4117078466985473642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5233910626572092184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5720f3e4091d5649966a31a0c9adc84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationCount: 4
+  stepCount: 8
+  radius: 3.5
+  expStart: 1
+  expFactor: 1
+  jitterSamples: 1
+  GIBoost: 20
+  lightBufferHDR: 0
+  lightBufferResolution: 2
+  LnDlOffset: 0
+  nDlOffset: 0
+  power: 1.5
+  thickness: 10
+  falloff: 1
+  multiBounceAO: 0
+  directLightingAO: 0
+  fallbackMethod: 0
+  cubemapFallback: {fileID: 0}
+  resolutionDownscale: 2
+  reuseCount: 5
+  temporalEnabled: 1
+  temporalResponse: 0.35
+  debugMode: 7
+  lightOnly: 0
 --- !u!1 &5233910626572092186
 GameObject:
   m_ObjectHideFlags: 0

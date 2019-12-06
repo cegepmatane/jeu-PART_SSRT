@@ -28,5 +28,6 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int a_DamageAmount)
     {
         m_currentHP -= a_DamageAmount;
+        GetComponent<AudioSource>().PlayOneShot(GetComponent<EnemyMovement>().hurtSound);
     }
 }
