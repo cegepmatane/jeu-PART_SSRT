@@ -1191,6 +1191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cb5dd900d190e0429eb7c8286c408eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxNumberOfLives: 3
   Fireball: {fileID: 1985853420546834646, guid: 1664ab8e29e09ff41a19ff3991eba2be,
     type: 3}
   LightningStrike: {fileID: 106988, guid: 15dec7b07032b2f4aa6f855bfbe120f7, type: 3}

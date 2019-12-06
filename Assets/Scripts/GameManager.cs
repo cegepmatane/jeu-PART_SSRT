@@ -252,7 +252,7 @@ public class GameManager : MonoBehaviour
         if (m_DarkModeActivated)
         {
             Debug.Log("Vous vous échappez de la noirceur...");
-            m_Player.GetComponent<PlayerAbilities>().NumberOfLives = 3;
+            m_Player.GetComponent<PlayerAbilities>().NumberOfLives = m_Player.GetComponent<PlayerAbilities>().MaxNumberOfLives;
             m_DarkModeActivated = false;
 
             
@@ -333,8 +333,10 @@ public class GameManager : MonoBehaviour
     public void Defeat()
     {
         m_Player.GetComponent<FirstPersonController>().enabled = false;
-        m_Player.transform.Find("UIGame").GetComponent<Canvas>().enabled = false;
-        m_Player.transform.Find("UIGameEnd").GetComponent<Canvas>().enabled = true;
+        m_Player.transform.Find("UIGame").gameObject.SetActive(false);
+        m_Player.transform.Find("UIGameEnd").gameObject.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         Debug.Log("Vous avez échoué...");
     }
 

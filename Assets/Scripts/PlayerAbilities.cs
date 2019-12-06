@@ -46,7 +46,8 @@ public class PlayerAbilities : MonoBehaviour
     private const int MAX_DARKNESS = 100;
     private int m_Mana;
     private float m_Darkness;
-    private int m_NumberOfLives = 3;
+    public int MaxNumberOfLives = 3;
+    private int m_NumberOfLives;
     private float m_CastingCooldown;
     private int m_SelectedCost;
 
@@ -77,7 +78,7 @@ public class PlayerAbilities : MonoBehaviour
     {
         m_Mana = MAX_MANA;
         m_Darkness = 0;
-
+        m_NumberOfLives = MaxNumberOfLives;
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10, 1));
