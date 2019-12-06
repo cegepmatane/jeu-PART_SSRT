@@ -205,17 +205,17 @@ PrefabInstance:
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSkeletons
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfGolems
-      value: 0
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
       propertyPath: m_Waves.Array.data[0].m_NumberOfSwarmers
-      value: 100
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2653574100491319463, guid: 8402e82e45b21c04ba824bfba623daa5,
         type: 3}
@@ -603,17 +603,17 @@ PrefabInstance:
     - target: {fileID: 611970028942625870, guid: 5414c2ac170e6804689aa01ca6d353a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.411
+      value: 6.447
       objectReference: {fileID: 0}
     - target: {fileID: 611970028942625870, guid: 5414c2ac170e6804689aa01ca6d353a8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.063
+      value: 9.03
       objectReference: {fileID: 0}
     - target: {fileID: 611970028942625870, guid: 5414c2ac170e6804689aa01ca6d353a8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.2
+      value: 36.173
       objectReference: {fileID: 0}
     - target: {fileID: 611970028942625870, guid: 5414c2ac170e6804689aa01ca6d353a8,
         type: 3}

@@ -81,21 +81,24 @@ public class EnemyMovement : MonoBehaviour
                 if (!m_agent.isOnNavMesh)
                     DeathSequence();
                 //Si l'ennemi se coince dans la NavMesh
-                //check a un intervalle de 5 secondes si le monstre n'a pas bougé. Le warp a sa position de départ
-                else if(m_LastPosUpdateTime > 5f && Vector3.Distance(m_LastUpdatedPos, transform.position) < 1f)
+                //Sauvegarde la position de l'ennemi il y a 5 secondes
+                else if(m_LastPosUpdateTime > 5f)
                 {
-                    m_agent.Warp(m_OriginalPos);
-                    m_LastPosUpdateTime = 0;
+                    //Warp à sa position initiale si il "n'a pas bougé" durant les 5 dernières secondes
+                    if(Vector3.Distance(m_LastUpdatedPos, transform.position) < 0.5f)
+                        m_agent.Warp(m_OriginalPos);
+
+                    m_LastPosUpdateTime = 0f;
+                    m_LastUpdatedPos = transform.position;
                 }
 
                 m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
-                m_LastPosUpdateTime += Time.deltaTime;
             }
-            
+            m_LastPosUpdateTime += Time.deltaTime;
         }
 
         //Les ennemis ne peuvent plus changer de cible; La cible meure, ils meurent aussi, et la vague recommence quand la cible ressucite
-        
+
         if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
         {
             
