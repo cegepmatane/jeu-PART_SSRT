@@ -193,7 +193,7 @@ public class PlayerAbilities : MonoBehaviour
         Color t_color = m_UiHurtScreen.GetComponent<RawImage>().color;
         
         m_UiHurtScreen.GetComponent<RawImage>().color = new Color(t_color.r,t_color.g,t_color.b, t_OpacityLevel);
-        Debug.Log(m_UiHurtScreen.GetComponent<RawImage>().color);
+        //Debug.Log(m_UiHurtScreen.GetComponent<RawImage>().color);
     }
     //Si ceci retourne FALSE, cela veut dire que la mana est au maximum!
     public bool addMana(int a_mana)
