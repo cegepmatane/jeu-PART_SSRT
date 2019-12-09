@@ -41,8 +41,11 @@ public class EnemyMovement : MonoBehaviour
         m_OriginalPos = transform.position;
         m_LastUpdatedPos = transform.position;
         m_LastPosUpdateTime = 0;
-
-        m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length - 1)];
+        if(sounds.Length > 0)
+        {
+            m_SelectedSound = sounds[(int)Random.Range(1, sounds.Length - 1)];
+        }
+        
         m_LastSoundTime = 0f;
 
         IsDying = false;
@@ -71,7 +74,10 @@ public class EnemyMovement : MonoBehaviour
         {
             //Jouer le son de l'ennemi (pour l'ambiance)
             GetComponent<AudioSource>().PlayOneShot(m_SelectedSound);
-            m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length - 1)];
+            if (sounds.Length > 0)
+            {
+                m_SelectedSound = sounds[(int)Random.Range(1, sounds.Length - 1)];
+            }
 
             m_LastSoundTime = 0f;
         }

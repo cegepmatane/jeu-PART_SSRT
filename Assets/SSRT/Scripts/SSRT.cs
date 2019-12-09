@@ -333,8 +333,8 @@ public class SSRT : MonoBehaviour
 
         if ((renderResolution.x % 2 == 1 || renderResolution.y % 2 == 1) && resolutionDownscale != ResolutionDownscale.Full)
         {
-            Debug.LogWarning("SSRT: Using uneven camera resolution (" + renderResolution.x + ", " + renderResolution.y + 
-				") with downscaling can introduce artifacts! Use a fixed resolution instead of free aspect.");
+            /*Debug.LogWarning("SSRT: Using uneven camera resolution (" + renderResolution.x + ", " + renderResolution.y + 
+				") with downscaling can introduce artifacts! Use a fixed resolution instead of free aspect.");*/
         }
 
 		if (ssrtBuffer != null)

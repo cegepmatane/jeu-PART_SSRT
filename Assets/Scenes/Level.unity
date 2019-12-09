@@ -1011,7 +1011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 200
-  Order: 0
+  Order: 2
 --- !u!136 &3936729638055661607
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1053,7 +1053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 200
-  Order: 0
+  Order: 1
 --- !u!114 &3936729639512332478
 MonoBehaviour:
   m_ObjectHideFlags: 0
