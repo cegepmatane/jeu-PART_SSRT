@@ -171,6 +171,7 @@ public class GameManager : MonoBehaviour
                 break;
             case SpawnerBounds.ItemTypeArray.ENEMY:
                 m_EnemySpawners.Add(a_GenericSpawner);
+
                 break;
             case SpawnerBounds.ItemTypeArray.SHADOW:
                 m_ShadowSpawner = a_GenericSpawner;
@@ -180,6 +181,10 @@ public class GameManager : MonoBehaviour
 
     public void AddShadowEntity(GameObject a_ShadowEntity)
     {
+        if(m_ShadowEntity != null)
+        {
+            m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+        }
         m_ShadowEntity = a_ShadowEntity;
     }
 
@@ -328,6 +333,14 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         Debug.Log("Toute les vagues ont été détruites! Ceci est un message placeholder! GG");
+        m_Player.GetComponent<FirstPersonController>().enabled = false;
+        m_Player.transform.Find("UIGame").gameObject.SetActive(false);
+        m_Player.transform.Find("UIGameEnd").gameObject.SetActive(true);
+        //m_Player.transform.Find("EndingMessage").GetComponent<GUIText>().text = "Victory!";
+        //m_Player.transform.Find("EndingMessageShadow").GetComponent<GUIText>().text = "Victory!";
+        m_Player.GetComponent<PlayerAbilities>().enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Defeat()
@@ -335,6 +348,7 @@ public class GameManager : MonoBehaviour
         m_Player.GetComponent<FirstPersonController>().enabled = false;
         m_Player.transform.Find("UIGame").gameObject.SetActive(false);
         m_Player.transform.Find("UIGameEnd").gameObject.SetActive(true);
+        m_Player.GetComponent<PlayerAbilities>().enabled = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         Debug.Log("Vous avez échoué...");

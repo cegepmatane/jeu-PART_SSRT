@@ -89,12 +89,12 @@ public class WaveManager : MonoBehaviour
     public int MinimumWaitBetweenWaves = 5;
     
     private Texture m_DefaultTreeTexture, m_ActiveTreeTexture;
-    private List<SpawnerBehavior> m_Spawners = new List<SpawnerBehavior>();
     [SerializeField]
     private List<Wave> m_Waves = new List<Wave>();
     [SerializeField]
     private float m_BaseSpawningSpeed = 2, m_HeavySpawningSpeed = 2, m_LightSpawningSpeed = 2;
     private int m_EnemyCount = 0;
+    private bool m_IsGameFinished = false;
     
 
     public static WaveManager Instance
@@ -129,7 +129,7 @@ public class WaveManager : MonoBehaviour
     private void DecreaseMonsterNumber()
     {
         m_EnemyCount--;
-        if(m_EnemyCount == 0)
+        if(m_EnemyCount == 0 && !IsGameFinished)
         {
             //m_Waves[0].Stop();
             PrepareNextWave();
@@ -234,6 +234,7 @@ public class WaveManager : MonoBehaviour
             }
             else
             {
+                m_IsGameFinished = true;
                 GameManager.Instance.Victory();
             }
         }
@@ -317,6 +318,15 @@ public class WaveManager : MonoBehaviour
         {
             
             return m_Waves[0].TargetTree;
+        }
+    }
+
+    public bool IsGameFinished
+    {
+        get
+        {
+
+            return m_IsGameFinished;
         }
     }
 

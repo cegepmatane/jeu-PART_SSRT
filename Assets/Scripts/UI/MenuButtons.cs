@@ -7,7 +7,13 @@ public class MenuButtons : MonoBehaviour
 {
     public void PlayButton()
     {
-        SceneManager.LoadScene("TestEnemyBehavior");
+        SceneManager.LoadScene("Level");
+    }
+
+    public void RestartButton()
+    {
+        SceneManager.LoadScene("Menu");
+        //Debug.Log("AAAAAAAAAAAAAAAA");
     }
 
     public void QuitButton()

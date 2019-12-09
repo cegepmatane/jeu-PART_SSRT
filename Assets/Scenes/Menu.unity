@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.15686275, g: 0.15686275, b: 0.15686275, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 51b74d7bad397457d883c5940f7664d8, type: 2}
   m_HaloStrength: 0.5
@@ -560,7 +560,7 @@ Light:
   serializedVersion: 9
   m_Type: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 0.7
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -851,6 +851,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9189830412007838913, guid: 8402e82e45b21c04ba824bfba623daa5,
+        type: 3}
+      propertyPath: m_GlowyAmbience
+      value: 
+      objectReference: {fileID: 970002122}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8402e82e45b21c04ba824bfba623daa5, type: 3}
 --- !u!1 &1379255827
@@ -1239,7 +1249,7 @@ GameObject:
   - component: {fileID: 1935898972}
   - component: {fileID: 1935898971}
   - component: {fileID: 1935898974}
-  - component: {fileID: 1935898976}
+  - component: {fileID: 1935898975}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1348,7 +1358,7 @@ MonoBehaviour:
   temporalResponse: 0.35
   debugMode: 7
   lightOnly: 0
---- !u!114 &1935898976
+--- !u!114 &1935898975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

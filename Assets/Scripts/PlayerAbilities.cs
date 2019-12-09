@@ -253,20 +253,25 @@ public class PlayerAbilities : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>())
+        if(GameManager.Instance.ShadowEntity != null)
         {
-            Debug.Log("CONTACT!");
-            int t_NewLivesNumber = NumberOfLives - 1;
-            if(t_NewLivesNumber < 0)
+            if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>())
             {
-                GameManager.Instance.Defeat();
-            } else
-            {
-                NumberOfLives = t_NewLivesNumber;
+                Debug.Log("CONTACT!");
+                int t_NewLivesNumber = NumberOfLives - 1;
+                if (t_NewLivesNumber < 0)
+                {
+                    GameManager.Instance.Defeat();
+                }
+                else
+                {
+                    NumberOfLives = t_NewLivesNumber;
+                }
+
+                GameManager.Instance.EndShadowCycle();
             }
-            
-            GameManager.Instance.EndShadowCycle();
         }
+        
     }
 
     public int NumberOfLives

@@ -93,43 +93,45 @@ public class EnemyMovement : MonoBehaviour
                 m_Animator.SetBool("IsMoving", false);
             }
             
-        } 
-        
-        if(WaveManager.Instance.TargetTree != null && !IsDying && m_agent.enabled)
-        {
-            if (IsAttacking)
-            {
-                m_agent.SetDestination(transform.position);
-            }
-            else
-            {
-                if (!m_agent.isOnNavMesh)
-                    DeathSequence();
-                //Si l'ennemi se coince dans la NavMesh
-                //Sauvegarde la position de l'ennemi il y a 5 secondes
-                else if(m_LastPosUpdateTime > 5f)
-                {
-                    //Warp à sa position initiale si il "n'a pas bougé" durant les 5 dernières secondes
-                    if(Vector3.Distance(m_LastUpdatedPos, transform.position) < 0.5f)
-                        m_agent.Warp(m_OriginalPos);
-
-                    m_LastPosUpdateTime = 0f;
-                    m_LastUpdatedPos = transform.position;
-                }
-
-
-                m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
-            }
-            m_LastPosUpdateTime += Time.deltaTime;
         }
-
-        //Les ennemis ne peuvent plus changer de cible; La cible meure, ils meurent aussi, et la vague recommence quand la cible ressucite
-
-        if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
+        if (!WaveManager.Instance.IsGameFinished)
         {
-            
-            
-            DeathSequence();
+            if (WaveManager.Instance.TargetTree != null && !IsDying && m_agent.enabled)
+            {
+                if (IsAttacking)
+                {
+                    m_agent.SetDestination(transform.position);
+                }
+                else
+                {
+                    if (!m_agent.isOnNavMesh)
+                        DeathSequence();
+                    //Si l'ennemi se coince dans la NavMesh
+                    //Sauvegarde la position de l'ennemi il y a 5 secondes
+                    else if (m_LastPosUpdateTime > 5f)
+                    {
+                        //Warp à sa position initiale si il "n'a pas bougé" durant les 5 dernières secondes
+                        if (Vector3.Distance(m_LastUpdatedPos, transform.position) < 0.5f)
+                            m_agent.Warp(m_OriginalPos);
+
+                        m_LastPosUpdateTime = 0f;
+                        m_LastUpdatedPos = transform.position;
+                    }
+
+
+                    m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
+                }
+                m_LastPosUpdateTime += Time.deltaTime;
+            }
+
+            //Les ennemis ne peuvent plus changer de cible; La cible meure, ils meurent aussi, et la vague recommence quand la cible ressucite
+
+            if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
+            {
+
+
+                DeathSequence();
+            }
         }
     }
 
