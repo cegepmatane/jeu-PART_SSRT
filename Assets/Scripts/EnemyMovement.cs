@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
     public AudioClip[] sounds;
     public AudioClip hurtSound;
     private AudioClip m_SelectedSound;
+    private float m_NextSoundTime;
     private float m_LastSoundTime;
 
     private void Awake()
@@ -43,10 +44,11 @@ public class EnemyMovement : MonoBehaviour
         m_LastPosUpdateTime = 0;
         if(sounds.Length > 0)
         {
-            m_SelectedSound = sounds[(int)Random.Range(1, sounds.Length - 1)];
+            m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length)];
         }
         
         m_LastSoundTime = 0f;
+        m_NextSoundTime = 1f;
 
         IsDying = false;
         IsAttacking = false;
@@ -70,13 +72,14 @@ public class EnemyMovement : MonoBehaviour
     private void Update()
     {
 
-        if(m_LastSoundTime > 5f)
+        if(m_LastSoundTime > m_NextSoundTime)
         {
             //Jouer le son de l'ennemi (pour l'ambiance)
             GetComponent<AudioSource>().PlayOneShot(m_SelectedSound);
             if (sounds.Length > 0)
             {
                 m_SelectedSound = sounds[(int)Random.Range(1, sounds.Length - 1)];
+                m_NextSoundTime = Random.Range(5, 10);
             }
 
             m_LastSoundTime = 0f;

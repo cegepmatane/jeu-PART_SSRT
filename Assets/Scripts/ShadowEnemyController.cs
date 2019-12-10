@@ -14,6 +14,11 @@ public class ShadowEnemyController : MonoBehaviour
     private float m_MaxSpeed = 5f, m_Acceleration = 0.01f;
     private float m_MovementSpeed = 0f;
 
+    public AudioClip[] sounds;
+    private AudioClip m_SelectedSound;
+    private float m_NextSoundTime;
+    private float m_LastSoundTime;
+
 
     private void Awake()
     {
@@ -38,6 +43,20 @@ public class ShadowEnemyController : MonoBehaviour
 
     private void Update()
     {
+        if (m_LastSoundTime > m_NextSoundTime)
+        {
+            //Jouer le son de l'ennemi (pour l'ambiance)
+            GetComponent<AudioSource>().PlayOneShot(m_SelectedSound);
+            if (sounds.Length > 0)
+            {
+                m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length)];
+                m_NextSoundTime = Random.Range(5, 10);
+            }
+
+            m_LastSoundTime = 0f;
+        }
+        m_LastSoundTime += Time.deltaTime;
+
         if (m_CurrentPhase == PhaseArray.AGGRESSIVE) 
         {
             m_agent.SetDestination(GameManager.Instance.Player.transform.position);
