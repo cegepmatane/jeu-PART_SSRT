@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TestEnemyBehavior.unity
     guid: d7c4b2cfb93a30844be4a0a158eeb6b6
+  - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: 18bb1961835f24d488cb26eedcd2aacf
   m_configObjects: {}

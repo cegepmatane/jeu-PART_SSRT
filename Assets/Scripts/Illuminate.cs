@@ -27,7 +27,7 @@ public class Illuminate : MonoBehaviour
 
         m_GlowingColor = GetComponent<MeshRenderer>().material.GetColor("_EmissionColor");
         m_GlowingIntensity = 0f;
-        m_MinIntensity = 1.0f;
+        m_MinIntensity = 0.8f;
         m_MaxIntensity = 1.2f;
 
         GetComponent<Light>().intensity = 0f;
@@ -48,6 +48,10 @@ public class Illuminate : MonoBehaviour
             Vector3 t_FlowerPosition = GameManager.Instance.LightFlower.transform.position;
             Vector3 t_Target = new Vector3(t_FlowerPosition.x, t_FlowerPosition.y + 5, t_FlowerPosition.z);
             transform.position = Vector3.MoveTowards(transform.position, t_Target, (speed * 2) * Time.deltaTime);
+
+            Vector3 t_DirectionToLightFlower = t_FlowerPosition - transform.position;
+            Quaternion t_RotationToTarget = Quaternion.LookRotation(t_DirectionToLightFlower);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, t_RotationToTarget, 5f);
             
         }
     }

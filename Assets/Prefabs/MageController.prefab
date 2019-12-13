@@ -830,7 +830,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
@@ -880,7 +880,7 @@ MonoBehaviour:
   thickness: 10
   falloff: 1
   multiBounceAO: 0
-  directLightingAO: 0
+  directLightingAO: 1
   fallbackMethod: 0
   cubemapFallback: {fileID: 0}
   resolutionDownscale: 2

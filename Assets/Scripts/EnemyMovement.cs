@@ -54,8 +54,10 @@ public class EnemyMovement : MonoBehaviour
         IsAttacking = false;
         EventManager.TriggerEvent("Enemy_Spawn");
         m_agent.speed = MovementSpeed;
+
         //Pour que les ennemis ne rentre pas dans l'arbre
         m_agent.stoppingDistance = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>().radius;
+        m_agent.autoBraking = true;
 
         treeCollider = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>();
     }
