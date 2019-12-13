@@ -73,6 +73,7 @@ public class PlayerAbilities : MonoBehaviour
     [SerializeField] private AudioClip m_LightningStrikeSound;
     [SerializeField] private AudioClip m_IlluminateSound;
 
+    private bool m_Damageable = true;
 
     private void Start()
     {
@@ -255,9 +256,10 @@ public class PlayerAbilities : MonoBehaviour
     {
         if(GameManager.Instance.ShadowEntity != null)
         {
-            if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>())
+            if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>() && m_Damageable)
             {
                 Debug.Log("CONTACT!");
+                m_Damageable = false;
                 int t_NewLivesNumber = NumberOfLives - 1;
                 if (t_NewLivesNumber < 0)
                 {
@@ -278,5 +280,11 @@ public class PlayerAbilities : MonoBehaviour
     {
         get { return m_NumberOfLives; }
         set { m_NumberOfLives = value; }
+    }
+
+    public bool Damageable
+    {
+        get { return m_Damageable; }
+        set { m_Damageable = value; }
     }
 }
