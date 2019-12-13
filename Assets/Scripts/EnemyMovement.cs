@@ -167,7 +167,7 @@ public class EnemyMovement : MonoBehaviour
                 Material t_Mat1 = GetComponent<MeshRenderer>().material;
                 Material t_Mat2 = gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material;
                 Color t_Color = GetComponent<MeshRenderer>().material.color;
-                t_Color.a -= 0.008f;
+                t_Color.a -= 0.01f;
                 if (t_Color.a <= 0f)
                 {
 
@@ -185,7 +185,7 @@ public class EnemyMovement : MonoBehaviour
             while (IsDying)
             {
                 Color t_Color = t_Mat.color;
-                t_Color.a -= 0.008f;
+                t_Color.a -= 0.01f;
                 if (t_Color.a <= 0f)
                 {
                     Die();

@@ -298,7 +298,7 @@ public class GameManager : MonoBehaviour
                 m_LightFlower.GetComponent<LightFlower>().DisappearingSequence();
             }
         }
-        while (t_ElapsedTime / a_Duration < 1)
+        while (t_ElapsedTime / a_Duration <= 1)
         {
             float t = t_ElapsedTime / a_Duration;
             if (!IsInDarkMode)
@@ -307,11 +307,11 @@ public class GameManager : MonoBehaviour
                 
             }
             //Debug.Log("/" + t_ElapsedTime + "/" + a_Duration + "/" + t + "/");
-            t_GlowyLight.intensity = Mathf.Lerp(m_InitialGlowyIntensity, 0.2f, t);
+            t_GlowyLight.intensity = Mathf.Lerp(m_InitialGlowyIntensity, 0.12f, t);
             t_GlowyLight.color = Color.Lerp(m_InitialGlowyColor, new Color32(3, 240, 252, 1), t);
-            RenderSettings.fogDensity = Mathf.Lerp(m_InitialFogdensity, 0.25f, t);
+            //RenderSettings.fogDensity = Mathf.Lerp(m_InitialFogdensity, 0.25f, t);
 
-            RenderSettings.ambientSkyColor = Color.Lerp(m_InitialSkyColor, new Color32(30,30,30,1), t);
+            RenderSettings.ambientSkyColor = Color.Lerp(m_InitialSkyColor, new Color32(20,20,20,1), t);
        
             t_ElapsedTime += Time.deltaTime;
             yield return null;
