@@ -967,7 +967,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 6967
+    m_Bits: 4294967295
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_IgnoreNavMeshAgent: 1
@@ -1170,10 +1170,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2401785528293454911, guid: e819ce93e61de164cb9c11dffa4a98e0,
-        type: 3}
-      propertyPath: m_DrawTreesAndFoliage
-      value: 1
+    - target: {fileID: 1985225589, guid: e819ce93e61de164cb9c11dffa4a98e0, type: 3}
+      propertyPath: m_Volume
+      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e819ce93e61de164cb9c11dffa4a98e0, type: 3}
@@ -1191,13 +1190,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimumWaitBetweenWaves: 5
   m_Waves:
-  - m_NumberOfSkeletons: 5
+  - m_NumberOfSkeletons: 2
     m_NumberOfGolems: 3
-    m_NumberOfSwarmers: 10
+    m_NumberOfSwarmers: 6
     FocusedTree: 0
   m_BaseSpawningSpeed: 2
   m_HeavySpawningSpeed: 2
   m_LightSpawningSpeed: 2
+  m_BattleTheme: {fileID: 8300000, guid: 21c9a367ca41bc04c90d37c2761bfe65, type: 3}
 --- !u!4 &2986775338595870195
 Transform:
   m_ObjectHideFlags: 0
@@ -1293,6 +1293,7 @@ GameObject:
   - component: {fileID: 4633232384922923191}
   - component: {fileID: 2653574100224915541}
   - component: {fileID: 9189830410638201907}
+  - component: {fileID: 3086038553948017241}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1300,6 +1301,102 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!82 &3086038553948017241
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3086038553948017240}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.3
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3936729638055661606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2273,13 +2370,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9151416528594827396}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.9161235, z: -0, w: 0.40089622}
   m_LocalPosition: {x: 90.14, y: 3.352, z: 160.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 132.73201, z: 0}
 --- !u!114 &9189830410638201907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2298,3 +2395,4 @@ MonoBehaviour:
   Prefab_PlayerModel: {fileID: 5233910626572092186, guid: 3d49cb61a3d920b43b4fc598ae147b61,
     type: 3}
   m_GlowyAmbience: {fileID: 903936792}
+  m_DarkTheme: {fileID: 8300000, guid: c7436c160ad4f4612a8085b893b97806, type: 3}

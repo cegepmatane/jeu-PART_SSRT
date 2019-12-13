@@ -95,8 +95,9 @@ public class WaveManager : MonoBehaviour
     private float m_BaseSpawningSpeed = 2, m_HeavySpawningSpeed = 2, m_LightSpawningSpeed = 2;
     private int m_EnemyCount = 0;
     private bool m_IsGameFinished = false;
-    
 
+    [SerializeField] private AudioClip m_BattleTheme;
+    
     public static WaveManager Instance
     {
         get
@@ -224,6 +225,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             m_Waves[0].Stop();
+            GameManager.Instance.MusicPlayer.Stop();
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
             StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
             //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
@@ -280,6 +282,12 @@ public class WaveManager : MonoBehaviour
 
     private void InitiateWave(Wave a_CurrentWave)
     {
+        //Jouer la musique de bataille
+        GameManager.Instance.MusicPlayer.clip = m_BattleTheme;
+        GameManager.Instance.MusicPlayer.loop = true;
+        GameManager.Instance.MusicPlayer.volume = 0.2f;
+        GameManager.Instance.MusicPlayer.Play();
+
         Debug.Log("La vague #" + a_CurrentWave.PositionNumber + " vient de commencer !");
         List<GameObject> t_Spawners = GameManager.Instance.EnemySpawners;
         int t_SkeletonsToSpawn = Mathf.FloorToInt(a_CurrentWave.NumberOfSkeletons / t_Spawners.Count);

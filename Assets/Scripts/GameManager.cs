@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     private float m_InitialGlowyIntensity;
     private float m_InitialFogdensity;
     private Color m_InitialSkyColor;
-    //public List<Transform> m_Waypoints;
+    private AudioSource m_MusicSource;
+    [SerializeField] private AudioClip m_DarkTheme;
 
     public static GameManager m_Instance;
     public static GameManager Instance
@@ -72,6 +73,8 @@ public class GameManager : MonoBehaviour
         m_InitialGlowyIntensity = m_GlowyAmbience.GetComponent<Light>().intensity;
         m_InitialSkyColor = RenderSettings.ambientSkyColor;
         m_InitialFogdensity = RenderSettings.fogDensity;
+
+        m_MusicSource = GetComponent<AudioSource>();
     }
 
     void Start()
@@ -228,7 +231,6 @@ public class GameManager : MonoBehaviour
             InitiateShadowRealm();
         }
         //StartCoroutine(RegenerateTree(a_Tree));
-
     }
 
     private void InitiateShadowRealm()
@@ -237,6 +239,12 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Spooky time");
             m_DarkModeActivated = true;
+
+            //Jouer le dark theme
+            m_MusicSource.clip = m_DarkTheme;
+            m_MusicSource.loop = true;
+            m_MusicSource.volume = 0.2f;
+            m_MusicSource.Play();
 
             //TEST D'AMBIANCE
             //Activation du fog (rougeâtre et dense)
@@ -375,5 +383,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> EnemySpawners
     {
         get { return m_EnemySpawners; }
+    }
+
+    public AudioSource MusicPlayer
+    {
+        get { return m_MusicSource; }
     }
 }

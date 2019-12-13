@@ -48,23 +48,14 @@ public class EnemyMovement : MonoBehaviour
         }
         
         m_LastSoundTime = 0f;
-        m_NextSoundTime = 1f;
+        m_NextSoundTime = Random.Range(5, 10);
 
         IsDying = false;
         IsAttacking = false;
         EventManager.TriggerEvent("Enemy_Spawn");
         m_agent.speed = MovementSpeed;
-        //Tri pour que les ennemis se dirigent vers les arbres dans le bon ordre
-        //Ce comportement est maintenant désuet et géré par le GameManager
-
-
-        /* GameObject[] t_trees = GameObject.FindGameObjectsWithTag("Tree").OrderBy(go => go.name).ToArray();
-        m_waypoints = new List<Transform>();
- 
-        foreach (var tree in t_trees)
-        {
-            m_waypoints.Add(tree.transform.GetChild(0));
-        } */
+        //Pour que les ennemis ne rentre pas dans l'arbre
+        m_agent.stoppingDistance = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>().radius;
 
         treeCollider = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>();
     }
@@ -121,7 +112,6 @@ public class EnemyMovement : MonoBehaviour
                         m_LastUpdatedPos = transform.position;
                     }
 
-
                     m_agent.SetDestination(WaveManager.Instance.TargetTree.transform.GetChild(0).position);
                 }
                 m_LastPosUpdateTime += Time.deltaTime;
@@ -131,8 +121,6 @@ public class EnemyMovement : MonoBehaviour
 
             if (WaveManager.Instance.TargetTree.GetComponent<TreeHealth>().IsDead && !IsDying)
             {
-
-
                 DeathSequence();
             }
         }
