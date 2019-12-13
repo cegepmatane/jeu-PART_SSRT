@@ -8,7 +8,7 @@ public class TreeHealth : MonoBehaviour
     public int Order;
     private bool IsAlive = true;
     private bool m_IsHealing = false;
-    private Color m_FocusedColor = Color.magenta;
+    private Color m_FocusedColor = Color.white;
     private Color m_UnfocusedColor;
     private float currentHP;
     void Awake()
@@ -114,7 +114,7 @@ public class TreeHealth : MonoBehaviour
             Debug.Log("Regénération:" + currentHP + "/" + 100 * t_Greyscale + "%");
             //t_color.a = t_Greyscale;
             //Debug.Log("Greyscale = " + t_Greyscale);
-            t_mesh.material.SetColor("_EmissionColor", Color.magenta * t_Greyscale);
+            t_mesh.material.SetColor("_EmissionColor", m_FocusedColor * t_Greyscale);
         }
 
         if(currentHP >= maxHP)
@@ -135,7 +135,7 @@ public class TreeHealth : MonoBehaviour
         {
             t_RenderList.Add(child);
         }
-        Color t_InitialColor = gameObject.GetComponentInChildren<MeshRenderer>().material.color;
+        Color t_InitialColor = gameObject.GetComponentInChildren<MeshRenderer>().material.GetColor("_EmissionColor");
         while (t_ElapsedTime / a_Duration < 1)
         {
             float t = t_ElapsedTime / a_Duration;

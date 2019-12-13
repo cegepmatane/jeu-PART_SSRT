@@ -290,6 +290,17 @@ public class GameManager : MonoBehaviour
         //Color t_GlowColor = new Color32(235, 52, 52, 1);
         float t_ElapsedTime = 0;
         Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
+        for(int i = 0; i < m_Trees.Count; i++)
+        {
+            if (IsInDarkMode)
+            {
+                StartCoroutine(m_Trees[i].GetComponent<TreeHealth>().FadeTreeColor(Color.white, a_Duration));
+            } else
+            {
+                StartCoroutine(m_Trees[i].GetComponent<TreeHealth>().FadeTreeColor(Color.black, a_Duration));
+            }
+            
+        }
         //Debug.Log("Intensité brouillard : " + RenderSettings.fogDensity);
         if (!IsInDarkMode)
         {
