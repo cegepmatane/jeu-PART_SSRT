@@ -288,7 +288,7 @@ MonoBehaviour:
   EnemyType: 2
   m_AlternateMaterial: {fileID: 2100000, guid: 280fa56af1a608347bda5830817187cf, type: 2}
   Damage: 12
-  AttackRate: 1
+  AttackRate: 2
   MovementSpeed: 3
   sounds:
   - {fileID: 8300000, guid: f93d700465a9bf8478b8e867cad5b83b, type: 3}

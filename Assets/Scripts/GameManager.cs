@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
 
             //TEST D'AMBIANCE
             //Activation du fog (rougeâtre et dense)
-            RenderSettings.fog = true;
+            //RenderSettings.fog = true;
             //RenderSettings.fogColor = new Color32(15, 0, 0, 1);
   
             //m_ShadowAmbience.transform.eulerAngles = new Vector3(-80, 0, 0);
@@ -266,6 +266,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Vous vous échappez de la noirceur...");
             m_Player.GetComponent<PlayerAbilities>().NumberOfLives = m_Player.GetComponent<PlayerAbilities>().MaxNumberOfLives;
+            m_ShadowEntity.GetComponent<ShadowEnemyController>().DisappearingSequence();
+            m_LightFlower.GetComponent<LightFlower>().DisappearingSequence();
             m_DarkModeActivated = false;
 
             
