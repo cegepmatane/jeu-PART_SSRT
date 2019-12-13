@@ -213,6 +213,7 @@ public class GameManager : MonoBehaviour
         {
             yield return null;
         }
+        m_Player.GetComponent<PlayerAbilities>().Damageable = true;
         m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 0);
         m_ShadowSpawner.GetComponent<SpawnerBounds>().FixedSpawn(1, 1);
         yield break; 
