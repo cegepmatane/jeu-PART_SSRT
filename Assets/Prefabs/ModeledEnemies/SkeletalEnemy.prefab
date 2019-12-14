@@ -2260,7 +2260,6 @@ MonoBehaviour:
   m_AlternateMaterial: {fileID: 2100000, guid: 2b9615b582955e34aa8a62512cfb5a62, type: 2}
   Damage: 5
   AttackRate: 2
-  MovementSpeed: 5
   sounds: []
   hurtSound: {fileID: 0}
 --- !u!136 &3422379769444241132
@@ -2287,7 +2286,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 1
-  m_Speed: 6
+  m_Speed: 1.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120

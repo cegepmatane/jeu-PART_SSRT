@@ -11,12 +11,13 @@ GameObject:
   - component: {fileID: 8148366094933355383}
   - component: {fileID: 8748050260801945011}
   - component: {fileID: 4226690905101694845}
+  - component: {fileID: 8288596729137122114}
   m_Layer: 0
   m_Name: roche4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8148366094933355383
 Transform:
@@ -70,6 +71,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.1269937, y: 2.127765, z: 5.4085283}
   m_Center: {x: -0.12814839, y: 0.6151438, z: -0.12814839}
+--- !u!208 &8288596729137122114
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5138490705848572260}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &6443649696659375777
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +103,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &8018408820133507799
 Transform:
@@ -165,7 +182,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &5061975386372782149
 Transform:

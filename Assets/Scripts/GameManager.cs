@@ -292,12 +292,14 @@ public class GameManager : MonoBehaviour
         Light t_GlowyLight = m_GlowyAmbience.GetComponent<Light>();
         for(int i = 0; i < m_Trees.Count; i++)
         {
+            TreeHealth t_TreeHealth = m_Trees[i].GetComponent<TreeHealth>();
+
             if (IsInDarkMode)
             {
-                StartCoroutine(m_Trees[i].GetComponent<TreeHealth>().FadeTreeColor(Color.white, a_Duration));
+                StartCoroutine(t_TreeHealth.FadeTreeColor(t_TreeHealth.FocusedColor, a_Duration));
             } else
             {
-                StartCoroutine(m_Trees[i].GetComponent<TreeHealth>().FadeTreeColor(Color.black, a_Duration));
+                StartCoroutine(t_TreeHealth.FadeTreeColor(t_TreeHealth.UnfocusedColor, a_Duration));
             }
             
         }

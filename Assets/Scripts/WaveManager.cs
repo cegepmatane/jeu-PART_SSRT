@@ -257,7 +257,11 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Attente de la guérison de l'arbre avant la vague #" + m_Waves[0].PositionNumber + "...");
             yield return new WaitForSecondsRealtime(1);
         }
-        StartCoroutine(m_Waves[0].TargetTree.GetComponent<TreeHealth>().FadeTreeColor(Color.white, COLOR_CHANGE_DURATION));
+
+        var t_TreeHealth = m_Waves[0].TargetTree.GetComponent<TreeHealth>();
+        StartCoroutine(t_TreeHealth.FadeTreeColor(t_TreeHealth.FocusedColor, COLOR_CHANGE_DURATION));
+
+
         for (; a_Countdown > 0; a_Countdown--)
         {
             

@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 14222929410878940}
   - component: {fileID: 594784369721834264}
   - component: {fileID: 4214958294983915396}
+  - component: {fileID: 8407046340064364887}
   m_Layer: 0
   m_Name: grosChampignon
   m_TagString: Untagged
@@ -149,6 +150,22 @@ CapsuleCollider:
   m_Height: 8.299397
   m_Direction: 1
   m_Center: {x: 0.04118538, y: 3.9462323, z: -0.22240067}
+--- !u!208 &8407046340064364887
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3920909545242992591}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 1.389605, y: 4.1496987, z: 1.389605}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0.04118538, y: 3.946232, z: -0.2224007}
+  m_TimeToStationary: 0.5
 --- !u!1 &4600746453249305267
 GameObject:
   m_ObjectHideFlags: 0

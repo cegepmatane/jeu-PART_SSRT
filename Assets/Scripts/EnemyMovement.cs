@@ -19,7 +19,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField]
     private Material m_AlternateMaterial;
     [SerializeField]
-    public float Damage = 1f, AttackRate = 2f, MovementSpeed = 6f;
+    public float Damage = 1f, AttackRate = 2f;
     private Vector3 m_OriginalPos;
     private float m_LastPosUpdateTime;
     private Vector3 m_LastUpdatedPos;
@@ -53,7 +53,6 @@ public class EnemyMovement : MonoBehaviour
         IsDying = false;
         IsAttacking = false;
         EventManager.TriggerEvent("Enemy_Spawn");
-        m_agent.speed = MovementSpeed;
 
         //Pour que les ennemis ne rentre pas dans l'arbre
         m_agent.stoppingDistance = WaveManager.Instance.TargetTree.GetComponent<CapsuleCollider>().radius;

@@ -831,7 +831,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -867,23 +867,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationCount: 4
   stepCount: 8
-  radius: 3.5
+  radius: 6
   expStart: 1
   expFactor: 1
   jitterSamples: 1
-  GIBoost: 20
-  lightBufferHDR: 0
+  GIBoost: 30
+  lightBufferHDR: 1
   lightBufferResolution: 2
   LnDlOffset: 0
   nDlOffset: 0
-  power: 1.5
+  power: 2
   thickness: 10
-  falloff: 1
+  falloff: 1.2
   multiBounceAO: 0
   directLightingAO: 1
   fallbackMethod: 0
   cubemapFallback: {fileID: 0}
-  resolutionDownscale: 2
+  resolutionDownscale: 1
   reuseCount: 5
   temporalEnabled: 1
   temporalResponse: 0.35
@@ -1821,6 +1821,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: arms
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: -4216859302048453862, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1891,11 +1896,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: 7999969644282850093, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_CastShadows

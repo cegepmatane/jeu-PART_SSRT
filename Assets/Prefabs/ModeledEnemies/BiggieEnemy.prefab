@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 895831498103450042}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_Children:
   - {fileID: 4959948914801840951}
   - {fileID: 3482955471866207256}
@@ -180,7 +180,6 @@ MonoBehaviour:
   m_AlternateMaterial: {fileID: 2100000, guid: 25b41fb371653854cb4c40d021b800e1, type: 2}
   Damage: 1
   AttackRate: 0.5
-  MovementSpeed: 7
   sounds:
   - {fileID: 8300000, guid: 5d931b9f9529cd34c87d7cd500cbccf6, type: 3}
   - {fileID: 8300000, guid: 53c503aa1c5902f4ab4dac92f76a8dc1, type: 3}
@@ -211,7 +210,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.2
-  m_Speed: 6
+  m_Speed: 2.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
