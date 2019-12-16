@@ -11,6 +11,9 @@ public class ShadowEnemyController : MonoBehaviour
     private enum PhaseArray { APPEARING, AGGRESSIVE, DISAPPEARING};
     private PhaseArray m_CurrentPhase;
     [SerializeField]
+    private Material m_AlternateMaterial;
+    private Material m_DefaultMaterial;
+    [SerializeField]
     private float m_MaxSpeed = 5f, m_Acceleration = 0.01f;
     private float m_MovementSpeed = 0f;
 
@@ -27,17 +30,18 @@ public class ShadowEnemyController : MonoBehaviour
         {
             m_Animator = GetComponent<Animator>();
         }
+        m_DefaultMaterial = GetComponentInChildren<MeshRenderer>().material;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_AlternateMaterial;
         GameManager.Instance.AddShadowEntity(gameObject);
         m_agent.speed = m_MovementSpeed;
-        Color t_Color = GetComponent<MeshRenderer>().material.color;
+        Color t_Color = GetComponentInChildren<MeshRenderer>().material.color;
         t_Color.a = 0f;
-        GetComponent<MeshRenderer>().material.color = t_Color;
-        gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+        gameObject.transform.GetComponentInChildren<MeshRenderer>().material.color = t_Color;
         AppearingSequence();
     }
 
@@ -72,8 +76,7 @@ public class ShadowEnemyController : MonoBehaviour
 
     public void AppearingSequence()
     {
-        
-        
+
         m_CurrentPhase = PhaseArray.APPEARING;
         StartCoroutine(Fade());
         
@@ -103,6 +106,11 @@ public class ShadowEnemyController : MonoBehaviour
 
     private IEnumerator Fade()
     {
+        if(m_CurrentPhase == PhaseArray.DISAPPEARING)
+        {
+            gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_AlternateMaterial;
+        }
+        
         float t_FadeDirection = 0f;
         if(m_CurrentPhase == PhaseArray.APPEARING)
         {
@@ -113,9 +121,8 @@ public class ShadowEnemyController : MonoBehaviour
         }
         while (m_CurrentPhase == PhaseArray.APPEARING || m_CurrentPhase == PhaseArray.DISAPPEARING)
         {
-            Color t_Color = GetComponent<MeshRenderer>().material.color;
+            Color t_Color = GetComponentInChildren<MeshRenderer>().material.color;
             t_Color.a -= 0.004f * t_FadeDirection;
-           
             if (t_Color.a <= 0f)
             {
                 Die();
@@ -124,11 +131,14 @@ public class ShadowEnemyController : MonoBehaviour
                 t_Color.a = 1.0f;
                 AggressiveSequence();
             }
-            GetComponent<MeshRenderer>().material.color = t_Color;
-            gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().material.color = t_Color;
+            GetComponentInChildren<MeshRenderer>().material.color = t_Color;
             yield return null;
         }
-        yield return null;
+        if (m_CurrentPhase == PhaseArray.AGGRESSIVE)
+        {
+            gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_DefaultMaterial;
+        }
+        yield break;
     }
 
     private void Die()
