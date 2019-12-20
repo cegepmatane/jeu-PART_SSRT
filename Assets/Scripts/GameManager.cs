@@ -360,7 +360,8 @@ public class GameManager : MonoBehaviour
         m_Player.GetComponent<FirstPersonController>().enabled = false;
         m_Player.transform.Find("UIGame").gameObject.SetActive(false);
         m_Player.transform.Find("UIGameEnd").gameObject.SetActive(true);
-        //m_Player.transform.Find("EndingMessage").GetComponent<GUIText>().text = "Victory!";
+        m_Player.transform.Find("UIGameEnd").Find("EndingMessage").GetComponent<UnityEngine.UI.Text>().text = "Victory!";
+        m_Player.transform.Find("UIGameEnd").Find("EndingMessageShadow").GetComponent<UnityEngine.UI.Text>().text = "Victory!";
         //m_Player.transform.Find("EndingMessageShadow").GetComponent<GUIText>().text = "Victory!";
         m_Player.GetComponent<PlayerAbilities>().enabled = false;
         Cursor.visible = true;

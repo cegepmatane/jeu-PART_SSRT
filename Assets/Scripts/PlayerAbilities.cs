@@ -259,6 +259,7 @@ public class PlayerAbilities : MonoBehaviour
             if (collider == GameManager.Instance.ShadowEntity.GetComponent<BoxCollider>() && m_Damageable)
             {
                 Debug.Log("CONTACT!");
+                GameManager.Instance.ShadowEntity.GetComponent<ShadowEnemyController>().TriggerAttack();
                 m_Damageable = false;
                 int t_NewLivesNumber = NumberOfLives - 1;
                 if (t_NewLivesNumber < 0)
@@ -275,6 +276,8 @@ public class PlayerAbilities : MonoBehaviour
         }
         
     }
+
+    
 
     public int NumberOfLives
     {

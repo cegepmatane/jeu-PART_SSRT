@@ -228,6 +228,10 @@ public class WaveManager : MonoBehaviour
             GameManager.Instance.MusicPlayer.Stop();
             Debug.Log("La Vague #" + m_Waves[0].PositionNumber + " est terminée!");
             StartCoroutine(GameManager.Instance.RegenerateTree(m_Waves[0].TargetTree));
+            if(m_Waves[0].FocusedTree != m_Waves[1].FocusedTree)
+            {
+                StartCoroutine(m_Waves[0].TargetTree.GetComponent<TreeHealth>().FadeTreeColor(m_Waves[0].TargetTree.GetComponent<TreeHealth>().UnfocusedColor, COLOR_CHANGE_DURATION));
+            }
             //m_Waves[0].TargetTree.GetComponentInChildren<MeshRenderer>().material.SetTexture("_MainTex", m_DefaultTreeTexture);
             m_Waves.RemoveAt(0);            
             if (m_Waves.Count > 0)

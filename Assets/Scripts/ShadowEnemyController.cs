@@ -30,18 +30,18 @@ public class ShadowEnemyController : MonoBehaviour
         {
             m_Animator = GetComponent<Animator>();
         }
-        m_DefaultMaterial = GetComponentInChildren<MeshRenderer>().material;
+        m_DefaultMaterial = GetComponentInChildren<SkinnedMeshRenderer>().material;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_AlternateMaterial;
+        gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_AlternateMaterial;
         GameManager.Instance.AddShadowEntity(gameObject);
         m_agent.speed = m_MovementSpeed;
-        Color t_Color = GetComponentInChildren<MeshRenderer>().material.color;
+        Color t_Color = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
         t_Color.a = 0f;
-        gameObject.transform.GetComponentInChildren<MeshRenderer>().material.color = t_Color;
+        gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = t_Color;
         AppearingSequence();
     }
 
@@ -104,11 +104,16 @@ public class ShadowEnemyController : MonoBehaviour
 
     }
 
+    public void TriggerAttack()
+    {
+        m_Animator.SetTrigger("TriggerAttack");
+    }
+
     private IEnumerator Fade()
     {
         if(m_CurrentPhase == PhaseArray.DISAPPEARING)
         {
-            gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_AlternateMaterial;
+            gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_AlternateMaterial;
         }
         
         float t_FadeDirection = 0f;
@@ -121,8 +126,8 @@ public class ShadowEnemyController : MonoBehaviour
         }
         while (m_CurrentPhase == PhaseArray.APPEARING || m_CurrentPhase == PhaseArray.DISAPPEARING)
         {
-            Color t_Color = GetComponentInChildren<MeshRenderer>().material.color;
-            t_Color.a -= 0.004f * t_FadeDirection;
+            Color t_Color = GetComponentInChildren<SkinnedMeshRenderer>().material.color;
+            t_Color.a -= 0.01f * t_FadeDirection;
             if (t_Color.a <= 0f)
             {
                 Die();
@@ -131,12 +136,12 @@ public class ShadowEnemyController : MonoBehaviour
                 t_Color.a = 1.0f;
                 AggressiveSequence();
             }
-            GetComponentInChildren<MeshRenderer>().material.color = t_Color;
+            GetComponentInChildren<SkinnedMeshRenderer>().material.color = t_Color;
             yield return null;
         }
         if (m_CurrentPhase == PhaseArray.AGGRESSIVE)
         {
-            gameObject.transform.GetComponentInChildren<MeshRenderer>().material = m_DefaultMaterial;
+            gameObject.transform.GetComponentInChildren<SkinnedMeshRenderer>().material = m_DefaultMaterial;
         }
         yield break;
     }
