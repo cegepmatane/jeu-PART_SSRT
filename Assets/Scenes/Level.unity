@@ -1079,17 +1079,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimumWaitBetweenWaves: 8
   m_Waves:
-  - m_NumberOfSkeletons: 4
+  - m_NumberOfSkeletons: 2
     m_NumberOfGolems: 0
     m_NumberOfSwarmers: 0
     FocusedTree: 0
-  - m_NumberOfSkeletons: 9
-    m_NumberOfGolems: 0
+  - m_NumberOfSkeletons: 5
+    m_NumberOfGolems: 1
     m_NumberOfSwarmers: 0
     FocusedTree: 0
-  - m_NumberOfSkeletons: 14
-    m_NumberOfGolems: 6
-    m_NumberOfSwarmers: 0
+  - m_NumberOfSkeletons: 10
+    m_NumberOfGolems: 3
+    m_NumberOfSwarmers: 8
+    FocusedTree: 1
+  - m_NumberOfSkeletons: 15
+    m_NumberOfGolems: 9
+    m_NumberOfSwarmers: 20
     FocusedTree: 1
   - m_NumberOfSkeletons: 15
     m_NumberOfGolems: 9
