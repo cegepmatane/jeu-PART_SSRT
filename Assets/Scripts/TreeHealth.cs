@@ -88,7 +88,7 @@ public class TreeHealth : MonoBehaviour
     {
         currentHP += 1f;
 
-        Debug.Log("Regénération:" + currentHP + "/" + maxHP);
+        //Debug.Log("Regénération:" + currentHP + "/" + maxHP);
 
         RefreshColor();
 

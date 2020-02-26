@@ -209,11 +209,11 @@ LODGroup:
   m_AnimateCrossFading: 0
   m_LastLODIsBillboard: 0
   m_LODs:
-  - screenRelativeHeight: 0.7701871
+  - screenRelativeHeight: 0.4514523
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 7261828126434594653}
-  - screenRelativeHeight: 0.4378222
+  - screenRelativeHeight: 0.15472403
     fadeTransitionWidth: 0
     renderers:
     - renderer: {fileID: 9070476343453850291}
@@ -250,6 +250,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 200
   Order: 0
+  FocusedColor: {r: 0, g: 0, b: 0, a: 0}
+  UnfocusedColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!136 &7806485670085955724
 CapsuleCollider:
   m_ObjectHideFlags: 0

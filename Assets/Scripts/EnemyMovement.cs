@@ -44,7 +44,7 @@ public class EnemyMovement : MonoBehaviour
         m_LastPosUpdateTime = 0;
         if(sounds.Length > 0)
         {
-            m_SelectedSound = sounds[(int)Random.Range(0, sounds.Length)];
+            m_SelectedSound = sounds[Random.Range(0, sounds.Length)];
         }
         
         m_LastSoundTime = 0f;
