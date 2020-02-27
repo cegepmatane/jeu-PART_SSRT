@@ -83,9 +83,9 @@ public class PlayerAbilities : MonoBehaviour
         m_Spells = new List<Spell>();
         //Construction de la liste de sorts
         m_Spells.Add(new Spell(Fireball, 10, 1));
-        m_Spells.Add(new Spell(LightningStrike, 30, 2));
+        m_Spells.Add(new Spell(LightningStrike, 20, 2));
         m_Spells.Add(new Spell(Illuminate, 10, 2));
-        m_Spells.Add(new Spell(Shockwave, 35, 2));
+        m_Spells.Add(new Spell(Shockwave,30, 2));
 
         //Le premier sort est sélectionné par défaut
         m_SelectedSpell = m_Spells[0];
@@ -133,6 +133,7 @@ public class PlayerAbilities : MonoBehaviour
                         GetComponentInChildren<Animator>().SetTrigger("ShockwaveCast");
                         break;
                 }
+                Debug.LogWarning(m_SelectedCost);
                 m_Audio.PlayOneShot(m_Audio.clip);
 
                 //
@@ -170,6 +171,8 @@ public class PlayerAbilities : MonoBehaviour
             m_SelectedSpell = m_Spells[3];
             Debug.Log("ONDE DE CHOC");
         }
+
+        m_SelectedCost = m_SelectedSpell.Cost;
 
     }
 
