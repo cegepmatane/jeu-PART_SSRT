@@ -1263,7 +1263,7 @@ MonoBehaviour:
   Shockwave: {fileID: 9127119552212857267, guid: 9e7d84b8c2a10b643b5e58c128f9ffcc,
     type: 3}
   m_FireballSound: {fileID: 8300000, guid: d1345195100e9024f847849618501560, type: 3}
-  m_LightningStrikeSound: {fileID: 8300000, guid: b721063fcd5529044b23b4e2d93ab5a1,
+  m_LightningStrikeSound: {fileID: 8300000, guid: 8043880c85abc1c4dbb3ffca0db78eb8,
     type: 3}
   m_IlluminateSound: {fileID: 8300000, guid: b94ad6a608dfb904184cb3c3cb50f40c, type: 3}
 --- !u!114 &814029794105275297
@@ -1821,11 +1821,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: arms
       objectReference: {fileID: 0}
-    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
-        type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: -4216859302048453862, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1896,6 +1891,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: 9355c2bb34c978842945130c924310a8,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3f1e517fb1915314b941de99c5a6e49e, type: 2}
     - target: {fileID: 7999969644282850093, guid: 9355c2bb34c978842945130c924310a8,
         type: 3}
       propertyPath: m_CastShadows
